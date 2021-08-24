@@ -1,7 +1,7 @@
 import React from "react";
 
 const Blocks = () => {
-  return <div></div>;
+  return <></>;
 };
 
 export default Blocks;

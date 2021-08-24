@@ -1,7 +1,7 @@
 import React from "react";
 
 const EditProfile = () => {
-  return <div></div>;
+  return <></>;
 };
 
 export default EditProfile;

@@ -1,7 +1,7 @@
 import React from "react";
 
 const CreateBlock = () => {
-  return <div></div>;
+  return <></>;
 };
 
 export default CreateBlock;
