@@ -1,0 +1,1 @@
+./utils/smartpy-cli/SmartPy.sh compile ./contract/demo.py ./contract_build

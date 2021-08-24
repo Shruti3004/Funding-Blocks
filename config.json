@@ -1,0 +1,23 @@
+{
+   "test_config": {
+        "contract_name": "demo.py",
+        "test_name": "Welcome"
+    },
+    "deploy_config": {
+        "node": "https://testnet.tezster.tech",
+        "build_name": "demo",
+        "contract_code": "step_000_cont_0_contract.tz",
+        "contract_storage": "step_000_cont_0_storage.tz",
+        "key": "test_key2",
+        "amount": 1,
+        "delegate_address": "",
+        "fee": 100000,
+        "derivation_path": "",
+        "storage_limit": 10000,
+        "gas_limit": 500000
+    },
+    "contract_interaction_config": {
+        "node": "https://testnet.tezster.tech",
+        "api-key": ""
+    }
+}
