@@ -1,10 +1,10 @@
-:root{
+:root {
   --primary-color: #050934;
   --secondary-color: #3feb83;
   --tertiary-color: #002ee5;
 }
 
-/* Font family */
+/**************************************************** Font family ****************************************************/
 @font-face {
   font-family: Avenir-bold;
   src: url("../assets/fonts/AvenirNextLTPro-Bold.otf");
@@ -26,45 +26,31 @@
   font-display: swap;
 }
 
-body{
+body {
   font-family: Avenir-regular !important;
 }
 
-.bg-primaryColor{
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: Avenir-bold;
+}
+
+/**************************************************** Background Colors ****************************************************/
+.bg-primaryColor {
   background: var(--primary-color);
 }
-.bg-secondaryColor{
- background: var(--secondary-color);
+.bg-secondaryColor {
+  background: var(--secondary-color);
 }
-.bg-tertiaryColor{
- background: var(--tertiary-color);
-}
-
-.flex-container{
-  display: flex;
-}
-@media(max-width: 768px){
-  .flex-container{
-    display: flex;
-    flex-direction: column;
-  }
+.bg-tertiaryColor {
+  background: var(--tertiary-color);
 }
 
-/* footer */
-.footer-bg{
-  background: url('../assets/images/footer.svg') var(--primary-color);
-}
-.font-22{
-  font-size: 22px;
-}
-.font-20{
-  font-size: 20px;
-}
-.font-18{
-  font-size: 18px;
-}
-
-/* Font weight */
+/**************************************************** Font weight ****************************************************/
 .font-bold {
   margin: 0;
   font-family: Avenir-bold;
@@ -82,11 +68,53 @@ body{
   font-family: Avenir-regular;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: Avenir-bold;
+/***************************************************** Utility Classes *****************************************************/
+.flex-container {
+  display: flex;
 }
+@media (max-width: 768px) {
+  .flex-container {
+    display: flex;
+    flex-direction: column;
+  }
+}
+.font-22 {
+  font-size: 22px;
+}
+.font-20 {
+  font-size: 20px;
+}
+.font-18 {
+  font-size: 18px;
+}
+
+/**************************************************** Button ****************************************************/
+.custom-button {
+  border: none;
+  min-width: 150px;
+  min-height: 55px;
+  transition: background 0.5s ease-in-out;
+}
+.custom-button:hover {
+  background: var(--primary-color);
+  border: 2px solid var(--tertiary-color);
+}
+.custom-button-outline {
+  border: 2px solid var(--tertiary-color);
+  min-width: 150px;
+  min-height: 55px;
+  transition: all 0.5s ease-in;
+}
+.custom-button-outline:hover {
+  background: var(--tertiary-color);
+}
+
+/**************************************************** footer ****************************************************/
+.footer-bg {
+  background: url("../assets/images/footer.svg") var(--primary-color);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+

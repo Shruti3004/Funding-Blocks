@@ -11,7 +11,7 @@
         "deploy": "node ./utils/ConseilJsUtils/deployContract.js",
         "get-entry-points": "bash ./utils/scripts/getEntryPoints.sh"
     },
-    "author": "",
+    "author": "Shruti Agarwal",
     "license": "MIT",
     "dependencies": {
         "bs58check": "^2.1.2",
