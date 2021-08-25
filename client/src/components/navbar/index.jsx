@@ -24,12 +24,19 @@ const Navbar = () => {
           <NavCustom.Collapse id="responsive-navbar-nav" className="text-white">
             <Nav className="me-auto"></Nav>
             <Nav>
-            <Nav.Link
+              <Nav.Link
                 as={Link}
                 to="/about"
                 className="text-white font-demi px-4"
               >
                 About
+              </Nav.Link>
+              <Nav.Link
+                target="_blank"
+                href="https://docs.google.com/presentation/d/1gfT7ly5WP2uYMpUgfPnc9wF2VfY-Yz1DNhWUIAQM4Og/edit#slide=id.gcb9a0b074_1_0"
+                className="text-white font-demi px-4"
+              >
+                Presentation
               </Nav.Link>
               <Nav.Link
                 as={Link}

@@ -1,12 +1,16 @@
 import React from "react";
 
-const Button = ({ title, type }) => {
+const Button = ({ title, type, className }) => {
   return (
     <button
       className={
         type === "outline"
-          ? "bg-primaryColor text-white font-medium font-18 custom-button-outline"
-          : "bg-tertiaryColor text-white font-medium font-18 custom-button"
+          ? `text-tertiaryColor font-medium font-18 custom-button-outline ${
+              className && className
+            }`
+          : `bg-tertiaryColor font-medium font-18 custom-button ${
+              className && className
+            }`
       }
     >
       {title}

@@ -53,6 +53,18 @@ h6 {
 .bg-light{
   background: #f7f8fe;
 }
+.text-primaryColor {
+  color: var(--primary-color);
+}
+.text-secondaryColor {
+  color: var(--secondary-color);
+}
+.text-tertiaryColor {
+  color: var(--tertiary-color);
+}
+.text-light{
+  color: #f7f8fe;
+}
 
 /**************************************************** Font weight ****************************************************/
 .font-bold {
@@ -101,19 +113,23 @@ h6 {
   min-width: 150px;
   min-height: 55px;
   transition: background 0.5s ease-in-out;
+  color: #ffffff;
 }
 .custom-button:hover {
-  background: var(--primary-color);
+  background: transparent;
   border: 2px solid var(--tertiary-color);
+  color: var(--tertiary-color);
 }
 .custom-button-outline {
   border: 2px solid var(--tertiary-color);
   min-width: 150px;
   min-height: 55px;
   transition: all 0.5s ease-in;
+  background: transparent;
 }
 .custom-button-outline:hover {
   background: var(--tertiary-color);
+  color: #ffffff;
 }
 
 /**************************************************** Box ****************************************************/
