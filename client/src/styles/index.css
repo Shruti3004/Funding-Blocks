@@ -1,3 +1,9 @@
+:root{
+  --primary-color: #050934;
+  --secondary-color: #3feb83;
+  --tertiary-color: #002ee5;
+}
+
 /* Font family */
 @font-face {
   font-family: Avenir-bold;
@@ -18,6 +24,44 @@
   font-family: Avenir-regular;
   src: url("../assets/fonts/AvenirNextLTPro-Regular.otf");
   font-display: swap;
+}
+
+body{
+  font-family: Avenir-regular !important;
+}
+
+.bg-primaryColor{
+  background: var(--primary-color);
+}
+.bg-secondaryColor{
+ background: var(--secondary-color);
+}
+.bg-tertiaryColor{
+ background: var(--tertiary-color);
+}
+
+.flex-container{
+  display: flex;
+}
+@media(max-width: 768px){
+  .flex-container{
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* footer */
+.footer-bg{
+  background: url('../assets/images/footer.svg') var(--primary-color);
+}
+.font-22{
+  font-size: 22px;
+}
+.font-20{
+  font-size: 20px;
+}
+.font-18{
+  font-size: 18px;
 }
 
 /* Font weight */
