@@ -17,7 +17,6 @@ const Footer = () => {
           <div className="px-4">Register</div>
           <div className="px-4">Login</div>
         </div>
-        <Button title="Footer"/>
         <hr />
         <div className="text-center pt-3">
           {new Date().getFullYear()} &copy; Team Funding Blocks

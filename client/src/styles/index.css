@@ -28,6 +28,7 @@
 
 body {
   font-family: Avenir-regular !important;
+  overflow-x: hidden !important;
 }
 
 h1,
@@ -48,6 +49,9 @@ h6 {
 }
 .bg-tertiaryColor {
   background: var(--tertiary-color);
+}
+.bg-light{
+  background: #f7f8fe;
 }
 
 /**************************************************** Font weight ****************************************************/
@@ -87,6 +91,9 @@ h6 {
 .font-18 {
   font-size: 18px;
 }
+.text-justify{
+  text-align: justify;
+}
 
 /**************************************************** Button ****************************************************/
 .custom-button {
@@ -109,6 +116,22 @@ h6 {
   background: var(--tertiary-color);
 }
 
+/**************************************************** Box ****************************************************/
+.box {
+  background: #ffffff;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 4px 40px -10px rgb(32 32 72 / 10%);
+}
+
+
+.custom-blue-bg{
+  background: url('../assets/images/bg.webp');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
 /**************************************************** footer ****************************************************/
 .footer-bg {
   background: url("../assets/images/footer.svg") var(--primary-color);
@@ -116,5 +139,3 @@ h6 {
   background-position: center;
   background-size: cover;
 }
-
-
