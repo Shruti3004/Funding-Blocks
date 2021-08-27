@@ -114,3 +114,25 @@ class AmIAlone(sp.Contract):
             final_amount=0,
         )
         self.data.block[params.slug] = block
+
+    @sp.entry_point
+    def upvote(self, params):
+        """
+        Upvote a funding block
+        """
+        sp.verify(self.data.profiles.contains(sp.sender), "User not registered")
+        sp.verify(self.data.profiles[sp.sender].donated > 0, "User never donated")
+
+        self.data.block[params.block_slug].upvotes += 1
+        self.data.profiles[sp.sender].upvoted.add(params.block_slug)
+
+    @sp.entry_point
+    def downvote(self, params):
+        """
+        Downvote a funding block
+        """
+        sp.verify(self.data.profiles.contains(sp.sender), "User not registered")
+        sp.verify(self.data.profiles[sp.sender].donated > 0, "User never donated")
+
+        self.data.block[params.block_slug].downvotes -= 1
+        self.data.profiles[sp.sender].downvoted.add(params.block_slug)
