@@ -164,3 +164,16 @@ h6 {
   content: " *";
   color: red;
 }
+a{
+  text-decoration: none !important;
+}
+li{
+  list-style-image: url('../assets/images/list.svg');
+  padding-left: 20px;
+}
+.home{
+  background: url('../assets/images/home.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
