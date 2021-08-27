@@ -8,10 +8,7 @@ const Home = () => {
   return (
     <>
       <section className="home">
-        <div
-          className="container py-5 text-white text-center"
-          style={{ height: "94vh" }}
-        >
+        <div className="container py-5 text-white text-center" style={{ height: "94vh" }}>
           <h1 className="d-flex justify-content-center align-items-center h-100 display-2">
             <CountUp end={10000000} duration={5} className="text-center" />
           </h1>
@@ -35,11 +32,7 @@ const Home = () => {
               <Button title="All Disasters" className="mx-2" />
             </Link>
             <Link to="/createBlock">
-              <Button
-                title="Create Funding Block"
-                type="outline"
-                className="mx-2"
-              />
+              <Button title="Create Funding Block" type="outline" className="mx-2" />
             </Link>
           </div>
         </div>

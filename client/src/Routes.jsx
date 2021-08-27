@@ -11,6 +11,8 @@ import EditProfile from "./pages/EditProfile";
 import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
 
+import { Tezos, Wallet } from "./api";
+
 const Routes = () => {
   return (
     <>

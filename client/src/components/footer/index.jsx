@@ -5,8 +5,8 @@ const Footer = () => {
   return (
     <>
       <div className="bg-tertiaryColor text-white text-center py-4 font-18">
-        <span className="font-bold font-22">Funding Blocks</span> is offering an
-        opportunity for community members and investors to help.
+        <span className="font-bold font-22">Funding Blocks</span> is offering an opportunity for
+        community members and investors to help.
       </div>
       <div className="footer-bg bg-primaryColor py-5 text-white">
         <div className="flex-container container pt-4 pb-5 font-medium">
