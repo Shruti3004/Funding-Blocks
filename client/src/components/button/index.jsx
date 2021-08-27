@@ -5,12 +5,8 @@ const Button = ({ title, type, className }) => {
     <button
       className={
         type === "outline"
-          ? `text-tertiaryColor font-medium font-18 custom-button-outline ${
-              className && className
-            }`
-          : `bg-tertiaryColor font-medium font-18 custom-button ${
-              className && className
-            }`
+          ? `text-tertiaryColor font-medium font-18 custom-button-outline ${className && className}`
+          : `bg-tertiaryColor font-medium font-18 custom-button ${className && className}`
       }
     >
       {title}

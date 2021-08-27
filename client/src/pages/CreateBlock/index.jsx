@@ -29,15 +29,12 @@ function CreateBlock() {
         <div className="row d-flex justify-content-center">
           <div className="col-lg-7 col-md-8 col-sm-12 col-12 form-center">
             <div className="bg-white my-5 box py-5 px-lg-5 px-4">
-              <h1 className="text-center font-demi text-primaryColor">
-                Funding-Blockification
-              </h1>
+              <h1 className="text-center font-demi text-primaryColor">Funding-Blockification</h1>
               <hr />
               <div className="text-muted font-demi font-14">
                 Pro Tip:&nbsp;
                 <span className="font-regular">
-                  The more accurate and brief details you write the more donors
-                  will trust you.
+                  The more accurate and brief details you write the more donors will trust you.
                 </span>
               </div>
               <form>
@@ -143,8 +140,7 @@ function CreateBlock() {
                 <div className="font-14 text-muted font-demi mt-2">
                   Help:{" "}
                   <span className="font-regular">
-                    Link should consist of thank you statement and legal
-                    statement.
+                    Link should consist of thank you statement and legal statement.
                   </span>
                 </div>
                 <div className="d-flex justify-content-center">
