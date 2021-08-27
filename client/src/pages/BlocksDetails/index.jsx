@@ -8,10 +8,12 @@ const BlockDetails = () => {
     console.log("Use Effect");
   }, []);
   return (
-    <div className="container py-4">
-      <div className="row d-flex justify-content-center">
-        <div className="col-md-9 col-lg-7 col-12">
-          <Card type="blockDetails" />
+    <div className="bg-light py-5">
+      <div className="container py-4">
+        <div className="row d-flex justify-content-center">
+          <div className="col-md-9 col-lg-9 col-12">
+            <Card type="blockDetails" />
+          </div>
         </div>
       </div>
     </div>

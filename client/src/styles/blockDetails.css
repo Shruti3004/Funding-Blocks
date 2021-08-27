@@ -1,4 +1,14 @@
 .blockDetails_card {
-    border-radius: 3rem;
-    min-height: 50vh;
+    border-radius: 5px;
+
+}
+.card-actions span {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 40%;
+}
+@media (max-width: 1200px) {
+    .blockDetails_card .d-flex{
+        flex-direction: column;
+    }
 }

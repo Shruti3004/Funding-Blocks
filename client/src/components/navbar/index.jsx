@@ -14,10 +14,10 @@ const Navbar = () => {
         collapseOnSelect
         variant="dark"
         expand="lg"
-        className="bg-primaryColor"
+        className="bg-primaryColor py-3"
       >
         <Container>
-          <NavCustom.Brand href="#home" className="text-white font-bold">
+          <NavCustom.Brand as={Link} to="/" className="text-white font-bold">
             Funding Blocks
           </NavCustom.Brand>
           <NavCustom.Toggle aria-controls="responsive-navbar-nav" />
