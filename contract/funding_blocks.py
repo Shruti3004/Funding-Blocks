@@ -42,3 +42,17 @@ class AmIAlone(sp.Contract):
             )
         )
         self.init(profiles=sp.big_map(), block=sp.big_map())
+
+    @sp.entry_point
+    def register(self, params):
+        """
+        Add details for a corresponding address
+        """
+        sp.verify(~self.data.profiles.contains(params.address), "User already registered")
+
+        self.data.profiles[sp.sender].name = params.name
+        self.data.profiles[sp.sender].bio = params.bio
+        self.data.profiles[sp.sender].donated = 0
+        self.data.profiles[sp.sender].upvoted = sp.set()
+        self.data.profiles[sp.sender].downvoted = sp.set()
+        self.data.profiles[sp.sender].voted = sp.map()
