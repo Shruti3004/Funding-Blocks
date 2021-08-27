@@ -98,7 +98,7 @@ class FundingBlock(sp.Contract):
         sp.verify(self.data.profiles.contains(sp.sender), "User not registered")
 
         block = sp.record(
-            active=True,
+            active=sp.bool(True),
             title=params.title,
             description=params.description,
             location=params.location,
@@ -160,3 +160,17 @@ class FundingBlock(sp.Contract):
         self.data.block[params.block_slug].voters_weight += donated
         self.data.block[params.block_slug].voters[sp.sender] = params.amount
         self.data.profiles[sp.sender].voted[params.block_slug] = params.amount
+
+    @sp.entry_point
+    def claim_block_amount(self, params):
+        """
+        Claim the amount of tokens you have in a funding block
+        """
+        sp.verify(self.data.profiles.contains(sp.sender), "User not registered")
+        sp.verify(self.data.block[params.block_slug].author == sp.sender, "Not the author")
+        sp.verify(self.data.block[params.block_slug].active, "Block is not active")
+        sp.verify(self.data.block[params.block_slug].voters_weight >= sp.balance/4, "Need more voters")
+
+        sp.send(sp.sender, self.data.block[params.block_slug].final_amount, message=str(sp.sender) + " claimed " + str(self.data.block[params.block_slug].final_amount) + " tez.")
+        self.data.blocks[params.block_slug].active = sp.bool(False)
+    
