@@ -56,3 +56,13 @@ class AmIAlone(sp.Contract):
         self.data.profiles[sp.sender].upvoted = sp.set()
         self.data.profiles[sp.sender].downvoted = sp.set()
         self.data.profiles[sp.sender].voted = sp.map()
+
+    @sp.entry_point
+    def update_profile(self, params):
+        """
+        Update the details of a corresponding address
+        """
+        sp.verify(self.data.profiles.contains(sp.sender), "User not registered")
+
+        self.data.profiles[sp.sender].name = params.name
+        self.data.profiles[sp.sender].bio = params.bio
