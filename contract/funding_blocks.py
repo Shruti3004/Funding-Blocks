@@ -66,3 +66,51 @@ class AmIAlone(sp.Contract):
 
         self.data.profiles[sp.sender].name = params.name
         self.data.profiles[sp.sender].bio = params.bio
+
+    @sp.entry_point
+    def donate(self, params):
+        """
+        Donate tokens to the main Funding block
+        """
+        sp.verify(self.data.profiles.contains(sp.sender), "User not registered")
+
+        self.data.profiles[sp.sender].donated += sp.amount
+
+    @sp.entry_point
+    def withdraw_back(self, params):
+        """
+        Withdraw your own tokens from the main Funding block
+        """
+        sp.verify(self.data.profiles.contains(sp.sender), "User not registered")
+        sp.verify(self.data.profiles[sp.sender].donated >= params.amount, "Not enough tokens")
+        sp.for block in self.data.block.values():
+            sp.verify(~block.active, "Cannont withdraw while a block is active")
+
+        self.data.profiles[sp.sender].donated -= sp.amount
+        sp.send(sp.sender, params.amount, message=str(sp.sender) + " withdrew back " + str(params.amount) + " tez.")
+
+    @sp.entry_point
+    def funding_blockify(self, params):
+        """
+        Create a new funding block
+        """
+        sp.verify(self.data.profiles.contains(sp.sender), "User not registered")
+
+        block = sp.record(
+            active=True,
+            title=params.title,
+            description=params.description,
+            location=params.location,
+            image=params.image,
+            target_amount=params.target_amount,
+            deadline=params.deadline,
+            actions=params.actions,
+            legal_statements=params.legal_statements,
+            thankyou=params.thankyou,
+            author=sp.sender,
+            upvotes=0,
+            downvotes=0,
+            voters=sp.map(),
+            final_amount=0,
+        )
+        self.data.block[params.slug] = block
