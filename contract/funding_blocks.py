@@ -1,7 +1,7 @@
 import smartpy as sp
 
 
-class AmIAlone(sp.Contract):
+class FundingBlock(sp.Contract):
     def __init__(self):
         """
         Initialize the contract.
@@ -36,6 +36,7 @@ class AmIAlone(sp.Contract):
                         upvotes=sp.TNat,  # Number of upvotes
                         downvotes=sp.TNat,  # Number of downvotes
                         voters=sp.TMap(sp.TAddress, sp.TMutez),  # Map of addresses to their voted amounts
+                        voters_weight=sp.TMutez,  # Total apparent weight of votes
                         final_amount=sp.TMutez,  # Amount decided by the voters
                     ),
                 ),
@@ -136,3 +137,26 @@ class AmIAlone(sp.Contract):
 
         self.data.block[params.block_slug].downvotes -= 1
         self.data.profiles[sp.sender].downvoted.add(params.block_slug)
+
+    @sp.entry_point
+    def vote(self, params):
+        """
+        Vote on a funding block
+        """
+        sp.verify(self.data.profiles.contains(sp.sender), "User not registered")
+        sp.verify(self.data.profiles[sp.sender].donated > 0, "User never donated")
+        sp.verify(self.data.block[params.block_slug].active, "Block is not active")
+        sp.verify(params.amount <= sp.balance, "Not enough tokens")
+        sp.verify(params.amount > sp.mutez(0), "Amount must be positive")
+        sp.verify(~self.data.profiles[sp.sender].voted.contains(params.block_slug), "Already voted")
+
+        average = self.data.block[params.block_slug].final_amount
+        donated = self.data.profiles[sp.sender].donated
+        voters_weight = self.data.block[params.block_slug].voters_weight
+        number_of_voters = sp.len(self.data.block[params.block_slug].voters)
+        average = (average*number_of_voters + donated*params.amount) / (voters_weight+donated)
+        self.data.block[params.block_slug].final_amount = average
+        
+        self.data.block[params.block_slug].voters_weight += donated
+        self.data.block[params.block_slug].voters[sp.sender] = params.amount
+        self.data.profiles[sp.sender].voted[params.block_slug] = params.amount
