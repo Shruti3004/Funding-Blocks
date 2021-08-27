@@ -5,10 +5,10 @@ import Navbar from "./components/navbar";
 import About from "./pages/About";
 import Blocks from "./pages/Blocks";
 import BlockDetails from "./pages/BlocksDetails";
+import CreateBlock from "./pages/CreateBlock";
 import Default from "./pages/Default";
 import EditProfile from "./pages/EditProfile";
 import Home from "./pages/Home";
-import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 
 const Routes = () => {
@@ -20,8 +20,8 @@ const Routes = () => {
           <Route exact path="/" component={Home} />
           <Route exact path="/about" component={About} />
           <Route exact path="/blocks" component={Blocks} />
+          <Route exact path="/createBlock" component={CreateBlock} />
           <Route exact path="/blockDetails/:id" component={BlockDetails} />
-          <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/editProfile" component={EditProfile} />
           <Route path="*" component={Default} />

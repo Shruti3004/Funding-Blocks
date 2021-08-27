@@ -47,10 +47,10 @@ const Navbar = () => {
               </Nav.Link>
               <Nav.Link
                 as={Link}
-                to="/login"
+                to="/editProfile"
                 className="text-white font-demi px-4"
               >
-                Login
+                Edit Profile
               </Nav.Link>
             </Nav>
           </NavCustom.Collapse>

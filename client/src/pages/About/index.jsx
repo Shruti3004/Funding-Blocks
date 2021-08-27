@@ -31,7 +31,7 @@ const About = () => {
               maiores, itaque in, voluptates quam debitis enim delectus?
             </div>
             <div className="col-lg-4 col-md-4 col-sm-4 col-11">
-              <img src={CardImage} alt="about-illustration" />
+              <img src={CardImage} alt="about-illustration" className="img-fluid" />
             </div>
           </div>
         </div>
@@ -40,7 +40,7 @@ const About = () => {
         <div className="container py-5">
           <div className="row d-flex justify-content-center align-items-stretch py-2">
             <div className="col-lg-4 col-md-4 col-sm-4 col-11">
-              <img src={CardImage} alt="about-illustration" />
+              <img src={CardImage} alt="about-illustration" className="img-fluid" />
             </div>
             <div className="col-lg-7 col-md-7 col-sm-7 col-11">
               Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nihil
