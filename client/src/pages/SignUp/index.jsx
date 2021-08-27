@@ -29,7 +29,7 @@ function SignUp() {
               </h1>
               <hr />
               <form>
-                <label className="font-regular text-muted font-14 mt-4">
+                <label className="font-regular text-muted font-14 mt-4 fields-required">
                   Your Name
                 </label>
                 <div className="input-group">
@@ -40,6 +40,7 @@ function SignUp() {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
+                    required
                   />
                 </div>
                 <label className="font-regular text-muted font-14 mt-4">

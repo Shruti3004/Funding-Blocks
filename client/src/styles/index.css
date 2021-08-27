@@ -159,3 +159,8 @@ h6 {
   background-position: center;
   background-size: cover;
 }
+
+.fields-required::after{
+  content: " *";
+  color: red;
+}
