@@ -1,14 +1,15 @@
 import React from "react";
 import { Navbar as NavCustom, Container, Nav, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import Logo from "../../assets/images/logo.png"
 
 const Navbar = () => {
   return (
     <>
-      <NavCustom collapseOnSelect variant="dark" expand="lg" className="bg-primaryColor py-3">
+      <NavCustom collapseOnSelect variant="dark" expand="lg" className="bg-primaryColor">
         <Container>
           <NavCustom.Brand as={Link} to="/" className="text-white font-bold">
-            Funding Blocks
+            <img src={Logo} alt="Funding Blocks" className="img-fluid" width="12%" height="12%"/>
           </NavCustom.Brand>
           <NavCustom.Toggle aria-controls="responsive-navbar-nav" />
           <NavCustom.Collapse id="responsive-navbar-nav" className="text-white">
