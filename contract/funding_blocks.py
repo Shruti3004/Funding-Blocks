@@ -19,7 +19,7 @@ class FundingBlock(sp.Contract):
                         voted=sp.TMap(sp.TString, sp.TMutez),  # Map of event names to their voted amounts
                     ),
                 ),
-                block=sp.TBigMap(
+                blocks=sp.TBigMap(
                     sp.TString,  # Funding block slug
                     sp.TRecord(
                         active=sp.TBool,  # Whether the funding block is active
@@ -40,9 +40,10 @@ class FundingBlock(sp.Contract):
                         final_amount=sp.TMutez,  # Amount decided by the voters
                     ),
                 ),
+                active_blocks=sp.TInt,  # Number of active blocks
             )
         )
-        self.init(profiles=sp.big_map(), block=sp.big_map())
+        self.init(profiles=sp.big_map(), blocks=sp.big_map(), active_blocks=0)
 
     @sp.entry_point
     def register(self, params):
@@ -53,7 +54,7 @@ class FundingBlock(sp.Contract):
 
         self.data.profiles[sp.sender].name = params.name
         self.data.profiles[sp.sender].bio = params.bio
-        self.data.profiles[sp.sender].donated = 0
+        self.data.profiles[sp.sender].donated = sp.mutez(0)
         self.data.profiles[sp.sender].upvoted = sp.set()
         self.data.profiles[sp.sender].downvoted = sp.set()
         self.data.profiles[sp.sender].voted = sp.map()
@@ -69,7 +70,7 @@ class FundingBlock(sp.Contract):
         self.data.profiles[sp.sender].bio = params.bio
 
     @sp.entry_point
-    def donate(self, params):
+    def donate(self):
         """
         Donate tokens to the main Funding block
         """
@@ -84,11 +85,10 @@ class FundingBlock(sp.Contract):
         """
         sp.verify(self.data.profiles.contains(sp.sender), "User not registered")
         sp.verify(self.data.profiles[sp.sender].donated >= params.amount, "Not enough tokens")
-        sp.for block in self.data.block.values():
-            sp.verify(~block.active, "Cannont withdraw while a block is active")
+        sp.verify(self.data.active_blocks == sp.int(0), "Cannont withdraw while blocks are active")
 
         self.data.profiles[sp.sender].donated -= sp.amount
-        sp.send(sp.sender, params.amount, message=str(sp.sender) + " withdrew back " + str(params.amount) + " tez.")
+        sp.send(sp.sender, params.amount)
 
     @sp.entry_point
     def funding_blockify(self, params):
@@ -109,12 +109,14 @@ class FundingBlock(sp.Contract):
             legal_statements=params.legal_statements,
             thankyou=params.thankyou,
             author=sp.sender,
-            upvotes=0,
-            downvotes=0,
+            upvotes=sp.nat(0),
+            downvotes=sp.nat(0),
             voters=sp.map(),
-            final_amount=0,
+            voters_weight=sp.mutez(0),
+            final_amount=sp.mutez(0),
         )
-        self.data.block[params.slug] = block
+        self.data.blocks[params.slug] = block
+        self.data.active_blocks += sp.int(1)
 
     @sp.entry_point
     def upvote(self, params):
@@ -122,9 +124,9 @@ class FundingBlock(sp.Contract):
         Upvote a funding block
         """
         sp.verify(self.data.profiles.contains(sp.sender), "User not registered")
-        sp.verify(self.data.profiles[sp.sender].donated > 0, "User never donated")
+        sp.verify(self.data.profiles[sp.sender].donated > sp.mutez(0), "User never donated")
 
-        self.data.block[params.block_slug].upvotes += 1
+        self.data.blocks[params.block_slug].upvotes += sp.nat(1)
         self.data.profiles[sp.sender].upvoted.add(params.block_slug)
 
     @sp.entry_point
@@ -133,9 +135,9 @@ class FundingBlock(sp.Contract):
         Downvote a funding block
         """
         sp.verify(self.data.profiles.contains(sp.sender), "User not registered")
-        sp.verify(self.data.profiles[sp.sender].donated > 0, "User never donated")
+        sp.verify(self.data.profiles[sp.sender].donated > sp.mutez(0), "User never donated")
 
-        self.data.block[params.block_slug].downvotes -= 1
+        self.data.blocks[params.block_slug].downvotes += sp.nat(1)
         self.data.profiles[sp.sender].downvoted.add(params.block_slug)
 
     @sp.entry_point
@@ -144,21 +146,24 @@ class FundingBlock(sp.Contract):
         Vote on a funding block
         """
         sp.verify(self.data.profiles.contains(sp.sender), "User not registered")
-        sp.verify(self.data.profiles[sp.sender].donated > 0, "User never donated")
-        sp.verify(self.data.block[params.block_slug].active, "Block is not active")
+        sp.verify(self.data.profiles[sp.sender].donated > sp.mutez(0), "User never donated")
+        sp.verify(self.data.blocks[params.block_slug].active, "Block is not active")
         sp.verify(params.amount <= sp.balance, "Not enough tokens")
         sp.verify(params.amount > sp.mutez(0), "Amount must be positive")
         sp.verify(~self.data.profiles[sp.sender].voted.contains(params.block_slug), "Already voted")
 
-        average = self.data.block[params.block_slug].final_amount
         donated = self.data.profiles[sp.sender].donated
-        voters_weight = self.data.block[params.block_slug].voters_weight
-        number_of_voters = sp.len(self.data.block[params.block_slug].voters)
-        average = (average*number_of_voters + donated*params.amount) / (voters_weight+donated)
-        self.data.block[params.block_slug].final_amount = average
-        
-        self.data.block[params.block_slug].voters_weight += donated
-        self.data.block[params.block_slug].voters[sp.sender] = params.amount
+        average = self.data.blocks[params.block_slug].final_amount
+        voters_weight = self.data.blocks[params.block_slug].voters_weight
+        number_of_voters = sp.len(self.data.blocks[params.block_slug].voters)
+        total_votes_power = sp.mul(average, number_of_voters)
+        all_donors_weight = voters_weight+donated
+        this_votes_power = sp.mul(donated, sp.fst(sp.ediv(params.amount, sp.mutez(1)).open_some()))
+        average = sp.ediv(all_donors_weight + this_votes_power, (voters_weight+donated))
+        self.data.blocks[params.block_slug].final_amount = sp.snd(average.open_some())
+
+        self.data.blocks[params.block_slug].voters_weight += donated
+        self.data.blocks[params.block_slug].voters[sp.sender] = params.amount
         self.data.profiles[sp.sender].voted[params.block_slug] = params.amount
 
     @sp.entry_point
@@ -167,10 +172,18 @@ class FundingBlock(sp.Contract):
         Claim the amount of tokens you have in a funding block
         """
         sp.verify(self.data.profiles.contains(sp.sender), "User not registered")
-        sp.verify(self.data.block[params.block_slug].author == sp.sender, "Not the author")
-        sp.verify(self.data.block[params.block_slug].active, "Block is not active")
-        sp.verify(self.data.block[params.block_slug].voters_weight >= sp.balance/4, "Need more voters")
+        sp.verify(self.data.blocks[params.block_slug].author == sp.sender, "Not the author")
+        sp.verify(self.data.blocks[params.block_slug].active, "Block is not active")
+        sp.verify(self.data.blocks[params.block_slug].voters_weight >= sp.split_tokens(sp.balance, sp.nat(1), sp.nat(4)), "Need more voters")
 
-        sp.send(sp.sender, self.data.block[params.block_slug].final_amount, message=str(sp.sender) + " claimed " + str(self.data.block[params.block_slug].final_amount) + " tez.")
+        sp.send(sp.sender, self.data.blocks[params.block_slug].final_amount)
         self.data.blocks[params.block_slug].active = sp.bool(False)
-    
+        self.data.active_blocks -= sp.int(1)
+
+
+# Test
+@sp.add_test(name = "Funding Block test")
+def test():
+    contract = FundingBlock()
+    scenario = sp.test_scenario()
+    scenario += contract
