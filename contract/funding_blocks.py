@@ -25,10 +25,13 @@ class FundingBlock(sp.Contract):
                         active=sp.TBool,  # Whether the funding block is active
                         title=sp.TString,  # Title of the event
                         description=sp.TString,  # Description of the event
-                        location=sp.TString,  # Location of the event
+                        location=sp.TRecord(
+                            latitude=sp.TNat,  # Latitude of the location
+                            longitude=sp.TNat,  # Longitude of the location
+                        ),
                         image=sp.TString,  # Image of the event
-                        target_amount=sp.TMutez,  # Target amount of tokens to be raised
-                        deadline=sp.TTimestamp,  # Expected time to get the target amount
+                        target_amount=sp.TInt,  # Target amount of tokens to be raised
+                        deadline=sp.TInt,  # Expected time to get the target amount
                         actions=sp.TString,  # Actions to be taken
                         legal_statements=sp.TString,  # Legal statements
                         thankyou=sp.TString,  # Thank you message
@@ -99,12 +102,13 @@ class FundingBlock(sp.Contract):
         Create a new funding block
         """
         sp.verify(self.data.profiles.contains(sp.sender), "User not registered")
+        sp.verify(~self.data.blocks.contains(params.slug), "Block with this slug already exists")
 
-        block = sp.record(
-            active=sp.bool(True),
+        self.data.blocks[params.slug] = sp.record(
+            active=True,
             title=params.title,
             description=params.description,
-            location=params.location,
+            location=sp.record(latitude=params.latitude, longitude=params.longitude),
             image=params.image,
             target_amount=params.target_amount,
             deadline=params.deadline,
@@ -112,14 +116,13 @@ class FundingBlock(sp.Contract):
             legal_statements=params.legal_statements,
             thankyou=params.thankyou,
             author=sp.sender,
-            upvotes=sp.nat(0),
-            downvotes=sp.nat(0),
+            upvotes=0,
+            downvotes=0,
             voters=sp.map(),
             voters_weight=sp.mutez(0),
             final_amount=sp.mutez(0),
         )
-        self.data.blocks[params.slug] = block
-        self.data.active_blocks += sp.int(1)
+        self.data.active_blocks += 1
 
     @sp.entry_point
     def upvote(self, params):
