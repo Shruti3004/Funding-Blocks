@@ -29,7 +29,7 @@ function CreateBlock() {
         <div className="row d-flex justify-content-center">
           <div className="col-lg-7 col-md-8 col-sm-12 col-12 form-center">
             <div className="bg-white my-5 box py-5 px-lg-5 px-4">
-              <h1 className="text-center font-demi text-primaryColor">Funding-Blockification</h1>
+              <h1 className="text-center font-demi text-primaryColor">Funding-Blockify</h1>
               <hr />
               <div className="text-muted font-demi font-14">
                 Pro Tip:&nbsp;

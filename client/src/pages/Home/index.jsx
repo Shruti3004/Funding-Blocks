@@ -9,9 +9,14 @@ const Home = () => {
     <>
       <section className="home">
         <div className="container py-5 text-white text-center" style={{ height: "94vh" }}>
-          <h1 className="d-flex justify-content-center align-items-center h-100 display-2">
-            <CountUp end={10000000} duration={5} className="text-center" />
-          </h1>
+          <div className="d-flex justify-content-center align-items-center h-100 flex-column">
+            <h1 className="display-2">
+              <CountUp end={10000000} duration={5} className="text-center" />
+            </h1>
+            <h1 className="text-white">An easy way to raise funds</h1>
+            <div className="text-white display-4 font-demi">What if donations becomes transparent?</div>
+            <Button title="Know More" className="mt-4"/>
+          </div>
         </div>
       </section>
       <div className="bg-light">

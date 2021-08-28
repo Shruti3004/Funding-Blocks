@@ -1,6 +1,6 @@
 :root {
   --primary-color: #050934;
-  --secondary-color: #3feb83;
+  --secondary-color: #1ebe59;
   --tertiary-color: #002ee5;
 }
 
@@ -136,11 +136,35 @@ h6 {
   color: #ffffff;
 }
 
+.custom-cardbutton {
+  border: none;
+  min-width: 150px;
+  height: 45px;
+  transition: background 0.5s ease-in-out;
+  color: #ffffff;
+}
+.custom-cardbutton:hover {
+  background: transparent;
+  border: 2px solid var(--secondary-color);
+  color: var(--secondary-color);
+}
+.custom-cardbutton-outline {
+  border: 2px solid var(--secondary-color);
+  min-width: 150px;
+  height: 45px;
+  transition: all 0.5s ease-in;
+  background: transparent;
+}
+.custom-cardbutton-outline:hover {
+  background: var(--secondary-color);
+  color: #ffffff;
+}
+
 /**************************************************** Box ****************************************************/
 .box {
   background: #ffffff;
   border-radius: 5px;
-  padding: 20px;
+  padding: 10px;
   box-shadow: 0 4px 40px -10px rgb(32 32 72 / 10%);
 }
 

@@ -10,9 +10,15 @@ const BlockDetails = () => {
   return (
     <div className="bg-light py-5">
       <div className="container py-4">
-        <div className="row d-flex justify-content-center">
-          <div className="col-md-9 col-lg-9 col-12">
+        <h3 className="text-center my-2 text-primaryColor">
+          My Little Boy’s Cancer Has Relapsed Twice But I’m Helpless. Please Save Him
+        </h3>
+        <div className="row d-flex justify-content-center align-items-start">
+          <div className="col-md-6 col-lg-6 col-12 py-3">
             <Card type="blockDetails" />
+          </div>
+          <div className="col-md-4 col-lg-4 col-12 py-3">
+            <Card type="fundDetails" />
           </div>
         </div>
       </div>
