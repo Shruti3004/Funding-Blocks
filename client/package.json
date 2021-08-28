@@ -1,5 +1,5 @@
 {
-  "name": "client",
+  "name": "funding-blocks",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -47,6 +47,8 @@
       "last 1 safari version"
     ]
   },
+  "author": "Shruti Agarwal",
+  "license": "MIT",
   "devDependencies": {
     "eslint": "^7.32.0",
     "eslint-plugin-react": "^7.24.0",
