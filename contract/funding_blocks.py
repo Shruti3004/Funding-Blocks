@@ -50,14 +50,17 @@ class FundingBlock(sp.Contract):
         """
         Add details for a corresponding address
         """
-        sp.verify(~self.data.profiles.contains(params.address), "User already registered")
+        sp.verify(~self.data.profiles.contains(sp.sender), "User already registered")
 
-        self.data.profiles[sp.sender].name = params.name
-        self.data.profiles[sp.sender].bio = params.bio
-        self.data.profiles[sp.sender].donated = sp.mutez(0)
-        self.data.profiles[sp.sender].upvoted = sp.set()
-        self.data.profiles[sp.sender].downvoted = sp.set()
-        self.data.profiles[sp.sender].voted = sp.map()
+        profile = sp.record(
+            name=params.name,
+            bio=params.bio,
+            donated=sp.mutez(0),
+            upvoted=sp.set(),
+            downvoted=sp.set(),
+            voted=sp.map(),
+        )
+        self.data.profiles[sp.sender] = profile
 
     @sp.entry_point
     def update_profile(self, params):
@@ -180,10 +183,15 @@ class FundingBlock(sp.Contract):
         self.data.blocks[params.block_slug].active = sp.bool(False)
         self.data.active_blocks -= sp.int(1)
 
-
 # Test
 @sp.add_test(name = "Funding Block test")
 def test():
     contract = FundingBlock()
     scenario = sp.test_scenario()
     scenario += contract
+
+    user = sp.test_account("John Doe")
+    scenario.h2("Register new user")
+    scenario += contract.register(
+        name="John Doe", bio="John Doe is a superman"
+    ).run(sender=user)
