@@ -96,7 +96,7 @@ const Card = ({ type }) => {
               </div>
               <div className="progress mt-3">
                 <div
-                  className="progress-bar bg-primaryColor w-75"
+                  className="progress-bar bg-tertiarColor w-75"
                   role="progressbar"
                   aria-valuenow="50"
                   aria-valuemin="0"
