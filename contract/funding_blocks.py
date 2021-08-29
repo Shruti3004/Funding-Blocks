@@ -193,8 +193,31 @@ def test():
     scenario = sp.test_scenario()
     scenario += contract
 
-    user = sp.test_account("John Doe")
-    scenario.h2("Register new user")
+    scenario.h1("5 Users getting ready")
+    user1 = sp.test_account("User1")
+    user2 = sp.test_account("User2")
+    user3 = sp.test_account("User3")
+    user4 = sp.test_account("User4")
+    user5 = sp.test_account("User5")
+
+    scenario.h2("1-4 of them registers")
     scenario += contract.register(
-        name="John Doe", bio="John Doe is a superman"
-    ).run(sender=user)
+        name="User1", bio="This is the first test user"
+    ).run(sender=user1)
+    scenario += contract.register(
+        name="User2", bio="This is the second test user"
+    ).run(sender=user2)
+    scenario += contract.register(
+        name="User3", bio="This is the third test user"
+    ).run(sender=user3)
+    scenario += contract.register(
+        name="User4", bio="This is the zeroth test user"
+    ).run(sender=user4)
+
+    scenario.h2("4 and 5 try to edit their profiles")
+    scenario += contract.update_profile(
+        name="User4", bio="This is the forth test user"
+    ).run(sender=user4)
+    scenario += contract.update_profile(
+        name="User5", bio="This is the fifth test user"
+    ).run(sender=user5, valid=False)
