@@ -221,3 +221,16 @@ def test():
     scenario += contract.update_profile(
         name="User5", bio="This is the fifth test user"
     ).run(sender=user5, valid=False)
+
+    scenario.h1("Donations")
+    scenario.h2("1-5 make donations")
+    scenario += contract.donate().run(sender=user1, amount=sp.tez(345234))
+    scenario += contract.donate().run(sender=user2, amount=sp.tez(653543423))
+    scenario += contract.donate().run(sender=user3, amount=sp.tez(234534))
+    scenario += contract.donate().run(sender=user4, amount=sp.tez(654234))
+    scenario += contract.donate().run(sender=user5, amount=sp.tez(34523), valid=False)
+
+    scenario.h2("Withdrawing back some tokens")
+    scenario += contract.withdraw_back(amount=sp.tez(43423)).run(sender=user2)
+    scenario += contract.withdraw_back(amount=sp.tez(234535)).run(sender=user3, valid=False)
+    scenario += contract.withdraw_back(amount=sp.tez(34523)).run(sender=user5, valid=False)
