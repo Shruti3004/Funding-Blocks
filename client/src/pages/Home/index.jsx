@@ -14,8 +14,10 @@ const Home = () => {
               <CountUp end={10000000} duration={5} className="text-center" />
             </h1>
             <h1 className="text-white">An easy way to raise funds</h1>
-            <div className="text-white display-4 font-demi">What if donations becomes transparent?</div>
-            <Button title="Know More" className="mt-4"/>
+            <div className="text-white display-4 font-demi">
+              What if donations becomes transparent?
+            </div>
+            <Button title="Know More" className="mt-4" />
           </div>
         </div>
       </section>

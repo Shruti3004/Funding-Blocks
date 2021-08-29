@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Card from "../../components/card";
+import { getAllBlocks } from "../../api";
 
 const Blocks = () => {
+  useEffect(() => {
+    getAllBlocks().then((res) => {
+      console.log(res);
+    });
+  }, []);
   return (
     <>
       <div className="bg-light">

@@ -1,14 +1,45 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect } from "react";
+import { registerUser } from "../../api";
 import Button from "../../components/button";
 
-function SignUp() {
+function SignUp({ tezos, wallet }) {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     bio: "",
   });
 
+  useEffect(() => {
+    (async () => {
+      const activeAccount = await wallet.client.getActiveAccount();
+      if (activeAccount) {
+        setIsLoggedIn(true);
+        tezos.setWalletProvider(wallet);
+      }
+    })();
+  }, []);
+
+  const register = async () => {
+    await wallet.requestPermissions({
+      network: {
+        type: "granadanet",
+      },
+    });
+    tezos.setWalletProvider(wallet);
+    setIsLoggedIn(true);
+  };
+
+  // const logout = async () => {
+  //   await wallet.clearActiveAccount();
+  //   setIsLoggedIn(false);
+  // };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    register();
+    registerUser(formData.bio, formData.name).then((res) => {
+      console.log(res);
+    });
   };
 
   const handleChange = (e) => {
@@ -26,7 +57,7 @@ function SignUp() {
             <div className="bg-white my-5 box py-5 px-lg-5 px-4">
               <h1 className="text-center font-demi text-primaryColor">Register yourself!</h1>
               <hr />
-              <form>
+              <form onSubmit={handleSubmit}>
                 <label className="font-regular text-muted font-14 mt-4 fields-required">
                   Your Name
                 </label>

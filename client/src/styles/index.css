@@ -4,6 +4,20 @@
   --tertiary-color: #002ee5;
 }
 
+/* Srollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 10px;
+}
+
 /**************************************************** Font family ****************************************************/
 @font-face {
   font-family: Avenir-bold;

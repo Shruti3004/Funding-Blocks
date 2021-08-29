@@ -1,6 +1,6 @@
 import React from "react";
 
-const Button = ({ title, type, className }) => {
+const Button = ({ title, type, className, handleSubmit }) => {
   return (
     <button
       className={
@@ -8,6 +8,7 @@ const Button = ({ title, type, className }) => {
           ? `text-tertiaryColor font-medium font-18 custom-button-outline ${className && className}`
           : `bg-tertiaryColor font-medium font-18 custom-button ${className && className}`
       }
+      onSubmit={handleSubmit}
     >
       {title}
     </button>

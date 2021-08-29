@@ -2,7 +2,14 @@ import React from "react";
 import CardImage from "../../assets/images/card.jpg";
 import { Link } from "react-router-dom";
 import Button from "../button";
+import { Dropdown } from "react-bootstrap";
 import CardButton from "../cardButton";
+import {
+  EmailShareButton,
+  FacebookShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+} from "react-share";
 
 const Card = ({ type }) => {
   if (type === "fundDetails") {
@@ -40,9 +47,11 @@ const Card = ({ type }) => {
           <div className="pt-3">
             <div className="d-flex justify-content-between">
               <h4 className="card-title text-primaryColor mt-3">About</h4>
-              <CardButton type="share" className="px-4">
-                <i className="fas fa-share-alt"></i>&nbsp;&nbsp;&nbsp;Share Now&nbsp;&nbsp;
-              </CardButton>
+              {/* <CardButton type="share" className="px-4">
+                    <i className="fas fa-share-alt"></i>&nbsp;&nbsp;&nbsp;Share Now&nbsp;&nbsp;
+                  </CardButton> */}
+              <EmailShareButton subject="se" body="x" />
+              <WhatsappShareButton title="Share" />
             </div>
             <hr />
             <p className="card-text text-muted font-medium">
@@ -108,7 +117,7 @@ const Card = ({ type }) => {
               <hr />
             </div>
             <div className="d-flex justify-content-center">
-            <CardButton className="mt-2 mb-3 w-100">Donate</CardButton>
+              <CardButton className="mt-2 mb-3 w-100">Donate</CardButton>
             </div>
           </div>
         </div>

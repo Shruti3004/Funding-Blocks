@@ -1,14 +1,23 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "../../components/button";
+import { updateProfile, getAccount } from "../../api";
 
 function EditProfile() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     bio: "",
   });
 
+  useEffect(() => {
+    if (getAccount()) setIsLoggedIn(true);
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    updateProfile(formData.bio, formData.name).then((res) => {
+      console.log(res);
+    });
   };
 
   const handleChange = (e) => {
@@ -26,7 +35,7 @@ function EditProfile() {
             <div className="bg-white my-5 box py-5 px-lg-5 px-4">
               <h1 className="text-center font-demi text-primaryColor">Edit Your Profile</h1>
               <hr />
-              <form>
+              <form onSubmit={handleSubmit}>
                 <label className="font-regular text-muted font-14 mt-4">Your Name</label>
                 <div className="input-group">
                   <input

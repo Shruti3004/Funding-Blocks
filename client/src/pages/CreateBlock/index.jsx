@@ -1,19 +1,25 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
+import { fundingBlockify } from "../../api";
 import Button from "../../components/button";
-
+import GoogleMapReact from "google-map-react";
 function CreateBlock() {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
     location: "",
-    amount: "",
+    target_amount: "",
     deadline: "",
     image: "",
-    action: "",
+    actions: "",
+    thankyou: "",
+    legal_statements: "",
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    fundingBlockify(formData).then((res) => {
+      console.log(res);
+    });
   };
 
   const handleChange = (e) => {
@@ -22,7 +28,7 @@ function CreateBlock() {
       [e.target.name]: e.target.value,
     });
   };
-
+  const coordinates = { lat: 0, lng: 0 };
   return (
     <div className="bg-light">
       <div className="container">
@@ -37,7 +43,7 @@ function CreateBlock() {
                   The more accurate and brief details you write the more donors will trust you.
                 </span>
               </div>
-              <form>
+              <form onSubmit={handleSubmit}>
                 <label className="font-regular text-muted font-14 mt-4 fields-required">
                   Title
                 </label>
@@ -67,7 +73,7 @@ function CreateBlock() {
                     rows="5"
                   />
                 </div>
-                <label className="font-regular text-muted font-14 mt-4 fields-required">
+                {/* <label className="font-regular text-muted font-14 mt-4 fields-required">
                   Location
                 </label>
                 <div className="input-group">
@@ -80,6 +86,15 @@ function CreateBlock() {
                     onChange={handleChange}
                     required
                   />
+                </div> */}
+                <div style={{ height: '50vh', width: '100%' }} className="mt-4">
+                <GoogleMapReact
+                  bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_API_KEY }}
+                  defaultCenter={coordinates}
+                  center={coordinates}
+                  defaultZoom={11}
+                  onClick={(e) => {console.log(e)}}
+                ></GoogleMapReact>
                 </div>
                 <label className="font-regular text-muted font-14 mt-4 fields-required">
                   Target Amount
@@ -89,22 +104,8 @@ function CreateBlock() {
                     type="text"
                     className="form-control"
                     placeholder="What is your target amount?"
-                    name="amount"
-                    value={formData.amount}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-                <label className="font-regular text-muted font-14 mt-4 fields-required">
-                  Deadline
-                </label>
-                <div className="input-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Deadline"
-                    name="deadline"
-                    value={formData.deadline}
+                    name="target_amount"
+                    value={formData.target_amount}
                     onChange={handleChange}
                     required
                   />
@@ -131,17 +132,39 @@ function CreateBlock() {
                     type="text"
                     className="form-control"
                     placeholder="Enter the link"
-                    name="action"
-                    value={formData.action}
+                    name="actions"
+                    value={formData.actions}
                     onChange={handleChange}
                     required
                   />
                 </div>
-                <div className="font-14 text-muted font-demi mt-2">
-                  Help:{" "}
-                  <span className="font-regular">
-                    Link should consist of thank you statement and legal statement.
-                  </span>
+                <label className="font-regular text-muted font-14 mt-4 fields-required">
+                  Legal Statement
+                </label>
+                <div className="input-group">
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Enter the link"
+                    name="legal_statements"
+                    value={formData.legal_statements}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+                <label className="font-regular text-muted font-14 mt-4 fields-required">
+                  Thankyou Statement
+                </label>
+                <div className="input-group">
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Enter the link"
+                    name="thankyou"
+                    value={formData.thankyou}
+                    onChange={handleChange}
+                    required
+                  />
                 </div>
                 <div className="d-flex justify-content-center">
                   <Button title="Create" className="mt-5" />

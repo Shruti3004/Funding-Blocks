@@ -7,6 +7,22 @@ export const Wallet = new BeaconWallet({
   name: process.env.REACT_APP_WALLET_NAME,
 });
 
+export const getAccount = async () => {
+  try {
+    const activeAccount = await Wallet.client.getActiveAccount();
+    if (activeAccount) {
+      Tezos.setWalletProvider(Wallet);
+      return true;
+    } else return false;
+  } catch (error) {
+    return false;
+  }
+};
+
+export const logOut = async () => {
+  await Wallet.clearActiveAccount();
+};
+
 // Contract Interaction
 export const registerUser = async (bio, name) => {
   try {
@@ -34,7 +50,6 @@ export const updateProfile = async (bio, name) => {
 
 export const fundingBlockify = async ({
   actions,
-  deadline,
   description,
   image,
   latitude,
@@ -52,7 +67,6 @@ export const fundingBlockify = async ({
         contract.methods
           .funding_blockify(
             actions,
-            deadline,
             description,
             image,
             latitude,
