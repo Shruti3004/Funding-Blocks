@@ -57,12 +57,22 @@ const Home = () => {
                 <div className="card-img-top">
                   <img src="/images/education.png" alt="education" className="img-fluid" />
                 </div>
+                <div className="card-content">
+                  <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
+                    Education
+                  </div>
+                </div>
               </div>
             </div>
             <div className="col-lg-2 col-md-3 col-sm-6 col-6 mt-4">
               <div className="card">
                 <div className="card-img-top">
                   <img src="/images/cancer.png" alt="cancer" className="img-fluid" />
+                </div>
+                <div className="card-content">
+                  <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
+                    Cancer
+                  </div>
                 </div>
               </div>
             </div>
@@ -71,12 +81,22 @@ const Home = () => {
                 <div className="card-img-top">
                   <img src="/images/animals.png" alt="animals" className="img-fluid" />
                 </div>
+                <div className="card-content">
+                  <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
+                    Animals
+                  </div>
+                </div>
               </div>
             </div>
             <div className="col-lg-2 col-md-3 col-sm-6 col-6 mt-4">
               <div className="card">
                 <div className="card-img-top">
                   <img src="/images/heart.png" alt="heart" className="img-fluid" />
+                </div>
+                <div className="card-content">
+                  <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
+                    Heart Diseases
+                  </div>
                 </div>
               </div>
             </div>
@@ -85,12 +105,22 @@ const Home = () => {
                 <div className="card-img-top">
                   <img src="/images/child-health.png" alt="child-health" className="img-fluid" />
                 </div>
+                <div className="card-content">
+                  <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
+                    Child Health
+                  </div>
+                </div>
               </div>
             </div>
             <div className="col-lg-2 col-md-3 col-sm-6 col-6 mt-4">
               <div className="card">
                 <div className="card-img-top">
                   <img src="/images/accident.png" alt="accident" className="img-fluid" />
+                </div>
+                <div className="card-content">
+                  <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
+                    Accident
+                  </div>
                 </div>
               </div>
             </div>
@@ -99,12 +129,22 @@ const Home = () => {
                 <div className="card-img-top">
                   <img src="/images/brain-injury.png" alt="brain-injury" className="img-fluid" />
                 </div>
+                <div className="card-content">
+                  <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
+                    Brain Injury
+                  </div>
+                </div>
               </div>
             </div>
             <div className="col-lg-2 col-md-3 col-sm-6 col-6 mt-4">
               <div className="card">
                 <div className="card-img-top">
                   <img src="/images/tsunami.png" alt="tsunami" className="img-fluid" />
+                </div>
+                <div className="card-content">
+                  <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
+                    Tsunami
+                  </div>
                 </div>
               </div>
             </div>
@@ -113,6 +153,11 @@ const Home = () => {
                 <div className="card-img-top">
                   <img src="/images/wildlife-fire.png" alt="wildlife-fire" className="img-fluid" />
                 </div>
+                <div className="card-content">
+                  <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
+                    Wildlife Fire
+                  </div>
+                </div>
               </div>
             </div>
             <div className="col-lg-2 col-md-3 col-sm-6 col-6 mt-4">
@@ -120,12 +165,22 @@ const Home = () => {
                 <div className="card-img-top">
                   <img src="/images/covid.png" alt="covid" className="img-fluid" />
                 </div>
+                <div className="card-content">
+                  <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
+                    Covid
+                  </div>
+                </div>
               </div>
             </div>
             <div className="col-lg-2 col-md-3 col-sm-6 col-6 mt-4">
               <div className="card">
                 <div className="card-img-top">
-                  <img src="/images/education.png" alt="education" className="img-fluid" />
+                  <img src="/images/draught.png" alt="draught" className="img-fluid" />
+                </div>
+                <div className="card-content">
+                  <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
+                    Draught
+                  </div>
                 </div>
               </div>
             </div>
@@ -133,6 +188,11 @@ const Home = () => {
               <div className="card">
                 <div className="card-img-top">
                   <img src="/images/education.png" alt="education" className="img-fluid" />
+                </div>
+                <div className="card-content">
+                  <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
+                    Education
+                  </div>
                 </div>
               </div>
             </div>
