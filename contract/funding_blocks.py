@@ -166,6 +166,7 @@ class FundingBlock(sp.Contract):
         downvoted_average = sp.utils.nat_to_mutez(downvoted_average)
         sp.if sp.split_tokens(sp.balance, sp.nat(1), sp.nat(2)) < downvoted_average:
             del self.data.blocks[params.block_slug]
+            self.data.active_blocks -= sp.int(1)
 
     @sp.entry_point
     def vote(self, params):
@@ -182,12 +183,11 @@ class FundingBlock(sp.Contract):
         donated = self.data.profiles[sp.sender].donated
         average = self.data.blocks[params.block_slug].final_amount
         voters_weight = self.data.blocks[params.block_slug].voters_weight
-        number_of_voters = sp.len(self.data.blocks[params.block_slug].voters)
-        total_votes_power = sp.mul(average, number_of_voters)
+        total_votes_power = sp.mul(average, sp.utils.mutez_to_nat(voters_weight))
         all_donors_weight = voters_weight+donated
         this_votes_power = sp.mul(donated, sp.fst(sp.ediv(params.amount, sp.mutez(1)).open_some()))
         average = sp.ediv(total_votes_power + this_votes_power, all_donors_weight)
-        self.data.blocks[params.block_slug].final_amount = sp.snd(average.open_some())
+        self.data.blocks[params.block_slug].final_amount = sp.utils.nat_to_mutez(sp.fst(average.open_some()))
 
         self.data.blocks[params.block_slug].voters_weight += donated
         self.data.blocks[params.block_slug].voters[sp.sender] = params.amount
@@ -300,3 +300,13 @@ def test():
     scenario += contract.downvote(block_slug="blk1").run(sender=user4)
     scenario += contract.downvote(block_slug="blk2").run(sender=user2)
     scenario.verify(~contract.data.blocks.contains("blk2"))
+
+    scenario.h1("Voting and Claiming")
+    scenario.h2("Users voting for the funding block")
+    scenario += contract.vote(block_slug="blk1", amount=sp.tez(100000)).run(sender=user3)
+    scenario += contract.vote(block_slug="blk1", amount=sp.tez(200000)).run(sender=user4)
+    scenario += contract.claim_block_amount(block_slug="blk1").run(sender=user4, valid=False)
+    scenario += contract.claim_block_amount(block_slug="blk1").run(sender=user5, valid=False)
+    scenario += contract.claim_block_amount(block_slug="blk1").run(sender=user1, valid=False)
+    scenario += contract.vote(block_slug="blk1", amount=sp.tez(300000)).run(sender=user2)
+    scenario += contract.claim_block_amount(block_slug="blk1").run(sender=user1)
