@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "../button";
-
+import Logo from "../../assets/images/logo.svg"
 const Footer = () => {
   return (
     <>
@@ -16,6 +16,9 @@ const Footer = () => {
           <div className="px-4">Current Balance</div>
           <div className="px-4">Register</div>
           <div className="px-4">Login</div>
+          <div className="d-flex justify-content-end">
+          <img src={Logo} alt="logo" width="80%" className="img-fluid"/>
+          </div>
         </div>
         <hr />
         <div className="text-center pt-3">

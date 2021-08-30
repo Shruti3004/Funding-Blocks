@@ -234,34 +234,71 @@ li {
   background: var(--secondary-color);
   transition: all 0.5s ease-in-out;
 }
-.card:hover .card-content{
+.card:hover .card-content {
   opacity: 1;
 }
 
-.bg-image{
-  background-image:
-      linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.6)),
-      url('../assets/images/home.gif');
+.bg-image {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.6)),
+    url("../assets/images/home.gif");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
   height: 50vh;
 }
-.home-text{
+.home-text {
   margin: auto;
   width: 75%;
   vertical-align: middle;
 }
-.features{
+.features {
   margin-top: -8%;
   box-shadow: 9px 10px 9px #01010317;
 }
-.home-box-shadow{
+.home-box-shadow {
   box-shadow: 2px 4px 9px #01010317;
 }
-.center{
+.center {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
+
+
+/****************************************** Sidebar ******************************************/
+.sidebar {
+  display: none;
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  width: 45vw;
+  height: auto;
+  z-index: 1;
+  background-color: #131c20;
+  color: #7a8589;
+  border: 2px solid #405c6b;
+  animation: all 1s ease;
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .sidebar {
+    min-width: 50vw;
+  }
+}
+@media (max-width: 500px) {
+  .sidebar {
+    min-width: 100vw;
+  }
+}
+
+.sidebar-item:hover {
+  background-color: #3dbef5;
+  color: #fff;
+}
+.sidebar-item-active {
+  background-color: #3dbef5;
+  color: #fff;
+}
+

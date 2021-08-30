@@ -107,7 +107,8 @@ const Card = ({ type }) => {
                   <span className="text-muted font-14 font-regular">goal</span>
                 </div>
                 <div className="votes text-primaryColor" style={{ marginRight: "10px" }}>
-                  <i className="fas fa-arrow-alt-circle-up fa-2x mt-3"></i><br />
+                  <i className="fas fa-arrow-alt-circle-up fa-2x mt-3"></i>
+                  <br />
                   <i className="fas fa-arrow-alt-circle-down fa-2x"></i>
                 </div>
               </div>

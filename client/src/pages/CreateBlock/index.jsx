@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { fundingBlockify } from "../../api";
 import Button from "../../components/button";
-import GoogleMapReact from "google-map-react";
+import Map from "../../components/map/Map";
 function CreateBlock() {
+  const [coordinates, setCoordinates] = useState({ lat: 24, lng: 78 });
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -14,6 +15,11 @@ function CreateBlock() {
     thankyou: "",
     legal_statements: "",
   });
+
+  const handleCoordinates = (e) => {
+    console.log(e);
+    setCoordinates({ lat: e.lat, lng: e.lng });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,7 +34,7 @@ function CreateBlock() {
       [e.target.name]: e.target.value,
     });
   };
-  const coordinates = { lat: 0, lng: 0 };
+
   return (
     <div className="bg-light">
       <div className="container">
@@ -73,28 +79,11 @@ function CreateBlock() {
                     rows="5"
                   />
                 </div>
-                {/* <label className="font-regular text-muted font-14 mt-4 fields-required">
-                  Location
+                <label className="font-regular text-muted font-14 mt-4 fields-required">
+                  Choose the mishappening location
                 </label>
-                <div className="input-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Enter the Location of mishappening"
-                    name="location"
-                    value={formData.location}
-                    onChange={handleChange}
-                    required
-                  />
-                </div> */}
-                <div style={{ height: '50vh', width: '100%' }} className="mt-4">
-                <GoogleMapReact
-                  bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_API_KEY }}
-                  defaultCenter={coordinates}
-                  center={coordinates}
-                  defaultZoom={11}
-                  onClick={(e) => {console.log(e)}}
-                ></GoogleMapReact>
+                <div style={{ height: "50vh", width: "100%" }}>
+                  <Map coordinates={coordinates} handleCoordinates={handleCoordinates} type="create"/>
                 </div>
                 <label className="font-regular text-muted font-14 mt-4 fields-required">
                   Target Amount

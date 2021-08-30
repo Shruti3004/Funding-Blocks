@@ -56,6 +56,41 @@ const Navbar = () => {
             </Nav>
           </NavCustom.Collapse>
         </Container>
+        {/* <div className="sidebar" id="sidebar">
+          <div className="sidebar-content">
+            <Link to="/profile" className="px-5 d-flex mb-4 mt-3" style={{ cursor: "pointer" }}>
+              <div className="ml-3">
+                <div
+                  style={{ cursor: "pointer", fontSize: "22px" }}
+                  className="font-vcr mt-1 font-blue"
+                >
+                  ABC
+                </div>
+                <span style={{ cursor: "pointer" }} className="font-robot mt-2 font-blue">
+                  ABC
+                </span>
+              </div>
+            </Link>
+            <Link to="/">
+              <div
+                className={`mt-2 font-vcr px-5 sidebar-item text-uppercase py-2 ${
+                  location.pathname === "/" && "sidebar-item-active"
+                }`}
+              >
+                Home
+              </div>
+            </Link>
+            <Link to="/events">
+              <div
+                className={`mt-2 font-vcr px-5 sidebar-item text-uppercase py-2 ${
+                  location.pathname === "/events" && "sidebar-item-active"
+                }`}
+              >
+                Events
+              </div>
+            </Link>
+          </div>
+        </div> */}
       </NavCustom>
     </>
   );
