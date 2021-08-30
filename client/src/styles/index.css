@@ -43,6 +43,11 @@
 body {
   font-family: Avenir-regular !important;
   overflow-x: hidden !important;
+  top: 0 !important;
+}
+
+body > .skiptranslate {
+  display: none;
 }
 
 h1,
@@ -302,3 +307,22 @@ li {
   color: #fff;
 }
 
+select{
+  border: none;
+  background: white;
+  color: var(--primary-color);
+  font-family: Avenir-demi !important;
+  outline: none;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.goog-logo-link{
+  display: none;
+}
+.goog-te-gadget{
+  color: transparent !important;
+  margin-bottom: -10px;
+}

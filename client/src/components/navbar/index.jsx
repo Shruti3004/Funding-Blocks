@@ -49,14 +49,14 @@ const Navbar = () => {
                   <Nav.Link as={Link} to="/editProfile" className="text-white font-demi px-4">
                     Edit Profile
                   </Nav.Link>
-                  <Button variant="danger" onClick={() => logout()}>
+                  {/* <Button variant="danger" onClick={() => logout()}>
                     Log Out
-                  </Button>
+                  </Button> */}
                 </>
               )}
-              <div className="flex m-auto sm:m-0">
+              <div className="d-flex">
                 <button className="mx-2 btn text-white" onClick={print} title="Print this page">
-                  <i className="fa fa-print fa-2x" aria-hidden="true"></i>
+                  <i className="fa fa-print" aria-hidden="true"></i>
                 </button>
                 <div id="google_translate_element"></div>
               </div>
