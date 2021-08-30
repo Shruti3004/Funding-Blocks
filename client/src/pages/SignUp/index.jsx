@@ -1,45 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { registerUser } from "../../api";
+import { registerUser, getAccount, logIn, getUser } from "../../api";
 import Button from "../../components/button";
 
-function SignUp({ tezos, wallet }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+function SignUp() {
   const [formData, setFormData] = useState({
     name: "",
     bio: "",
   });
 
-  useEffect(() => {
-    (async () => {
-      const activeAccount = await wallet.client.getActiveAccount();
-      if (activeAccount) {
-        setIsLoggedIn(true);
-        tezos.setWalletProvider(wallet);
-      }
-    })();
-  }, []);
+  useEffect(
+    () =>
+      getAccount().then((res) => {
+        if (res.result) window.location.href = "/";
+      }),
+    []
+  );
 
-  const register = async () => {
-    await wallet.requestPermissions({
-      network: {
-        type: "granadanet",
-      },
-    });
-    tezos.setWalletProvider(wallet);
-    setIsLoggedIn(true);
-  };
-
-  // const logout = async () => {
-  //   await wallet.clearActiveAccount();
-  //   setIsLoggedIn(false);
-  // };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    register();
-    registerUser(formData.bio, formData.name).then((res) => {
-      console.log(res);
-    });
+    await logIn();
+    (await getUser((await getAccount()).address))
+      ? (window.location.href = "/")
+      : registerUser(formData.bio, formData.name).then((res) => {
+          if (res.result) window.location.href = "/";
+        });
   };
 
   const handleChange = (e) => {
@@ -72,7 +56,7 @@ function SignUp({ tezos, wallet }) {
                     required
                   />
                 </div>
-                <label className="font-regular text-muted font-14 mt-4">Bio</label>
+                <label className="font-regular text-muted font-14 mt-4 fields-required">Bio</label>
                 <div className="input-group">
                   <textarea
                     type="text"
@@ -82,6 +66,7 @@ function SignUp({ tezos, wallet }) {
                     value={formData.bio}
                     onChange={handleChange}
                     rows="5"
+                    required
                   />
                 </div>
                 <div className="d-flex justify-content-center">

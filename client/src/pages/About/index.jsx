@@ -62,15 +62,12 @@ const About = () => {
         </div>
       </section>
       <section className="bg-light py-section">
-
         <div className="container d-flex justify-content-center flex-column">
           <h1 className="mb-2 text-center text-primaryColor">How we tackle the scenario</h1>
           <img src={workflow} alt="workflow" className="img-fluid box" />
         </div>
       </section>
-      <section className="custom-blue-bg py-section">
-
-      </section>
+      <section className="custom-blue-bg py-section"></section>
     </>
   );
 };

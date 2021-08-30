@@ -83,7 +83,11 @@ function CreateBlock() {
                   Choose the mishappening location
                 </label>
                 <div style={{ height: "50vh", width: "100%" }}>
-                  <Map coordinates={coordinates} handleCoordinates={handleCoordinates} type="create"/>
+                  <Map
+                    coordinates={coordinates}
+                    handleCoordinates={handleCoordinates}
+                    type="create"
+                  />
                 </div>
                 <label className="font-regular text-muted font-14 mt-4 fields-required">
                   Target Amount

@@ -12,21 +12,28 @@ export const getAccount = async () => {
     const activeAccount = await Wallet.client.getActiveAccount();
     if (activeAccount) {
       Tezos.setWalletProvider(Wallet);
-      return true;
-    } else return false;
+      return { result: true, address: activeAccount.address };
+    } else return { result: false, address: null };
   } catch (error) {
-    return false;
+    return { result: false, error };
   }
 };
 
-export const logOut = async () => {
-  await Wallet.clearActiveAccount();
-};
+export const logIn = () =>
+  new Promise(async (resolve, reject) => {
+    await Wallet.requestPermissions({
+      network: {
+        type: "granadanet",
+      },
+    });
+    Tezos.setWalletProvider(Wallet);
+    resolve();
+  });
 
 // Contract Interaction
 export const registerUser = async (bio, name) => {
   try {
-    const hash = await Tezos.contract
+    const hash = await Tezos.wallet
       .at(process.env.REACT_APP_CONTRACT_ADDRESS)
       .then((contract) => contract.methods.register(bio, name).send())
       .then((op) => op.confirmation(1).then(() => op.opHash));
@@ -38,7 +45,7 @@ export const registerUser = async (bio, name) => {
 
 export const updateProfile = async (bio, name) => {
   try {
-    const hash = await Tezos.contract
+    const hash = await Tezos.wallet
       .at(process.env.REACT_APP_CONTRACT_ADDRESS)
       .then((contract) => contract.methods.update_profile(bio, name).send())
       .then((op) => op.confirmation(1).then(() => op.opHash));
@@ -61,7 +68,7 @@ export const fundingBlockify = async ({
   title,
 }) => {
   try {
-    const hash = await Tezos.contract
+    const hash = await Tezos.wallet
       .at(process.env.REACT_APP_CONTRACT_ADDRESS)
       .then((contract) =>
         contract.methods
@@ -83,6 +90,88 @@ export const fundingBlockify = async ({
     return { result: true, message: hash };
   } catch (error) {
     return { result: false, message: error };
+  }
+};
+
+export const donate = async (amount) => {
+  try {
+    const hash = await Tezos.wallet
+      .at(process.env.REACT_APP_CONTRACT_ADDRESS)
+      .then((contract) => contract.methods.donate().send({ amount }))
+      .then((op) => op.confirmation(1).then(() => op.opHash));
+    return { result: true, message: hash };
+  } catch (error) {
+    return { result: false, message: error };
+  }
+};
+
+export const downVote = async (slug) => {
+  try {
+    const hash = await Tezos.wallet
+      .at(process.env.REACT_APP_CONTRACT_ADDRESS)
+      .then((contract) => contract.methods.downvote(String(slug)).send())
+      .then((op) => op.confirmation(1).then(() => op.opHash));
+    return { result: true, message: hash };
+  } catch (error) {
+    return { result: false, message: error };
+  }
+};
+
+export const upVote = async (slug) => {
+  try {
+    const hash = await Tezos.wallet
+      .at(process.env.REACT_APP_CONTRACT_ADDRESS)
+      .then((contract) => contract.methods.upvote(String(slug)).send())
+      .then((op) => op.confirmation(1).then(() => op.opHash));
+    return { result: true, message: hash };
+  } catch (error) {
+    return { result: false, message: error };
+  }
+};
+
+export const claimBlockAmount = async (slug) => {
+  try {
+    const hash = await Tezos.wallet
+      .at(process.env.REACT_APP_CONTRACT_ADDRESS)
+      .then((contract) => contract.methods.claim_block_amount(String(slug)).send())
+      .then((op) => op.confirmation(1).then(() => op.opHash));
+    return { result: true, message: hash };
+  } catch (error) {
+    return { result: false, message: error };
+  }
+};
+
+export const withdrawBack = async (mutez) => {
+  try {
+    const hash = await Tezos.wallet
+      .at(process.env.REACT_APP_CONTRACT_ADDRESS)
+      .then((contract) => contract.methods.withdraw_back(parseInt(mutez)).send())
+      .then((op) => op.confirmation(1).then(() => op.opHash));
+    return { result: true, message: hash };
+  } catch (error) {
+    return { result: false, message: error };
+  }
+};
+
+export const vote = async (mutez, slug) => {
+  try {
+    const hash = await Tezos.wallet
+      .at(process.env.REACT_APP_CONTRACT_ADDRESS)
+      .then((contract) => contract.methods.vote(parseInt(mutez), String(slug)).send())
+      .then((op) => op.confirmation(1).then(() => op.opHash));
+    return { result: true, message: hash };
+  } catch (error) {
+    return { result: false, message: error };
+  }
+};
+
+export const getBalance = () => {
+  try {
+    Tezos.tz
+      .getBalance(process.env.REACT_APP_CONTRACT_ADDRESS)
+      .then((x) => console.log(x, parseFloat(x) / 1000000));
+  } catch (error) {
+    console.log(error);
   }
 };
 

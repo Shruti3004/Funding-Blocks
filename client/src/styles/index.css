@@ -270,7 +270,6 @@ li {
   flex-direction: column;
 }
 
-
 /****************************************** Sidebar ******************************************/
 .sidebar {
   display: none;
@@ -307,7 +306,7 @@ li {
   color: #fff;
 }
 
-select{
+select {
   border: none;
   background: white;
   color: var(--primary-color);
@@ -319,10 +318,10 @@ select{
   padding-right: 5px;
 }
 
-.goog-logo-link{
+.goog-logo-link {
   display: none;
 }
-.goog-te-gadget{
+.goog-te-gadget {
   color: transparent !important;
   margin-bottom: -10px;
 }
