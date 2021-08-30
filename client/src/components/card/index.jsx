@@ -88,7 +88,9 @@ const Card = ({ type }) => {
       <div>
         <div className={`box`}>
           <div className={`card-body`}>
-            <img src={CardImage} alt="card-image" className="card-img-top" />
+            <div>
+              <img src={CardImage} alt="card-image" className="card-img-top" />
+            </div>
             <div>
               <h4 className="card-title mt-4 text-primaryColor font-demi font-22">
                 Schooling Special Needs Children With Custom Education
@@ -97,12 +99,19 @@ const Card = ({ type }) => {
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry.
               </p>
               <hr />
-              <div className="font-22 font-bold text-primaryColor mt-3">
-                ₹ 2,76,63,065 <span className="text-muted font-14 font-regular">raised of </span>{" "}
-                <br />
-                <span className="text-muted font-demi">₹ 5,00,00,000 </span>
-                <span className="text-muted font-14 font-regular">goal</span>
+              <div className="d-flex justify-content-between">
+                <div className="font-22 font-bold text-primaryColor mt-3">
+                  ₹ 2,76,63,065 <span className="text-muted font-14 font-regular">raised of </span>{" "}
+                  <br />
+                  <span className="text-muted font-demi">₹ 5,00,00,000 </span>
+                  <span className="text-muted font-14 font-regular">goal</span>
+                </div>
+                <div className="votes text-primaryColor" style={{ marginRight: "10px" }}>
+                  <i className="fas fa-arrow-alt-circle-up fa-2x mt-3"></i><br />
+                  <i className="fas fa-arrow-alt-circle-down fa-2x"></i>
+                </div>
               </div>
+
               <div className="progress mt-3">
                 <div
                   className="progress-bar bg-tertiarColor w-75"

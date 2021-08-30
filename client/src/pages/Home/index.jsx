@@ -3,11 +3,13 @@ import Button from "../../components/button";
 import Card from "../../components/card";
 import CountUp from "react-countup";
 import { Link } from "react-router-dom";
+import HomeHero from "../../components/hero";
 
 const Home = () => {
   return (
     <>
-      <section className="home">
+      <HomeHero />
+      {/* <section className="home">
         <div className="container py-5 text-white text-center" style={{ height: "94vh" }}>
           <div className="d-flex justify-content-center align-items-center h-100 flex-column">
             <h1 className="display-2">
@@ -20,7 +22,7 @@ const Home = () => {
             <Button title="Know More" className="mt-4" />
           </div>
         </div>
-      </section>
+      </section> */}
       <div className="bg-light">
         <div className="container">
           <div className="row d-flex justify-content-center py-5 ">
