@@ -16,28 +16,29 @@ class FundingBlock(sp.Contract):
                         donated=sp.TMutez,  # Total amount of donated tokens
                         upvoted=sp.TSet(sp.TString),  # Set of upvoted funding blocks
                         downvoted=sp.TSet(sp.TString),  # Set of downvoted funding blocks
-                        voted=sp.TMap(sp.TString, sp.TMutez),  # Map of event names to their voted amounts
+                        voted=sp.TMap(sp.TString, sp.TMutez),  # Map of block names to their voted amounts
                     ),
                 ),
                 blocks=sp.TBigMap(
                     sp.TString,  # Funding block slug
                     sp.TRecord(
                         active=sp.TBool,  # Whether the funding block is active
-                        title=sp.TString,  # Title of the event
-                        description=sp.TString,  # Description of the event
+                        title=sp.TString,  # Title of the block
+                        description=sp.TString,  # Description of the block
                         location=sp.TRecord(
-                            latitude=sp.TNat,  # Latitude of the location
-                            longitude=sp.TNat,  # Longitude of the location
+                            latitude=sp.TString,  # Latitude of the location
+                            longitude=sp.TString,  # Longitude of the location
                         ),
-                        image=sp.TString,  # Image of the event
-                        target_amount=sp.TInt,  # Target amount of tokens to be raised
-                        deadline=sp.TInt,  # Expected time to get the target amount
+                        image=sp.TString,  # Image of the block
+                        target_amount=sp.TNat,  # Target amount of tokens to be raised
                         actions=sp.TString,  # Actions to be taken
                         legal_statements=sp.TString,  # Legal statements
                         thankyou=sp.TString,  # Thank you message
-                        author=sp.TAddress,  # Unique address of the user who created the event
+                        author=sp.TAddress,  # Unique address of the user who created the block
                         upvotes=sp.TNat,  # Number of upvotes
+                        upvoted_average=sp.TNat,  # Represents how much people have upvoted the block
                         downvotes=sp.TNat,  # Number of downvotes
+                        downvoted_average=sp.TNat,  # Represents how much people have upvoted the block
                         voters=sp.TMap(sp.TAddress, sp.TMutez),  # Map of addresses to their voted amounts
                         voters_weight=sp.TMutez,  # Total apparent weight of votes
                         final_amount=sp.TMutez,  # Amount decided by the voters
@@ -111,13 +112,14 @@ class FundingBlock(sp.Contract):
             location=sp.record(latitude=params.latitude, longitude=params.longitude),
             image=params.image,
             target_amount=params.target_amount,
-            deadline=params.deadline,
             actions=params.actions,
             legal_statements=params.legal_statements,
             thankyou=params.thankyou,
             author=sp.sender,
             upvotes=0,
+            upvoted_average=0,
             downvotes=0,
+            downvoted_average=0,
             voters=sp.map(),
             voters_weight=sp.mutez(0),
             final_amount=sp.mutez(0),
@@ -130,9 +132,16 @@ class FundingBlock(sp.Contract):
         Upvote a funding block
         """
         sp.verify(self.data.profiles.contains(sp.sender), "User not registered")
-        sp.verify(self.data.profiles[sp.sender].donated > sp.mutez(0), "User never donated")
+        sp.verify(self.data.profiles[sp.sender].donated > sp.mutez(0), "User have not donated")
 
-        self.data.blocks[params.block_slug].upvotes += sp.nat(1)
+        donated = self.data.profiles[sp.sender].donated
+        average = self.data.blocks[params.block_slug].upvoted_average
+        number_of_voters = self.data.blocks[params.block_slug].upvotes
+        total_votes_power = sp.mul(average, number_of_voters)
+        number_of_voters += 1
+        average = sp.ediv(total_votes_power + sp.utils.mutez_to_nat(donated), number_of_voters)
+        self.data.blocks[params.block_slug].upvoted_average = sp.fst(average.open_some())
+        self.data.blocks[params.block_slug].upvotes += 1
         self.data.profiles[sp.sender].upvoted.add(params.block_slug)
 
     @sp.entry_point
@@ -141,9 +150,16 @@ class FundingBlock(sp.Contract):
         Downvote a funding block
         """
         sp.verify(self.data.profiles.contains(sp.sender), "User not registered")
-        sp.verify(self.data.profiles[sp.sender].donated > sp.mutez(0), "User never donated")
+        sp.verify(self.data.profiles[sp.sender].donated > sp.mutez(0), "User have not donated")
 
-        self.data.blocks[params.block_slug].downvotes += sp.nat(1)
+        donated = self.data.profiles[sp.sender].donated
+        average = self.data.blocks[params.block_slug].downvoted_average
+        number_of_voters = self.data.blocks[params.block_slug].downvotes
+        total_votes_power = sp.mul(average, number_of_voters)
+        number_of_voters += 1
+        average = sp.ediv(total_votes_power + sp.utils.mutez_to_nat(donated), number_of_voters)
+        self.data.blocks[params.block_slug].downvoted_average = sp.fst(average.open_some())
+        self.data.blocks[params.block_slug].downvotes += 1
         self.data.profiles[sp.sender].downvoted.add(params.block_slug)
 
     @sp.entry_point
@@ -152,7 +168,7 @@ class FundingBlock(sp.Contract):
         Vote on a funding block
         """
         sp.verify(self.data.profiles.contains(sp.sender), "User not registered")
-        sp.verify(self.data.profiles[sp.sender].donated > sp.mutez(0), "User never donated")
+        sp.verify(self.data.profiles[sp.sender].donated > sp.mutez(0), "User have not donated")
         sp.verify(self.data.blocks[params.block_slug].active, "Block is not active")
         sp.verify(params.amount <= sp.balance, "Not enough tokens")
         sp.verify(params.amount > sp.mutez(0), "Amount must be positive")
@@ -165,7 +181,7 @@ class FundingBlock(sp.Contract):
         total_votes_power = sp.mul(average, number_of_voters)
         all_donors_weight = voters_weight+donated
         this_votes_power = sp.mul(donated, sp.fst(sp.ediv(params.amount, sp.mutez(1)).open_some()))
-        average = sp.ediv(all_donors_weight + this_votes_power, (voters_weight+donated))
+        average = sp.ediv(total_votes_power + this_votes_power, all_donors_weight)
         self.data.blocks[params.block_slug].final_amount = sp.snd(average.open_some())
 
         self.data.blocks[params.block_slug].voters_weight += donated
