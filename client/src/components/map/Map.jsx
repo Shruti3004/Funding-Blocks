@@ -3,6 +3,7 @@ import GoogleMapReact from "google-map-react";
 import Marker from "./Marker";
 
 const Map = ({ coordinates, handleCoordinates, type }) => {
+  console.log(coordinates);
   if (type === "create") {
     return (
       <GoogleMapReact
@@ -14,7 +15,7 @@ const Map = ({ coordinates, handleCoordinates, type }) => {
           handleCoordinates(e);
         }}
       >
-        <Marker lat={coordinates.lat} lng={coordinates.lng} />
+        <Marker lat={coordinates?.lat} lng={coordinates?.lng} />
       </GoogleMapReact>
     );
   } else {

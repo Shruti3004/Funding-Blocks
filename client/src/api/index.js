@@ -95,9 +95,9 @@ export const fundingBlockify = async ({
 
 export const donate = async (amount) => {
   try {
-    const hash = await Tezos.wallet
+    const hash = Tezos.wallet
       .at(process.env.REACT_APP_CONTRACT_ADDRESS)
-      .then((contract) => contract.methods.donate().send({ amount }))
+      .then((contract) => contract.methods.donate("").send({ amount }))
       .then((op) => op.confirmation(1).then(() => op.opHash));
     return { result: true, message: hash };
   } catch (error) {
@@ -165,13 +165,12 @@ export const vote = async (mutez, slug) => {
   }
 };
 
-export const getBalance = () => {
+export const getBalance = async (address = process.env.REACT_APP_CONTRACT_ADDRESS) => {
   try {
-    Tezos.tz
-      .getBalance(process.env.REACT_APP_CONTRACT_ADDRESS)
-      .then((x) => console.log(x, parseFloat(x) / 1000000));
+    const balance = await Tezos.tz.getBalance(address).then((mutez) => mutez);
+    return balance;
   } catch (error) {
-    console.log(error);
+    return error;
   }
 };
 
@@ -200,8 +199,8 @@ export const getBlock = async (address) => {
         "/bigmaps/blocks/keys/" +
         address
     );
-    console.log(body.data.blocks);
-    return body.data.blocks;
+    console.log(body.data);
+    return body.data;
   } catch (error) {
     return error;
   }
@@ -213,10 +212,9 @@ export const getAllBlocks = async () => {
       process.env.REACT_APP_API_URL +
         "/contracts/" +
         process.env.REACT_APP_CONTRACT_ADDRESS +
-        "/bigmaps/blocks/keys/"
+        "/bigmaps/blocks/keys"
     );
-    console.log(body.data.blocks);
-    return body.data.blocks;
+    return body.data;
   } catch (error) {
     return error;
   }

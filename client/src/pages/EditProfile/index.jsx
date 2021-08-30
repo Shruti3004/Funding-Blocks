@@ -1,20 +1,28 @@
 import React, { useState, useEffect } from "react";
 import Button from "../../components/button";
-import { updateProfile, getAccount, getUser, getBalance } from "../../api";
+// import { Redirect } from "react-router-dom";
+import { updateProfile, getAccount, getUser, getBalance, fundingBlockify } from "../../api";
 // import Swal from "sweetalert2";
 
 function EditProfile() {
   const [address, setAddress] = useState(null);
+  const [balance, setBalance] = useState(0);
   const [formData, setFormData] = useState({
     name: "",
     bio: "",
+    voted: {},
+    donated: "",
+    upvoted: [],
+    downvoted: [],
   });
 
   useEffect(() => {
-    getAccount().then((res) => {
-      if (!res.result) window.location.href = "/";
-      setAddress(res.address);
-      getUser(res.address).then((data) => setFormData(data));
+    getAccount().then(async (res) => {
+      if (res.result) {
+        setBalance((await getBalance(res.address)) / 1000000);
+        setAddress(res.address);
+        getUser(res.address).then((data) => setFormData(data));
+      } else window.location.href = "/signup";
     });
   }, []);
 
@@ -45,10 +53,16 @@ function EditProfile() {
               <h1 className="text-center font-demi text-primaryColor">My Profile</h1>
               <hr />
               <br />
-              <span>
-                Wallet Address: <code>{address}</code>
-              </span>
+              <h4 className="text-center">
+                Total Donation: <code>{parseInt(formData.donated) / 1000000} ꜩ</code>
+              </h4>
               <br />
+              <h6>
+                Address: <code>{address}</code>
+              </h6>
+              <h6>
+                Balance: <code>{balance} ꜩ</code>
+              </h6>
               <form onSubmit={handleSubmit}>
                 <label className="font-regular text-muted font-14 mt-4 fields-required">
                   Your Name

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Button from "../button";
 import { Dropdown } from "react-bootstrap";
 import CardButton from "../cardButton";
+import { upVote, downVote } from "../../api";
 import {
   EmailShareButton,
   FacebookShareButton,
@@ -11,31 +12,32 @@ import {
   WhatsappShareButton,
 } from "react-share";
 
-const Card = ({ type }) => {
+const Card = ({ type, block }) => {
   if (type === "fundDetails") {
     return (
-      <Link to={`/blockDetails/1`}>
-        <div>
-          <div className={`box`}>
-            <div>
-              <Button
-                title="Contribute Now ❤️"
-                className="mt-4 w-100 bg-secondaryColor"
-                type="outline"
-              />
-            </div>
-            <div className={`card-body`}>
-              <hr />
-              <div className="font-22 font-bold text-primaryColor mt-4">
-                ₹ 2,76,63,065 <span className="text-muted font-14 font-regular">raised of </span>{" "}
-                <br />
-                <span className="text-muted font-demi">₹ 5,00,00,000 </span>
-                <span className="text-muted font-14 font-regular">goal</span>
-              </div>
+      <div>
+        <div className={`box`}>
+          <div>
+            <Button
+              title="Contribute Now ❤️"
+              className="mt-4 w-100 bg-secondaryColor"
+              type="outline"
+            />
+          </div>
+          <div className={`card-body`}>
+            <hr />
+            <div className="font-22 font-bold text-primaryColor mt-4">
+              ₹ {block && block?.value?.final_amount}{" "}
+              <span className="text-muted font-14 font-regular">raised of </span> <br />
+              <span className="text-muted font-demi">
+                {" "}
+                ₹ {block && block?.value?.target_amount}{" "}
+              </span>
+              <span className="text-muted font-14 font-regular">goal</span>
             </div>
           </div>
         </div>
-      </Link>
+      </div>
     );
   }
 
@@ -43,7 +45,7 @@ const Card = ({ type }) => {
     return (
       <div className={`box blockDetails_card`}>
         <div className={`card-body `}>
-          <img src={CardImage} alt="card-image" className="card-img-top" />
+          <img src={block?.value?.image} alt="card-image" className="card-img-top" />
           <div className="pt-3">
             <div className="d-flex justify-content-between">
               <h4 className="card-title text-primaryColor mt-3">About</h4>
@@ -54,29 +56,7 @@ const Card = ({ type }) => {
               <WhatsappShareButton title="Share" />
             </div>
             <hr />
-            <p className="card-text text-muted font-medium">
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-              has been the industrys standard dummy text ever since the 1500s, when an unknown
-              printer took a galley of type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into electronic typesetting,
-              remaining essentially unchanged. It was popularised in the 1960s with the release of
-              Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
-              publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem
-              Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-              been the industrys standard dummy text ever since the 1500s, when an unknown printer
-              took a galley of type and scrambled it to make a type specimen book. It has survived
-              not only five centuries, but also the leap into electronic typesetting, remaining
-              essentially unchanged. It was popularised in the 1960s with the release of Letraset
-              sheets containing Lorem Ipsum passages, and more recently with desktop publishing
-              software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply
-              dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-              industrys standard dummy text ever since the 1500s, when an unknown printer took a
-              galley of type and scrambled it to make a type specimen book. It has survived not only
-              five centuries, but also the leap into electronic typesetting, remaining essentially
-              unchanged. It was popularised in the 1960s with the release of Letraset sheets
-              containing Lorem Ipsum passages, and more recently with desktop publishing software
-              like Aldus PageMaker including versions of Lorem Ipsum.
-            </p>
+            <p className="card-text text-muted font-medium">{block && block?.value?.description}</p>
             <CardButton className="mt-4">Donate</CardButton>
           </div>
         </div>
@@ -84,16 +64,16 @@ const Card = ({ type }) => {
     );
   }
   return (
-    <Link to={`/blockDetails/1`}>
+    <Link to={`/blockDetails/${block?.key}`}>
       <div>
         <div className={`box`}>
           <div className={`card-body`}>
             <div>
-              <img src={CardImage} alt="card-image" className="card-img-top" />
+              <img src={block?.value?.image} alt="card-image" className="card-img-top" />
             </div>
             <div>
               <h4 className="card-title mt-4 text-primaryColor font-demi font-22">
-                Schooling Special Needs Children With Custom Education
+                {block && block?.value?.title}
               </h4>
               <p className="card-text text-muted font-medium mt-3">
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry.
@@ -101,15 +81,27 @@ const Card = ({ type }) => {
               <hr />
               <div className="d-flex justify-content-between">
                 <div className="font-22 font-bold text-primaryColor mt-3">
-                  ₹ 2,76,63,065 <span className="text-muted font-14 font-regular">raised of </span>{" "}
-                  <br />
-                  <span className="text-muted font-demi">₹ 5,00,00,000 </span>
+                  ₹ {block && block?.value?.final_amount}{" "}
+                  <span className="text-muted font-14 font-regular">raised of </span> <br />
+                  <span className="text-muted font-demi">
+                    ₹ {block && block?.value?.target_amount}{" "}
+                  </span>
                   <span className="text-muted font-14 font-regular">goal</span>
                 </div>
                 <div className="votes text-primaryColor" style={{ marginRight: "10px" }}>
-                  <i className="fas fa-arrow-alt-circle-up fa-2x mt-3"></i>
+                  <i
+                    onClick={() => {
+                      upVote(block?.key);
+                    }}
+                    className="fas fa-arrow-alt-circle-up fa-2x mt-3"
+                  ></i>
                   <br />
-                  <i className="fas fa-arrow-alt-circle-down fa-2x"></i>
+                  <i
+                    onClick={() => {
+                      downVote(block?.key);
+                    }}
+                    className="fas fa-arrow-alt-circle-down fa-2x"
+                  ></i>
                 </div>
               </div>
 
