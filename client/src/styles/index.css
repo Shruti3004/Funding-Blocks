@@ -124,6 +124,16 @@ h6 {
 .text-justify {
   text-align: justify;
 }
+.py-section{
+  padding-top: 100px ;
+  padding-bottom: 100px;
+}
+@media (max-width: 768px) {
+  .py-section{
+    padding-top: 70px ;
+    padding-bottom: 70px;
+  }
+}
 
 /**************************************************** Button ****************************************************/
 .custom-button {
