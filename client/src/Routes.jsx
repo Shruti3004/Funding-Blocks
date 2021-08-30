@@ -24,8 +24,12 @@ const Routes = () => {
           <Route exact path="/blocks" component={Blocks} />
           <Route exact path="/createBlock" component={CreateBlock} />
           <Route exact path="/blockDetails/:id" component={BlockDetails} />
-          <Route exact path="/signup" component={SignUp} />
-          <Route exact path="/editProfile" component={EditProfile} />
+          <Route exact path="/signup" component={() => <SignUp tezos={Tezos} wallet={Wallet} />} />
+          <Route
+            exact
+            path="/editProfile"
+            component={() => <EditProfile tezos={Tezos} wallet={Wallet} />}
+          />
           <Route path="*" component={Default} />
         </Switch>
         <Footer />

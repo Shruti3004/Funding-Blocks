@@ -4,6 +4,20 @@
   --tertiary-color: #002ee5;
 }
 
+/* Srollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 10px;
+}
+
 /**************************************************** Font family ****************************************************/
 @font-face {
   font-family: Avenir-bold;
@@ -29,6 +43,11 @@
 body {
   font-family: Avenir-regular !important;
   overflow-x: hidden !important;
+  top: 0 !important;
+}
+
+body > .skiptranslate {
+  display: none;
 }
 
 h1,
@@ -109,6 +128,16 @@ h6 {
 }
 .text-justify {
   text-align: justify;
+}
+.py-section {
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+@media (max-width: 768px) {
+  .py-section {
+    padding-top: 70px;
+    padding-bottom: 70px;
+  }
 }
 
 /**************************************************** Button ****************************************************/
@@ -195,8 +224,105 @@ li {
   padding-left: 20px;
 }
 .home {
-  background: url("../assets/images/home.jpg");
+  background: url("../assets/images/home.gif");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+}
+.card-content {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  padding: 1rem;
+  top: 0;
+  opacity: 0;
+  background: var(--secondary-color);
+  transition: all 0.5s ease-in-out;
+}
+.card:hover .card-content {
+  opacity: 1;
+}
+
+.bg-image {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.6)),
+    url("../assets/images/home.gif");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 50vh;
+}
+.home-text {
+  margin: auto;
+  width: 75%;
+  vertical-align: middle;
+}
+.features {
+  margin-top: -8%;
+  box-shadow: 9px 10px 9px #01010317;
+}
+.home-box-shadow {
+  box-shadow: 2px 4px 9px #01010317;
+}
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+
+/****************************************** Sidebar ******************************************/
+.sidebar {
+  display: none;
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  width: 45vw;
+  height: auto;
+  z-index: 1;
+  background-color: #131c20;
+  color: #7a8589;
+  border: 2px solid #405c6b;
+  animation: all 1s ease;
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .sidebar {
+    min-width: 50vw;
+  }
+}
+@media (max-width: 500px) {
+  .sidebar {
+    min-width: 100vw;
+  }
+}
+
+.sidebar-item:hover {
+  background-color: #3dbef5;
+  color: #fff;
+}
+.sidebar-item-active {
+  background-color: #3dbef5;
+  color: #fff;
+}
+
+select{
+  border: none;
+  background: white;
+  color: var(--primary-color);
+  font-family: Avenir-demi !important;
+  outline: none;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.goog-logo-link{
+  display: none;
+}
+.goog-te-gadget{
+  color: transparent !important;
+  margin-bottom: -10px;
 }

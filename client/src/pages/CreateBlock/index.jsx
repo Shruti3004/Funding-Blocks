@@ -1,19 +1,31 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
+import { fundingBlockify } from "../../api";
 import Button from "../../components/button";
-
+import Map from "../../components/map/Map";
 function CreateBlock() {
+  const [coordinates, setCoordinates] = useState({ lat: 24, lng: 78 });
   const [formData, setFormData] = useState({
     title: "",
     description: "",
     location: "",
-    amount: "",
+    target_amount: "",
     deadline: "",
     image: "",
-    action: "",
+    actions: "",
+    thankyou: "",
+    legal_statements: "",
   });
+
+  const handleCoordinates = (e) => {
+    console.log(e);
+    setCoordinates({ lat: e.lat, lng: e.lng });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    fundingBlockify(formData).then((res) => {
+      console.log(res);
+    });
   };
 
   const handleChange = (e) => {
@@ -37,7 +49,7 @@ function CreateBlock() {
                   The more accurate and brief details you write the more donors will trust you.
                 </span>
               </div>
-              <form>
+              <form onSubmit={handleSubmit}>
                 <label className="font-regular text-muted font-14 mt-4 fields-required">
                   Title
                 </label>
@@ -68,18 +80,10 @@ function CreateBlock() {
                   />
                 </div>
                 <label className="font-regular text-muted font-14 mt-4 fields-required">
-                  Location
+                  Choose the mishappening location
                 </label>
-                <div className="input-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Enter the Location of mishappening"
-                    name="location"
-                    value={formData.location}
-                    onChange={handleChange}
-                    required
-                  />
+                <div style={{ height: "50vh", width: "100%" }}>
+                  <Map coordinates={coordinates} handleCoordinates={handleCoordinates} type="create"/>
                 </div>
                 <label className="font-regular text-muted font-14 mt-4 fields-required">
                   Target Amount
@@ -89,22 +93,8 @@ function CreateBlock() {
                     type="text"
                     className="form-control"
                     placeholder="What is your target amount?"
-                    name="amount"
-                    value={formData.amount}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-                <label className="font-regular text-muted font-14 mt-4 fields-required">
-                  Deadline
-                </label>
-                <div className="input-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Deadline"
-                    name="deadline"
-                    value={formData.deadline}
+                    name="target_amount"
+                    value={formData.target_amount}
                     onChange={handleChange}
                     required
                   />
@@ -131,17 +121,39 @@ function CreateBlock() {
                     type="text"
                     className="form-control"
                     placeholder="Enter the link"
-                    name="action"
-                    value={formData.action}
+                    name="actions"
+                    value={formData.actions}
                     onChange={handleChange}
                     required
                   />
                 </div>
-                <div className="font-14 text-muted font-demi mt-2">
-                  Help:{" "}
-                  <span className="font-regular">
-                    Link should consist of thank you statement and legal statement.
-                  </span>
+                <label className="font-regular text-muted font-14 mt-4 fields-required">
+                  Legal Statement
+                </label>
+                <div className="input-group">
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Enter the link"
+                    name="legal_statements"
+                    value={formData.legal_statements}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+                <label className="font-regular text-muted font-14 mt-4 fields-required">
+                  Thankyou Statement
+                </label>
+                <div className="input-group">
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Enter the link"
+                    name="thankyou"
+                    value={formData.thankyou}
+                    onChange={handleChange}
+                    required
+                  />
                 </div>
                 <div className="d-flex justify-content-center">
                   <Button title="Create" className="mt-5" />

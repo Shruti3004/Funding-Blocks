@@ -2,7 +2,14 @@ import React from "react";
 import CardImage from "../../assets/images/card.jpg";
 import { Link } from "react-router-dom";
 import Button from "../button";
+import { Dropdown } from "react-bootstrap";
 import CardButton from "../cardButton";
+import {
+  EmailShareButton,
+  FacebookShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+} from "react-share";
 
 const Card = ({ type }) => {
   if (type === "fundDetails") {
@@ -40,9 +47,11 @@ const Card = ({ type }) => {
           <div className="pt-3">
             <div className="d-flex justify-content-between">
               <h4 className="card-title text-primaryColor mt-3">About</h4>
-              <CardButton type="share" className="px-4">
-                <i className="fas fa-share-alt"></i>&nbsp;&nbsp;&nbsp;Share Now&nbsp;&nbsp;
-              </CardButton>
+              {/* <CardButton type="share" className="px-4">
+                    <i className="fas fa-share-alt"></i>&nbsp;&nbsp;&nbsp;Share Now&nbsp;&nbsp;
+                  </CardButton> */}
+              <EmailShareButton subject="se" body="x" />
+              <WhatsappShareButton title="Share" />
             </div>
             <hr />
             <p className="card-text text-muted font-medium">
@@ -79,7 +88,9 @@ const Card = ({ type }) => {
       <div>
         <div className={`box`}>
           <div className={`card-body`}>
-            <img src={CardImage} alt="card-image" className="card-img-top" />
+            <div>
+              <img src={CardImage} alt="card-image" className="card-img-top" />
+            </div>
             <div>
               <h4 className="card-title mt-4 text-primaryColor font-demi font-22">
                 Schooling Special Needs Children With Custom Education
@@ -88,15 +99,23 @@ const Card = ({ type }) => {
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry.
               </p>
               <hr />
-              <div className="font-22 font-bold text-primaryColor mt-3">
-                ₹ 2,76,63,065 <span className="text-muted font-14 font-regular">raised of </span>{" "}
-                <br />
-                <span className="text-muted font-demi">₹ 5,00,00,000 </span>
-                <span className="text-muted font-14 font-regular">goal</span>
+              <div className="d-flex justify-content-between">
+                <div className="font-22 font-bold text-primaryColor mt-3">
+                  ₹ 2,76,63,065 <span className="text-muted font-14 font-regular">raised of </span>{" "}
+                  <br />
+                  <span className="text-muted font-demi">₹ 5,00,00,000 </span>
+                  <span className="text-muted font-14 font-regular">goal</span>
+                </div>
+                <div className="votes text-primaryColor" style={{ marginRight: "10px" }}>
+                  <i className="fas fa-arrow-alt-circle-up fa-2x mt-3"></i>
+                  <br />
+                  <i className="fas fa-arrow-alt-circle-down fa-2x"></i>
+                </div>
               </div>
+
               <div className="progress mt-3">
                 <div
-                  className="progress-bar bg-primaryColor w-75"
+                  className="progress-bar bg-tertiarColor w-75"
                   role="progressbar"
                   aria-valuenow="50"
                   aria-valuemin="0"
@@ -108,7 +127,7 @@ const Card = ({ type }) => {
               <hr />
             </div>
             <div className="d-flex justify-content-center">
-            <CardButton className="mt-2 mb-3 w-100">Donate</CardButton>
+              <CardButton className="mt-2 mb-3 w-100">Donate</CardButton>
             </div>
           </div>
         </div>
