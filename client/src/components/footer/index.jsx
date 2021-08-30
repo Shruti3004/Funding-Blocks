@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "../button";
-import Logo from "../../assets/images/logo.svg"
+import Logo from "../../assets/images/logo.svg";
 const Footer = () => {
   return (
     <>
@@ -9,15 +9,17 @@ const Footer = () => {
         community members and investors to help.
       </div>
       <div className="footer-bg bg-primaryColor py-5 text-white">
-        <div className="flex-container container pt-4 pb-5 font-medium">
-          <div className="px-4">Name</div>
-          <div className="px-4">Address</div>
-          <div className="px-4">Edit Profile</div>
-          <div className="px-4">Current Balance</div>
-          <div className="px-4">Register</div>
-          <div className="px-4">Login</div>
-          <div className="d-flex justify-content-end">
-          <img src={Logo} alt="logo" width="80%" className="img-fluid"/>
+        <div className="container">
+          <div className="d-flex justify-content-between">
+            <div className="flex-container container pt-4 pb-5 font-medium">
+              <div className="px-4">Name</div>
+              <div className="px-4">Address</div>
+              <div className="px-4">Edit Profile</div>
+              <div className="px-4">Current Balance</div>
+              <div className="px-4">Register</div>
+              <div className="px-4">Login</div>
+            </div>
+            <img src={Logo} alt="logo" width="8%" className="img-fluid" />
           </div>
         </div>
         <hr />

@@ -20,7 +20,7 @@ const Navbar = () => {
       <NavCustom collapseOnSelect variant="dark" expand="lg" className="bg-primaryColor py-0">
         <Container>
           <NavCustom.Brand as={Link} to="/" className="text-white font-bold py-0">
-            <img src={Logo} alt="Funding Blocks" className="img-fluid" width="40%" />
+            <img src={Logo} alt="Funding Blocks" className="img-fluid my-3" width="30%" />
           </NavCustom.Brand>
           <NavCustom.Toggle aria-controls="responsive-navbar-nav" />
           <NavCustom.Collapse id="responsive-navbar-nav" className="text-white">
