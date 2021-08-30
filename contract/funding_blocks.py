@@ -162,6 +162,11 @@ class FundingBlock(sp.Contract):
         self.data.blocks[params.block_slug].downvotes += 1
         self.data.profiles[sp.sender].downvoted.add(params.block_slug)
 
+        downvoted_average = self.data.blocks[params.block_slug].downvoted_average
+        downvoted_average = sp.utils.nat_to_mutez(downvoted_average)
+        sp.if sp.split_tokens(sp.balance, sp.nat(1), sp.nat(2)) < downvoted_average:
+            del self.data.blocks[params.block_slug]
+
     @sp.entry_point
     def vote(self, params):
         """
@@ -250,3 +255,48 @@ def test():
     scenario += contract.withdraw_back(amount=sp.tez(43423)).run(sender=user2)
     scenario += contract.withdraw_back(amount=sp.tez(234535)).run(sender=user3, valid=False)
     scenario += contract.withdraw_back(amount=sp.tez(34523)).run(sender=user5, valid=False)
+
+    scenario.h1("Users making funding blocks")
+    scenario += contract.funding_blockify(
+        slug="blk1",
+        title="Funding Block1",
+        description="This is the first funding block",
+        latitude="28.679079",
+        longitude="77.069710",
+        image="https://www.brookings.edu/wp-content/uploads/2016/06/wildfire001.jpg",
+        target_amount=1000000000000,
+        actions="https://www.chubb.com/us-en/individuals-families/resources/what-to-do-when-a-wildfire-approaches.html",
+        legal_statements="",
+        thankyou="Thank you message 1",
+    ).run(sender=user1)
+    scenario += contract.funding_blockify(
+        slug="blk2",
+        title="Funding Block2",
+        description="This is the second funding block",
+        latitude="28.679079",
+        longitude="77.069710",
+        image="https://www.brookings.edu/wp-content/uploads/2016/06/wildfire001.jpg",
+        target_amount=1000000000000,
+        actions="https://www.chubb.com/us-en/individuals-families/resources/what-to-do-when-a-wildfire-approaches.html",
+        legal_statements="",
+        thankyou="Thank you message 2",
+    ).run(sender=user5, valid=False)
+    scenario += contract.funding_blockify(
+        slug="blk2",
+        title="Funding Block2",
+        description="This is the second funding block",
+        latitude="28.679079",
+        longitude="77.069710",
+        image="https://www.brookings.edu/wp-content/uploads/2016/06/wildfire001.jpg",
+        target_amount=1000000000000,
+        actions="https://www.chubb.com/us-en/individuals-families/resources/what-to-do-when-a-wildfire-approaches.html",
+        legal_statements="",
+        thankyou="Thank you message 2",
+    ).run(sender=user3)
+
+    scenario.h1("Users upvoting/downvoting the funding block")
+    scenario += contract.upvote(block_slug="blk1").run(sender=user2)
+    scenario += contract.upvote(block_slug="blk1").run(sender=user3)
+    scenario += contract.downvote(block_slug="blk1").run(sender=user4)
+    scenario += contract.downvote(block_slug="blk2").run(sender=user2)
+    scenario.verify(~contract.data.blocks.contains("blk2"))
