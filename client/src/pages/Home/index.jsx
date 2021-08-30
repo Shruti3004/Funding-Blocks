@@ -55,84 +55,84 @@ const Home = () => {
             <div className="col-lg-2 col-md-3 col-sm-6 col-6 mt-4">
               <div className="card">
                 <div className="card-img-top">
-                  <img src="/images/education.jpeg" alt="education" className="img-fluid" />
+                  <img src="/images/education.png" alt="education" className="img-fluid" />
                 </div>
               </div>
             </div>
             <div className="col-lg-2 col-md-3 col-sm-6 col-6 mt-4">
               <div className="card">
                 <div className="card-img-top">
-                  <img src="/images/cancer.jpeg" alt="cancer" className="img-fluid" />
+                  <img src="/images/cancer.png" alt="cancer" className="img-fluid" />
                 </div>
               </div>
             </div>
             <div className="col-lg-2 col-md-3 col-sm-6 col-6 mt-4">
               <div className="card">
                 <div className="card-img-top">
-                  <img src="/images/animals.jpeg" alt="animals" className="img-fluid" />
+                  <img src="/images/animals.png" alt="animals" className="img-fluid" />
                 </div>
               </div>
             </div>
             <div className="col-lg-2 col-md-3 col-sm-6 col-6 mt-4">
               <div className="card">
                 <div className="card-img-top">
-                  <img src="/images/heart.jpeg" alt="heart" className="img-fluid" />
+                  <img src="/images/heart.png" alt="heart" className="img-fluid" />
                 </div>
               </div>
             </div>
             <div className="col-lg-2 col-md-3 col-sm-6 col-6 mt-4">
               <div className="card">
                 <div className="card-img-top">
-                  <img src="/images/child-health.jpeg" alt="child-health" className="img-fluid" />
+                  <img src="/images/child-health.png" alt="child-health" className="img-fluid" />
                 </div>
               </div>
             </div>
             <div className="col-lg-2 col-md-3 col-sm-6 col-6 mt-4">
               <div className="card">
                 <div className="card-img-top">
-                  <img src="/images/accident.jpeg" alt="accident" className="img-fluid" />
+                  <img src="/images/accident.png" alt="accident" className="img-fluid" />
                 </div>
               </div>
             </div>
             <div className="col-lg-2 col-md-3 col-sm-6 col-6 mt-4">
               <div className="card">
                 <div className="card-img-top">
-                  <img src="/images/brain-injury.jpeg" alt="brain-injury" className="img-fluid" />
+                  <img src="/images/brain-injury.png" alt="brain-injury" className="img-fluid" />
                 </div>
               </div>
             </div>
             <div className="col-lg-2 col-md-3 col-sm-6 col-6 mt-4">
               <div className="card">
                 <div className="card-img-top">
-                  <img src="/images/tsunami.jpeg" alt="tsunami" className="img-fluid" />
+                  <img src="/images/tsunami.png" alt="tsunami" className="img-fluid" />
                 </div>
               </div>
             </div>
             <div className="col-lg-2 col-md-3 col-sm-6 col-6 mt-4">
               <div className="card">
                 <div className="card-img-top">
-                  <img src="/images/wildlife-fire.jpeg" alt="wildlife-fire" className="img-fluid" />
+                  <img src="/images/wildlife-fire.png" alt="wildlife-fire" className="img-fluid" />
                 </div>
               </div>
             </div>
             <div className="col-lg-2 col-md-3 col-sm-6 col-6 mt-4">
               <div className="card">
                 <div className="card-img-top">
-                  <img src="/images/covid.jpeg" alt="covid" className="img-fluid" />
+                  <img src="/images/covid.png" alt="covid" className="img-fluid" />
                 </div>
               </div>
             </div>
             <div className="col-lg-2 col-md-3 col-sm-6 col-6 mt-4">
               <div className="card">
                 <div className="card-img-top">
-                  <img src="/images/education.jpeg" alt="education" className="img-fluid" />
+                  <img src="/images/education.png" alt="education" className="img-fluid" />
                 </div>
               </div>
             </div>
             <div className="col-lg-2 col-md-3 col-sm-6 col-6 mt-4">
               <div className="card">
                 <div className="card-img-top">
-                  <img src="/images/education.jpeg" alt="education" className="img-fluid" />
+                  <img src="/images/education.png" alt="education" className="img-fluid" />
                 </div>
               </div>
             </div>
