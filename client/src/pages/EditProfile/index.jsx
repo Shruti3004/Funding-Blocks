@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Button from "../../components/button";
 import { updateProfile, getAccount } from "../../api";
+import Swal from "sweetalert2";
 
 function EditProfile() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -15,9 +16,13 @@ function EditProfile() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateProfile(formData.bio, formData.name).then((res) => {
-      console.log(res);
-    });
+    updateProfile(formData.bio, formData.name)
+      .then((res) => {
+        Swal.fire("You agreed with T&C :)");
+      })
+      .catch((e) => {
+        Swal.fire("You agreed with T&C :)");
+      });
   };
 
   const handleChange = (e) => {

@@ -39,7 +39,7 @@ const Home = () => {
               <Button title="All Disasters" className="mx-2" />
             </Link>
             <Link to="/createBlock">
-              <Button title="Create Funding Block" type="outline" className="mx-2" />
+              <Button title="Create Fundraiser" type="outline" className="mx-2" />
             </Link>
           </div>
         </div>
@@ -197,6 +197,15 @@ const Home = () => {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+      <div className="bg-light">
+        <div className="container py-section">
+          <h1 className="text-primaryColor text-center px-4">Features</h1>
+          <p className="text-tertiaryColor font-18 font-regular px-4 text-center mb-4">
+            Be it for a personal need, social cause or a creative idea - you can count on us for the
+            project that you want to raise funds for.
+          </p>
         </div>
       </div>
     </>
