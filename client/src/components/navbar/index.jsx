@@ -6,6 +6,7 @@ import { getAccount, logOut } from "../../api/index";
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const print = () => window.print();
 
   useEffect(() => {
     setIsLoggedIn(getAccount());
@@ -53,6 +54,12 @@ const Navbar = () => {
                   </Button>
                 </>
               )}
+              <div className="flex m-auto sm:m-0">
+                <button className="mx-2 btn text-white" onClick={print} title="Print this page">
+                  <i className="fa fa-print fa-2x" aria-hidden="true"></i>
+                </button>
+                <div id="google_translate_element"></div>
+              </div>
             </Nav>
           </NavCustom.Collapse>
         </Container>
