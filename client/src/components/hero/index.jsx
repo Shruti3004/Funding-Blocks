@@ -21,7 +21,7 @@ const HomeHero = () => {
       </div>
       <div className="features container mb-3">
         <div className="row mt-5">
-          <div className="col-lg-3 col-md-3 col-sm-12 col-12 bg-primaryColor text-white text-center center">
+          <div className="col-lg-3 col-md-3 col-sm-12 col-12 bg-primaryColor text-white text-center center py-5">
             <p className="font-demi font-22">The Primary capibilities of Funding Blocks</p>
             <p className="font-14 font-regular">
               Lorem Ipsum is simply dummy text of the printing and typesetting industry.

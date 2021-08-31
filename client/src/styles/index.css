@@ -249,7 +249,7 @@ li {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  height: 50vh;
+  min-height: 50vh;
 }
 .home-text {
   margin: auto;
@@ -259,6 +259,12 @@ li {
 .features {
   margin-top: -8%;
   box-shadow: 9px 10px 9px #01010317;
+}
+@media(max-width: 769px){
+  .features {
+    margin-top: -23%;
+    box-shadow: 9px 10px 9px #01010317;
+  }
 }
 .home-box-shadow {
   box-shadow: 2px 4px 9px #01010317;

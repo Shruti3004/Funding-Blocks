@@ -54,7 +54,7 @@ function EditProfile() {
               <hr />
               <br />
               <h4 className="text-center">
-                Total Donation: <code>{parseInt(formData.donated) / 1000000} ꜩ</code>
+                Total Donation: <code>{parseInt(formData?.donated) / 1000000} ꜩ</code>
               </h4>
               <br />
               <h6>
