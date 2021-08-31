@@ -1,6 +1,6 @@
 import React from "react";
 // import Button from "../button";
-import Logo from "../../assets/images/logo.svg";
+import Logo from "../../assets/images/logo-footer.svg";
 
 const Footer = () => {
   return (
@@ -12,14 +12,14 @@ const Footer = () => {
       <div className="footer-bg bg-primaryColor py-5 text-white">
         <div className="container">
           <div className="d-flex flex-column justify-content-center align-items-center">
-            <img src={Logo} alt="logo" width="20%" className="mb-4" />
-            <div className="flex-container container justify-content-center pt-4 pb-5 font-medium">
-              <div className="px-4">Name</div>
-              <div className="px-4">Address</div>
-              <div className="px-4">Edit Profile</div>
-              <div className="px-4">Current Balance</div>
-              <div className="px-4">Register</div>
-              <div className="px-4">Login</div>
+            <img src={Logo} alt="logo" max-width="20%" className="mb-4" />
+            <div className="flex-container container justify-content-center pt-4 pb-5 font-medium text-center">
+              <div className="px-4 py-1">Name</div>
+              <div className="px-4 py-1">Address</div>
+              <div className="px-4 py-1">Edit Profile</div>
+              <div className="px-4 py-1">Current Balance</div>
+              <div className="px-4 py-1">Register</div>
+              <div className="px-4 py-1">Login</div>
             </div>
           </div>
         </div>
