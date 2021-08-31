@@ -1,14 +1,13 @@
 <p align="center" style="margin:'40px'">
-    <img alt="Funding Blocks Logo" height="125" src="./demo/logo.png">
+    <img alt="Funding Blocks Logo" height="150" src="./demo/logo.svg">
 </p>
 
 <p align="center">
-What if Donations become Transparent?<br/>Introducing a New and Decentralised way to help!
+What if donations become transparent?<br/>Introducing a new and decentralised way to help!
 </p>
 <p align="center">
 <a href="https://funding-blocks.netlify.app/">View Demo</a>
 </p>
-
 
 <details open="open">
   <summary><b>Table of Contents</b></summary>
@@ -33,57 +32,63 @@ What if Donations become Transparent?<br/>Introducing a New and Decentralised wa
 <a id=about-the-project></a>
 
 # 🔎 About the Project
-[Funding Blocks](https://funding-blocks.netlify.app/) is the First of it's kind Decentralised donation app. It eliminates majority of obstacles and risk factors that we face while Donating relief funds.
+
+[Funding Blocks](https://funding-blocks.netlify.app/) is the First of it's kind decentralised donation app. It eliminates majority of obstacles and risk factors that we face while Donating relief funds.
 It ensures the transparency in a trustless environment, enabling rapid action to any disaster in the world.
 
 <a id=built-with></a>
 
 ### Built With
-- React
-- Bootstrap
-- Tezos
-- SmartPy
+
+-   React
+-   Bootstrap
+-   Tezos
+-   SmartPy
 
 <a id=wheres-the-problem></a>
 
 # ❓ Where's the Problem?
-* People donate less
-  * **No trust** on the organisations
-  * They don’t get anything in return
-* Sometimes It takes **weeks** to raise the minimum amount needed
-  * Average person gets aware in around 24 hours
-  * Spreading awareness consumes majority of time
-  * Some people are ready to contribute but don’t have funds on time
-* What if they raised 100k but only used 80k?
-  * No one knows
-  * But the donors have a **right to know**
+
+-   People donate less
+    -   **No trust** on the organisations
+    -   They don’t get anything in return
+-   Sometimes It takes **weeks** to raise the minimum amount needed
+    -   Average person gets aware in around 24 hours
+    -   Spreading awareness consumes majority of time
+    -   Some people are ready to contribute but don’t have funds on time
+-   What if they raised 100k but only used 80k?
+    -   No one knows
+    -   But the donors have a **right to know**
 
 <a id=presenting-funding-blocks></a>
 
 # 🎁 Presenting Funding Blocks
-* Donors can raise fund before a calamity has occurred
-  * They get Certificate for donation as NFT
-  * Funds cannot be stolen
-  * They cannot be withdrawn without any need
-* Total amount collected is always transparent
-  * The total time can be just a couple of minutes
-  * Donors vote for the amount to be withdrawn
-  * Amount withdrawn is fully transparent
+
+-   Donors can raise fund before a calamity has occurred
+    -   They get Certificate for donation as NFT
+    -   Funds cannot be stolen
+    -   They cannot be withdrawn without any need
+-   Total amount collected is always transparent
+    -   The total time can be just a couple of minutes
+    -   Donors vote for the amount to be withdrawn
+    -   Amount withdrawn is fully transparent
 
 <a id=how-it-works></a>
 
 # 🤔 But, how does it work?
+
 <img src="./demo/Workflow.png" align="center" width="720px">
 
 <a id=funds-transfer></a>
 
 ## Funds Transfer -
-* Donors vote for the withdraw amount
-* The voting process continues until
-  * 25% of the total donors have voted or
-  * 50% have downvoted it
-* If ≥  50% have downvoted, the Funding Block is canceled
-* Else, the funds are transferred to the organisation.
+
+-   Donors vote for the withdraw amount
+-   The voting process continues until
+    -   25% of the total donors have voted or
+    -   50% have downvoted it
+-   If ≥ 50% have downvoted, the Funding Block is canceled
+-   Else, the funds are transferred to the organisation.
 
 <a id=key-differentiators></a>
 
@@ -105,18 +110,18 @@ It ensures the transparency in a trustless environment, enabling rapid action to
 
 ##### `Install server dependencies`
 
-- npm install
+-   npm install
 
 ##### `Install client dependencies`
 
-- cd client
-- npm install
-- npm start
+-   cd client
+-   npm install
+-   npm start
 
 ##### `Build for production`
 
-- cd client
-- npm run build
+-   cd client
+-   npm run build
 
 Check in browser on http://localhost:3000/
 
@@ -138,4 +143,3 @@ Check in browser on http://localhost:3000/
 # 📝 License
 
 This project follows the [MIT License](LICENSE).
-

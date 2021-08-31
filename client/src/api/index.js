@@ -199,7 +199,6 @@ export const getBlock = async (address) => {
         "/bigmaps/blocks/keys/" +
         address
     );
-    console.log(body.data);
     return body.data;
   } catch (error) {
     return error;
