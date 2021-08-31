@@ -1,4 +1,4 @@
-<p align="center" style="margin:'30px'">
+<p align="center" style="margin:'40px'">
     <img alt="Funding Blocks Logo" height="125" src="./demo/logo.png">
 </p>
 
