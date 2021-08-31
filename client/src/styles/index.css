@@ -331,3 +331,11 @@ select {
   color: transparent !important;
   margin-bottom: -10px;
 }
+
+.navbar-toggler {
+  padding: 0 !important;
+  font-size: 1.25rem;
+  line-height: 1;
+  background-color: transparent;
+  border: none !important;
+}

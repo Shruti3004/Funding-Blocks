@@ -28,7 +28,7 @@ function EditProfile() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateProfile(formData.bio, formData.name);
+    updateProfile(formData?.bio, formData?.name);
     // .then((res) => {
     //   Swal.fire("You agreed with T&C :)");
     // })
@@ -72,7 +72,7 @@ function EditProfile() {
                     type="text"
                     className="form-control"
                     name="name"
-                    value={formData.name}
+                    value={formData?.name}
                     onChange={handleChange}
                     required
                   />
@@ -83,7 +83,7 @@ function EditProfile() {
                     type="text"
                     className="form-control"
                     name="bio"
-                    value={formData.bio}
+                    value={formData?.bio}
                     onChange={handleChange}
                     rows="5"
                     required
