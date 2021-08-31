@@ -69,7 +69,7 @@ const Card = ({ type, block }) => {
         <div className={`box`}>
           <div className={`card-body`}>
             <div>
-              <img src={block?.value?.image} alt="card-image" className="card-img-top" />
+              <img src={block?.value?.image} alt="card-image" height="160px" className="card-img-top" />
             </div>
             <div>
               <h4 className="card-title mt-4 text-primaryColor font-demi font-22">

@@ -1,5 +1,5 @@
-<p align="center">
-    <img alt="Funding Blocks Logo" height="125" src="./demo/Logo.png">
+<p align="center" style="margin:'30px'">
+    <img alt="Funding Blocks Logo" height="125" src="./demo/logo.png">
 </p>
 
 <p align="center">
@@ -78,7 +78,7 @@ It ensures the transparency in a trustless environment, enabling rapid action to
 <a id=funds-transfer></a>
 
 ## Funds Transfer -
-* Donors vote for the withdraw amount 
+* Donors vote for the withdraw amount
 * The voting process continues until
   * 25% of the total donors have voted or
   * 50% have downvoted it
