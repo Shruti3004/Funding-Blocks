@@ -260,7 +260,7 @@ li {
   margin-top: -8%;
   box-shadow: 9px 10px 9px #01010317;
 }
-@media(max-width: 769px){
+@media (max-width: 769px) {
   .features {
     margin-top: -23%;
     box-shadow: 9px 10px 9px #01010317;

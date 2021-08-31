@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Button from "../../components/button";
-// import { Redirect } from "react-router-dom";
 import { updateProfile, getAccount, getUser, getBalance, fundingBlockify } from "../../api";
-// import Swal from "sweetalert2";
 
 function EditProfile() {
   const [address, setAddress] = useState(null);

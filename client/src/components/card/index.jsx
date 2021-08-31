@@ -12,7 +12,7 @@ import {
   WhatsappShareButton,
 } from "react-share";
 
-const Card = ({ type, block }) => {
+const Card = ({ type, block, showModal }) => {
   if (type === "fundDetails") {
     return (
       <div>
@@ -57,7 +57,9 @@ const Card = ({ type, block }) => {
             </div>
             <hr />
             <p className="card-text text-muted font-medium">{block && block?.value?.description}</p>
-            <CardButton className="mt-4">Donate</CardButton>
+            <CardButton onClick={() => showModal(true)} className="mt-4">
+              Donate
+            </CardButton>
           </div>
         </div>
       </div>
@@ -69,7 +71,12 @@ const Card = ({ type, block }) => {
         <div className={`box`}>
           <div className={`card-body`}>
             <div>
-              <img src={block?.value?.image} alt="card-image" height="160px" className="card-img-top" />
+              <img
+                src={block?.value?.image}
+                alt="card-image"
+                height="160px"
+                className="card-img-top"
+              />
             </div>
             <div>
               <h4 className="card-title mt-4 text-primaryColor font-demi font-22">
