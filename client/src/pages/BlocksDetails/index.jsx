@@ -8,7 +8,7 @@ import Modalcentered from "../../components/modals/Modalcentered";
 import { getBlock } from "../../api/";
 const BlockDetails = () => {
   const params = useParams();
-  const [modal, setModal] = useState(true);
+  const [modal, setModal] = useState(false);
   const [block, setBlock] = useState({});
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -20,7 +20,7 @@ const BlockDetails = () => {
 
     return () => setBlock({});
   }, []);
-  console.log(block);
+  console.log(modal);
 
   return loading ? (
     <div>Loading...</div>

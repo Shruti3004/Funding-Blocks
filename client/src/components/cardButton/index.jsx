@@ -1,10 +1,11 @@
 import React from "react";
 
-const CardButton = ({ title, type, className, children }) => {
+const CardButton = ({ title, type, className, children, setModal }) => {
   if (type === "share") {
     return (
       <>
         <button
+         
           className={
             type === "outline"
               ? `text-secondaryColor font-medium dropdown-toggle font-18 custom-cardbutton-outline ${
@@ -36,7 +37,8 @@ const CardButton = ({ title, type, className, children }) => {
   }
   return (
     <button
-      className={
+     onClick={() => setModal(true)}  
+    className={
         type === "outline"
           ? `text-secondaryColor font-medium font-18 custom-cardbutton-outline ${
               className && className

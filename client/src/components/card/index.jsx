@@ -10,7 +10,7 @@ import {
   WhatsappShareButton,
 } from "react-share";
 
-const Card = ({ type, block, showModal }) => {
+const Card = ({ type, block, setModal }) => {
   if (type === "fundDetails") {
     return (
       <div>
@@ -40,13 +40,14 @@ const Card = ({ type, block, showModal }) => {
   }
 
   if (type === "blockDetails") {
+    console.log(setModal);
     return (
       <div className={`box blockDetails_card`}>
         <div className={`card-body `}>
           <img src={block?.value?.image} alt="card-image" className="card-img-top" />
           <div className="pt-3">
             <div className="d-flex justify-content-between">
-              <h4 className="card-title text-primaryColor mt-3">About</h4>
+              <h4 className="card-title text-primaryColor mt-3">Aboust</h4>
               {/* <CardButton type="share" className="px-4">
                     <i className="fas fa-share-alt"></i>&nbsp;&nbsp;&nbsp;Share Now&nbsp;&nbsp;
                   </CardButton> */}
@@ -55,9 +56,11 @@ const Card = ({ type, block, showModal }) => {
             </div>
             <hr />
             <p className="card-text text-muted font-medium">{block && block?.value?.description}</p>
-            <CardButton onClick={() => showModal(true)} className="mt-4">
+           
+            <CardButton setModal={setModal} className="mt-4">
               Donate
             </CardButton>
+         
           </div>
         </div>
       </div>
@@ -126,8 +129,12 @@ const Card = ({ type, block, showModal }) => {
             <hr />
           </div>
           <div className="d-flex justify-content-between">
-            <CardButton className="bg-secondaryColor">Support</CardButton>
-            <CardButton className="bg-danger">Report</CardButton>
+            <CardButton className="bg-secondaryColor" onClick={() => {
+                    upVote(block?.key);
+                  }}>Support</CardButton>
+            <CardButton className="bg-danger" onClick={() => {
+                    upVote(block?.key);
+                  }}>Reposrt</CardButton>
           </div>
         </div>
       </div>

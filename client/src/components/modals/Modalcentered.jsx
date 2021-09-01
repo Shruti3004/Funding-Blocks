@@ -1,17 +1,41 @@
-import React from "react";
+import React, {useState} from "react";
 import { Modal, Button } from "react-bootstrap";
+import Slider from 'react-input-slider';
+
 const Modalcentered = (props) => {
+  const [state, setState] = useState({ x: 10, y: 10 });
   return (
     <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+       
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">Modal heading</Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter">Donate</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h4>Centered Modal</h4>
+        <h4>Select the amount</h4>
         <p>
-          Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
-          in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+         Your donation can save multiple lives. Be a hero today.
         </p>
+        <div className="w-80 d-flex justify-content-around align-items-center">
+         <Slider
+           styles={{
+    active: {
+      backgroundColor: 'green'
+    },
+    track: {
+      backgroundColor: 'grey'
+    },
+
+    disabled: {
+      opacity: 0.5
+    }
+  }}
+        axis="x"
+        x={state.x}
+        xmax={15000}
+        onChange={({ x }) => setState(state => ({ ...state, x }))}
+      />
+      ${state.x}
+      </div>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>Close</Button>
