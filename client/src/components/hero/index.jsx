@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import CountUp from "react-countup";
 import Button from "../button";
+import Modalcentered from "../modals/Modalcentered";
 
 const HomeHero = () => {
+  const [modal, setModal] = useState(false);
+  const handleSubmit = () => setModal(true);
+
   return (
     <div>
+      <Modalcentered show={modal} onHide={() => setModal(false)} />
       <div className="bg-image">
         <div className="home-text text-center py-section">
           <div className="d-flex justify-content-center align-items-center h-100 flex-column">
@@ -12,10 +17,10 @@ const HomeHero = () => {
               <CountUp end={10000000} duration={5} className="text-center" />
             </h1>
             <h1 className="text-white">An easy way to raise funds</h1>
-            <div className="text-white display-4 font-demi pb-5">
+            <div className="text-white display-4 font-demi">
               What if donations becomes transparent?
             </div>
-            {/* <Button title="Know More" className="mt-4" /> */}
+            <Button title="Donate Now" className="mt-4 mb-5" handleSubmit={handleSubmit} />
           </div>
         </div>
       </div>

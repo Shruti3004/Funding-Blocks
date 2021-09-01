@@ -9,20 +9,6 @@ const Home = () => {
   return (
     <>
       <HomeHero />
-      {/* <section className="home">
-        <div className="container py-5 text-white text-center" style={{ height: "94vh" }}>
-          <div className="d-flex justify-content-center align-items-center h-100 flex-column">
-            <h1 className="display-2">
-              <CountUp end={10000000} duration={5} className="text-center" />
-            </h1>
-            <h1 className="text-white">An easy way to raise funds</h1>
-            <div className="text-white display-4 font-demi">
-              What if donations becomes transparent?
-            </div>
-            <Button title="Know More" className="mt-4" />
-          </div>
-        </div>
-      </section> */}
       <div className="bg-light">
         <div className="container">
           <div className="row d-flex justify-content-center py-5 ">
@@ -199,15 +185,6 @@ const Home = () => {
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div className="bg-light">
-        <div className="container py-section">
-          <h1 className="text-primaryColor text-center px-4">Features</h1>
-          <p className="text-tertiaryColor font-18 font-regular px-4 text-center mb-4">
-            Be it for a personal need, social cause or a creative idea - you can count on us for the
-            project that you want to raise funds for.
-          </p>
         </div>
       </div>
     </>

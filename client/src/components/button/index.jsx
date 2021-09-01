@@ -8,7 +8,7 @@ const Button = ({ title, type, className, handleSubmit }) => {
           ? `text-tertiaryColor font-medium font-18 custom-button-outline ${className && className}`
           : `bg-tertiaryColor font-medium font-18 custom-button ${className && className}`
       }
-      onSubmit={handleSubmit}
+      onClick={handleSubmit}
     >
       {title}
     </button>

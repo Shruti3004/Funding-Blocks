@@ -339,3 +339,13 @@ select {
   background-color: transparent;
   border: none !important;
 }
+
+button.close {
+  color: var(--primary-color);
+  border: none;
+  background: transparent;
+  font-size: 2rem;
+  padding: 0;
+  font-weight: bolder;
+  margin: 0;
+}
