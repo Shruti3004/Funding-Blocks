@@ -35,14 +35,22 @@ function SignUp() {
 
   return (
     <div className="bg-light">
+      <div className="bg-secondaryColor py-section">
+        <div className="container">
+        <h1 className="text-white text-center">Serve yourself for the noble cause.</h1>
+        <div className="text-white font-18 font-medium text-center">
+          ​0% platform fees for funds raised on Fundinf Blocks
+        </div>
+        </div>
+      </div>
       <div className="container">
-        <div className="row">
+        <div className="row d-flex justify-content-center">
           <div className="col-lg-5 col-md-6 col-sm-12 col-12 form-center">
-            <div className="bg-white my-5 box py-5 px-lg-5 px-4">
+            <div className="bg-white form-margin mb-5 box py-5 px-lg-5 px-4">
               <h1 className="text-center font-demi text-primaryColor">Register yourself!</h1>
               <hr />
               <form onSubmit={handleSubmit}>
-                <label className="font-regular text-muted font-14 mt-4 fields-required">
+                <label className="font-demi text-primaryColor font-14 mt-4 fields-required">
                   Your Name
                 </label>
                 <div className="input-group">
@@ -56,7 +64,7 @@ function SignUp() {
                     required
                   />
                 </div>
-                <label className="font-regular text-muted font-14 mt-4 fields-required">Bio</label>
+                <label className="font-demi text-primaryColor font-14 mt-4 fields-required">Bio</label>
                 <div className="input-group">
                   <textarea
                     type="text"

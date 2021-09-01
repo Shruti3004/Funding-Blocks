@@ -353,3 +353,6 @@ button.close {
 button:focus, button:active{
   outline: none;
 }
+.form-margin{
+  margin-top: -10%;
+}
