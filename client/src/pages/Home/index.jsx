@@ -200,13 +200,20 @@ const Home = () => {
             <div className="col-lg-4 col-md-6 col-sm-12 col-12 text-center text-white mt-3">
               <div className="bg-secondaryColor py-5 h-100">
                 <h3>Startup Funding</h3>
-                <p className="font-medium font-18">Startups can also create their Funding Blocks.</p>
+                <p className="font-medium font-18">
+                  Startups can also create their Funding Blocks.
+                </p>
               </div>
+              {/* <div className="d-flex justify-content-center">
+                <div className="py-4 bg-secondaryColor triangle" style={{ width: "80px" }}></div>
+              </div> */}
             </div>
             <div className="col-lg-4 col-md-6 col-sm-12 col-12 text-center text-white mt-3">
               <div className="bg-tertiaryColor py-5 h-100">
                 <h3>Refugee Relief</h3>
-                <p className="font-medium font-18">The total relief funds will be distributed to each wallet separately.</p>
+                <p className="font-medium font-18">
+                  The total relief funds will be distributed to each wallet separately.
+                </p>
               </div>
             </div>
           </div>
