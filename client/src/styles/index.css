@@ -349,3 +349,7 @@ button.close {
   font-weight: bolder;
   margin: 0;
 }
+
+button:focus, button:active{
+  outline: none;
+}
