@@ -38,11 +38,11 @@ const HomeHero = () => {
                 <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center box py-2">
                   <div className="card">
                     <div className="card-img-top">
-                      <img src="/images/brain-injury.png" alt="education" className="img-fluid" />
+                      <img src="/images/accident.jpg" alt="accident" className="img-fluid" />
                     </div>
                     <div className="card-content">
                       <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
-                        Education
+                        Accident
                       </div>
                     </div>
                   </div>
@@ -50,11 +50,11 @@ const HomeHero = () => {
                 <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center box py-2">
                   <div className="card">
                     <div className="card-img-top">
-                      <img src="/images/brain-injury.png" alt="education" className="img-fluid" />
+                      <img src="/images/wildfire.jpg" alt="wildfire" className="img-fluid" />
                     </div>
                     <div className="card-content">
                       <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
-                        Education
+                        Wildfire
                       </div>
                     </div>
                   </div>
@@ -62,11 +62,11 @@ const HomeHero = () => {
                 <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center box py-2">
                   <div className="card">
                     <div className="card-img-top">
-                      <img src="/images/brain-injury.png" alt="education" className="img-fluid" />
+                      <img src="/images/cyclone.jpg" alt="cyclone" className="img-fluid" />
                     </div>
                     <div className="card-content">
                       <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
-                        Education
+                        Cyclone
                       </div>
                     </div>
                   </div>
@@ -74,11 +74,11 @@ const HomeHero = () => {
                 <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center box py-2">
                   <div className="card">
                     <div className="card-img-top">
-                      <img src="/images/brain-injury.png" alt="education" className="img-fluid" />
+                      <img src="/images/earthquake.jpg" alt="earthquake" className="img-fluid" />
                     </div>
                     <div className="card-content">
                       <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
-                        Education
+                        Earthquake
                       </div>
                     </div>
                   </div>
@@ -88,11 +88,11 @@ const HomeHero = () => {
                 <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center box py-2">
                   <div className="card">
                     <div className="card-img-top">
-                      <img src="/images/education.png" alt="education" className="img-fluid" />
+                      <img src="/images/epidemic.jpg" alt="epidemic" className="img-fluid" />
                     </div>
                     <div className="card-content">
                       <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
-                        Education
+                        Epidemic
                       </div>
                     </div>
                   </div>
@@ -100,11 +100,11 @@ const HomeHero = () => {
                 <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center box py-2">
                   <div className="card">
                     <div className="card-img-top">
-                      <img src="/images/child-health.png" alt="education" className="img-fluid" />
+                      <img src="/images/flood.jpg" alt="flood" className="img-fluid" />
                     </div>
                     <div className="card-content">
                       <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
-                        Education
+                        Flood
                       </div>
                     </div>
                   </div>
@@ -112,11 +112,11 @@ const HomeHero = () => {
                 <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center box py-2">
                   <div className="card">
                     <div className="card-img-top">
-                      <img src="/images/brain-injury.png" alt="education" className="img-fluid" />
+                      <img src="/images/landslide.jpg" alt="landslide" className="img-fluid" />
                     </div>
                     <div className="card-content">
                       <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
-                        Education
+                        Landslide
                       </div>
                     </div>
                   </div>
@@ -124,11 +124,11 @@ const HomeHero = () => {
                 <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center box py-2">
                   <div className="card">
                     <div className="card-img-top">
-                      <img src="/images/brain-injury.png" alt="education" className="img-fluid" />
+                      <img src="/images/tornado.jpg" alt="tornado" className="img-fluid" />
                     </div>
                     <div className="card-content">
                       <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
-                        Education
+                        Tornado
                       </div>
                     </div>
                   </div>
