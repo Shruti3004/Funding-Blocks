@@ -44,10 +44,18 @@ function EditProfile() {
 
   return (
     <div className="bg-light">
+      <div className="bg-secondaryColor py-section">
+        <div className="container">
+          <h1 className="text-white text-center">Your contribution in saving the lives.</h1>
+          <div className="text-white font-18 font-medium text-center">
+            ​0% platform fees for funds raised on Fundinf Blocks
+          </div>
+        </div>
+      </div>
       <div className="container">
-        <div className="row">
+        <div className="row d-flex justify-content-center">
           <div className="col-lg-5 col-md-6 col-sm-12 col-12 form-center">
-            <div className="bg-white my-5 box py-5 px-lg-5 px-4">
+            <div className="bg-white form-margin mb-5 box py-5 px-lg-5 px-4">
               <h1 className="text-center font-demi text-primaryColor">My Profile</h1>
               <hr />
               <br />
