@@ -11,8 +11,6 @@ import EditProfile from "./pages/EditProfile";
 import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
 
-import { Tezos, Wallet } from "./api";
-
 const Routes = () => {
   return (
     <>
@@ -24,12 +22,8 @@ const Routes = () => {
           <Route exact path="/blocks" component={Blocks} />
           <Route exact path="/createBlock" component={CreateBlock} />
           <Route exact path="/blockDetails/:id" component={BlockDetails} />
-          <Route exact path="/signup" component={() => <SignUp tezos={Tezos} wallet={Wallet} />} />
-          <Route
-            exact
-            path="/editProfile"
-            component={() => <EditProfile tezos={Tezos} wallet={Wallet} />}
-          />
+          <Route exact path="/signup" component={SignUp} />
+          <Route exact path="/editProfile" component={EditProfile} />
           <Route path="*" component={Default} />
         </Switch>
         <Footer />

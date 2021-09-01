@@ -1,30 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { Navbar as NavCustom, Container, Nav, NavDropdown, Button } from "react-bootstrap";
+import { Navbar as NavCustom, Container, Nav, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/images/logo.svg";
-import { getAccount, logOut } from "../../api/index";
+import { getAccount } from "../../api/index";
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const print = () => window.print();
 
   useEffect(() => {
-    setIsLoggedIn(getAccount());
+    getAccount().then((res) => setIsLoggedIn(res.result));
   }, []);
-
-  const logout = async () => {
-    setIsLoggedIn(false);
-  };
 
   return (
     <>
-      <NavCustom collapseOnSelect variant="dark" expand="lg" className="bg-primaryColor py-0">
+      <NavCustom collapseOnSelect variant="dark" expand="lg" className="bg-primaryColor py-0 ">
         <Container>
-          <NavCustom.Brand as={Link} to="/" className="text-white font-bold py-0">
-            <img src={Logo} alt="Funding Blocks" className="img-fluid my-3" width="30%" />
+          <NavCustom.Brand as={Link} to="/">
+            <img src={Logo} alt="Funding Blocks" className="img-fluid my-2" width="50%" />
           </NavCustom.Brand>
           <NavCustom.Toggle aria-controls="responsive-navbar-nav" />
-          <NavCustom.Collapse id="responsive-navbar-nav" className="text-white">
+          <NavCustom.Collapse id="responsive-navbar-nav" className="text-white text-center">
             <Nav className="me-auto"></Nav>
             <Nav>
               <Nav.Link as={Link} to="/" className="text-white font-demi px-4">
@@ -45,21 +40,11 @@ const Navbar = () => {
                   Register
                 </Nav.Link>
               ) : (
-                <>
-                  <Nav.Link as={Link} to="/editProfile" className="text-white font-demi px-4">
-                    Edit Profile
-                  </Nav.Link>
-                  {/* <Button variant="danger" onClick={() => logout()}>
-                    Log Out
-                  </Button> */}
-                </>
+                <Nav.Link as={Link} to="/editProfile" className="text-white font-demi px-4">
+                  My Profile
+                </Nav.Link>
               )}
-              <div className="d-flex">
-                <button className="mx-2 btn text-white" onClick={print} title="Print this page">
-                  <i className="fa fa-print" aria-hidden="true"></i>
-                </button>
-                <div id="google_translate_element"></div>
-              </div>
+              <div id="google_translate_element"></div>
             </Nav>
           </NavCustom.Collapse>
         </Container>

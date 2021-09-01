@@ -2,28 +2,42 @@ import React, { useState } from "react";
 import { fundingBlockify } from "../../api";
 import Button from "../../components/button";
 import Map from "../../components/map/Map";
+
+function slugify(text) {
+  return text
+    .toString()
+    .toLowerCase()
+    .replace(/\s+/g, "-") // Replace spaces with -
+    .replace(/[^\w\-]+/g, "") // Remove all non-word chars
+    .replace(/\-\-+/g, "-") // Replace multiple - with single -
+    .replace(/^-+/, "") // Trim - from start of text
+    .replace(/-+$/, ""); // Trim - from end of text
+}
+
 function CreateBlock() {
   const [coordinates, setCoordinates] = useState({ lat: 24, lng: 78 });
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    location: "",
     target_amount: "",
-    deadline: "",
     image: "",
     actions: "",
+    slug: "",
     thankyou: "",
     legal_statements: "",
+    latitude: "",
+    longitude: "",
   });
 
   const handleCoordinates = (e) => {
-    console.log(e);
     setCoordinates({ lat: e.lat, lng: e.lng });
+    setFormData({ ...formData, latitude: String(e.lat), longitude: String(e.lng) });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fundingBlockify(formData).then((res) => {
+    console.log({ ...formData, slug: slugify(formData.title) });
+    fundingBlockify({ ...formData, slug: slugify(formData.title) }).then((res) => {
       console.log(res);
     });
   };
@@ -83,14 +97,18 @@ function CreateBlock() {
                   Choose the mishappening location
                 </label>
                 <div style={{ height: "50vh", width: "100%" }}>
-                  <Map coordinates={coordinates} handleCoordinates={handleCoordinates} type="create"/>
+                  <Map
+                    coordinates={coordinates}
+                    handleCoordinates={handleCoordinates}
+                    type="create"
+                  />
                 </div>
                 <label className="font-regular text-muted font-14 mt-4 fields-required">
                   Target Amount
                 </label>
                 <div className="input-group">
                   <input
-                    type="text"
+                    type="number"
                     className="form-control"
                     placeholder="What is your target amount?"
                     name="target_amount"

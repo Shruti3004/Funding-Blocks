@@ -249,7 +249,7 @@ li {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  height: 50vh;
+  min-height: 50vh;
 }
 .home-text {
   margin: auto;
@@ -260,6 +260,12 @@ li {
   margin-top: -8%;
   box-shadow: 9px 10px 9px #01010317;
 }
+@media (max-width: 769px) {
+  .features {
+    margin-top: -23%;
+    box-shadow: 9px 10px 9px #01010317;
+  }
+}
 .home-box-shadow {
   box-shadow: 2px 4px 9px #01010317;
 }
@@ -269,7 +275,6 @@ li {
   align-items: center;
   flex-direction: column;
 }
-
 
 /****************************************** Sidebar ******************************************/
 .sidebar {
@@ -307,7 +312,7 @@ li {
   color: #fff;
 }
 
-select{
+select {
   border: none;
   background: white;
   color: var(--primary-color);
@@ -319,10 +324,18 @@ select{
   padding-right: 5px;
 }
 
-.goog-logo-link{
+.goog-logo-link {
   display: none;
 }
-.goog-te-gadget{
+.goog-te-gadget {
   color: transparent !important;
   margin-bottom: -10px;
+}
+
+.navbar-toggler {
+  padding: 0 !important;
+  font-size: 1.25rem;
+  line-height: 1;
+  background-color: transparent;
+  border: none !important;
 }

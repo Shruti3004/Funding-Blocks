@@ -1,6 +1,7 @@
 import React from "react";
-import Button from "../button";
-import Logo from "../../assets/images/logo.svg";
+// import Button from "../button";
+import Logo from "../../assets/images/logo-footer.svg";
+
 const Footer = () => {
   return (
     <>
@@ -10,21 +11,21 @@ const Footer = () => {
       </div>
       <div className="footer-bg bg-primaryColor py-5 text-white">
         <div className="container">
-          <div className="d-flex justify-content-between">
-            <div className="flex-container container pt-4 pb-5 font-medium">
-              <div className="px-4">Name</div>
-              <div className="px-4">Address</div>
-              <div className="px-4">Edit Profile</div>
-              <div className="px-4">Current Balance</div>
-              <div className="px-4">Register</div>
-              <div className="px-4">Login</div>
+          <div className="d-flex flex-column justify-content-center align-items-center">
+            <img src={Logo} alt="logo" max-width="20%" className="mb-4" />
+            <div className="flex-container container justify-content-center pt-4 pb-5 font-medium text-center">
+              <div className="px-4 py-1">Name</div>
+              <div className="px-4 py-1">Address</div>
+              <div className="px-4 py-1">Edit Profile</div>
+              <div className="px-4 py-1">Current Balance</div>
+              <div className="px-4 py-1">Register</div>
+              <div className="px-4 py-1">Login</div>
             </div>
-            <img src={Logo} alt="logo" width="8%" className="img-fluid" />
           </div>
         </div>
         <hr />
-        <div className="text-center pt-3">
-          {new Date().getFullYear()} &copy; Team Funding Blocks
+        <div className="text-center pt-4">
+          Copyright &copy; {new Date().getFullYear()} Funding Blocks
         </div>
       </div>
     </>
