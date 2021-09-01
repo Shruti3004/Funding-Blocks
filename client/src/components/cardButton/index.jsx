@@ -10,9 +10,7 @@ const CardButton = ({ title, type, className, children }) => {
               ? `text-secondaryColor font-medium dropdown-toggle font-18 custom-cardbutton-outline ${
                   className && className
                 }`
-              : `font-medium dropdown-toggle font-18 custom-cardbutton ${
-                  className && className
-                }`
+              : `font-medium dropdown-toggle font-18 custom-cardbutton ${className && className}`
           }
           id="dropdownMenuLink"
           data-toggle="dropdown"

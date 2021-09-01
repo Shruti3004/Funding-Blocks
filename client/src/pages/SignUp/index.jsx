@@ -37,10 +37,10 @@ function SignUp() {
     <div className="bg-light">
       <div className="bg-secondaryColor py-section">
         <div className="container">
-        <h1 className="text-white text-center">Serve yourself for the noble cause.</h1>
-        <div className="text-white font-18 font-medium text-center">
-          ​0% platform fees for funds raised on Fundinf Blocks
-        </div>
+          <h1 className="text-white text-center">Serve yourself for the noble cause.</h1>
+          <div className="text-white font-18 font-medium text-center">
+            ​0% platform fees for funds raised on Fundinf Blocks
+          </div>
         </div>
       </div>
       <div className="container">
@@ -64,7 +64,9 @@ function SignUp() {
                     required
                   />
                 </div>
-                <label className="font-demi text-primaryColor font-14 mt-4 fields-required">Bio</label>
+                <label className="font-demi text-primaryColor font-14 mt-4 fields-required">
+                  Bio
+                </label>
                 <div className="input-group">
                   <textarea
                     type="text"
