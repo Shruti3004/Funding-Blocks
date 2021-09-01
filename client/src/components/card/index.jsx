@@ -75,6 +75,7 @@ const Card = ({ type, block, showModal }) => {
                 src={block?.value?.image}
                 alt="card-image"
                 height="160px"
+                style={{objectFit: "cover"}}
                 className="card-img-top"
               />
             </div>
