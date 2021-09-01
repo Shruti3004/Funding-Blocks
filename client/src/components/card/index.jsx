@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Button from "../button";
 import CardButton from "../cardButton";
 import { upVote, downVote } from "../../api";
+import {ProgressBar } from "react-bootstrap"
 import {
   EmailShareButton,
   FacebookShareButton,
@@ -11,6 +12,12 @@ import {
 } from "react-share";
 
 const Card = ({ type, block, setModal }) => {
+
+  let percent = block ? (block.value.target_amount / block.value.final_amount) * 100 : 0;
+
+  percent = percent.toString().substr(0,2);
+  percent = parseInt(percent);
+  console.log("k",typeof percent);
   if (type === "fundDetails") {
     return (
       <div>
@@ -47,7 +54,7 @@ const Card = ({ type, block, setModal }) => {
           <img src={block?.value?.image} alt="card-image" className="card-img-top" />
           <div className="pt-3">
             <div className="d-flex justify-content-between">
-              <h4 className="card-title text-primaryColor mt-3">Aboust</h4>
+              <h4 className="card-title text-primaryColor mt-3">About</h4>
               {/* <CardButton type="share" className="px-4">
                     <i className="fas fa-share-alt"></i>&nbsp;&nbsp;&nbsp;Share Now&nbsp;&nbsp;
                   </CardButton> */}
@@ -114,27 +121,16 @@ const Card = ({ type, block, setModal }) => {
                 ></i>
               </div> */}
             </div>
-
+              
             <div className="progress mt-3">
-              <div
-                className="progress-bar bg-tertiarColor w-75"
-                role="progressbar"
-                aria-valuenow="50"
-                aria-valuemin="0"
-                aria-valuemax="100"
-              >
-                Total Contribution
-              </div>
+              <ProgressBar style={{width: "100%"}}now={!isNaN(percent) ? percent : 0} label={`${!isNaN(percent) ? `${percent}%` : "0%"}`}/>
+           
             </div>
             <hr />
           </div>
           <div className="d-flex justify-content-between">
-            <CardButton className="bg-secondaryColor" onClick={() => {
-                    upVote(block?.key);
-                  }}>Support</CardButton>
-            <CardButton className="bg-danger" onClick={() => {
-                    upVote(block?.key);
-                  }}>Reposrt</CardButton>
+           <CardButton typeB="success" className="bg-secondaryColor" block={block} vote={upVote}>Support</CardButton>
+            <CardButton typeB="report"  block={block} vote={downVote}>Report</CardButton>
           </div>
         </div>
       </div>

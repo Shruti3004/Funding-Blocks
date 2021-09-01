@@ -14,8 +14,8 @@ const Navbar = () => {
   return (
     <>
       <NavCustom collapseOnSelect variant="dark" expand="lg" className="bg-primaryColor py-0 ">
-        <Container>
-          <NavCustom.Brand as={Link} to="/">
+        <Container className="justify-content-around">
+          <NavCustom.Brand as={Link} to="/" className="w-50">
             <img src={Logo} alt="Funding Blocks" className="img-fluid my-2" width="50%" />
           </NavCustom.Brand>
           <NavCustom.Toggle aria-controls="responsive-navbar-nav" />

@@ -39,7 +39,7 @@ function SignUp() {
         <div className="container">
           <h1 className="text-white text-center">Serve yourself for the noble cause.</h1>
           <div className="text-white font-18 font-medium text-center">
-            ​0% platform fees for funds raised on Fundinf Blocks
+            ​0% platform fees for funds raised on Funding Blocks
           </div>
         </div>
       </div>

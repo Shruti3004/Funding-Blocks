@@ -48,7 +48,7 @@ function EditProfile() {
         <div className="container">
           <h1 className="text-white text-center">Your contribution in saving the lives.</h1>
           <div className="text-white font-18 font-medium text-center">
-            ​0% platform fees for funds raised on Fundinf Blocks
+            ​0% platform fees for funds raised on Funding Blocks
           </div>
         </div>
       </div>

@@ -1,11 +1,10 @@
 import React from "react";
 
-const CardButton = ({ title, type, className, children, setModal }) => {
+const CardButton = ({ title, type, className, children, setModal, block, vote, typeB }) => {
   if (type === "share") {
     return (
       <>
         <button
-         
           className={
             type === "outline"
               ? `text-secondaryColor font-medium dropdown-toggle font-18 custom-cardbutton-outline ${
@@ -35,10 +34,47 @@ const CardButton = ({ title, type, className, children, setModal }) => {
       </>
     );
   }
+  if (typeB === "success") {
+    console.log(vote);
+    return (
+      <button
+        onClick={() => {
+          console.log("Ok");
+          vote(block?.key);
+        }}
+        className={
+          type === "outline"
+            ? `text-secondaryColor font-medium font-18 custom-cardbutton-outline ${
+                className && className
+              }`
+            : `bg-secondaryColor font-medium font-18 custom-cardbutton ${className && className}`
+        }
+      >
+        {children}
+      </button>
+    );
+  }
+  if (typeB === "report") {
+    console.log(vote);
+    return (
+      <button
+        onClick={() => vote(block?.key)}
+        className={
+          type === "outline"
+            ? `text-danger font-medium font-18 custom-cardbuttonRed-outline ${
+                className && className
+              }`
+            : `font-medium font-18 custom-cardbuttonRed ${className && className}`
+        }
+      >
+        {children}
+      </button>
+    );
+  }
   return (
     <button
-     onClick={() => setModal(true)}  
-    className={
+      onClick={() => setModal(true)}
+      className={
         type === "outline"
           ? `text-secondaryColor font-medium font-18 custom-cardbutton-outline ${
               className && className

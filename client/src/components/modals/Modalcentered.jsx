@@ -19,7 +19,7 @@ const Modalcentered = (props) => {
          <Slider
            styles={{
     active: {
-      backgroundColor: 'green'
+      backgroundColor: '#1ebe59'
     },
     track: {
       backgroundColor: 'grey'
@@ -34,7 +34,7 @@ const Modalcentered = (props) => {
         xmax={15000}
         onChange={({ x }) => setState(state => ({ ...state, x }))}
       />
-      ${state.x}
+       ꜩ {state.x}
       </div>
       </Modal.Body>
       <Modal.Footer>

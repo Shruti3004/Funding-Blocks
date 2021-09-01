@@ -189,6 +189,30 @@ h6 {
   color: #ffffff;
 }
 
+.custom-cardbuttonRed {
+  border: none;
+  min-width: 150px;
+  height: 45px;
+  background: red;
+  transition: background 0.5s ease-in-out;
+  color: #ffffff;
+}
+.custom-cardbuttonRed:hover {
+  background: #fff;
+  border: 2px solid red;
+  color: red;
+}
+.custom-cardbuttonRed-outline {
+  border: 2px solid red;
+  min-width: 150px;
+  height: 45px;
+  transition: all 0.5s ease-in;
+  background: transparent;
+}
+.custom-cardbuttonRed-outline:hover {
+  background: red;
+  color: #ffffff;
+}
 /**************************************************** Box ****************************************************/
 .box {
   background: #ffffff;
