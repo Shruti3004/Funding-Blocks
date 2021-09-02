@@ -12,7 +12,7 @@ const Modalcentered = (props) => {
       <Modal.Body>
         <h4>Select the amount</h4>
         <p>Your donation can save multiple lives. Be a hero today.</p>
-        <div className="w-80 d-flex justify-content-around align-items-center">
+        <div className="w-80 d-flex justify-content-between align-items-center">
           <Slider
             styles={{
               active: {
@@ -21,11 +21,11 @@ const Modalcentered = (props) => {
               track: {
                 backgroundColor: "grey",
               },
-
               disabled: {
                 opacity: 0.5,
               },
             }}
+            className="w-75"
             axis="x"
             x={state.x}
             xmax={15000}
