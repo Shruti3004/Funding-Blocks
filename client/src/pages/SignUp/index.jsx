@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { registerUser, getAccount, logIn, getUser } from "../../api";
+import { registerUser, getAccount, getUser } from "../../api";
 import Button from "../../components/button";
 import { Fade } from "react-reveal";
 
@@ -12,19 +12,19 @@ function SignUp() {
   useEffect(
     () =>
       getAccount().then((res) => {
-        if (res.result) window.location.href = "/";
+        if (!res.result) window.location.href = "/";
+        getUser(res.address).then((user) => {
+          if (user) window.location.href = "/";
+        });
       }),
     []
   );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await logIn();
-    (await getUser((await getAccount()).address))
-      ? (window.location.href = "/")
-      : registerUser(formData.bio, formData.name).then((res) => {
-          if (res.result) window.location.href = "/";
-        });
+    registerUser(formData.bio, formData.name).then((res) => {
+      if (res.result) window.location.href = "/";
+    });
   };
 
   const handleChange = (e) => {

@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { Navbar as NavCustom, Container, Nav, NavDropdown } from "react-bootstrap";
+import { Navbar as NavCustom, Container, Nav, NavDropdown, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/images/logo.svg";
-import { getAccount } from "../../api/index";
+import { getAccount, logIn, getUser } from "../../api/index";
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  useEffect(() => {
-    getAccount().then((res) => setIsLoggedIn(res.result));
-  }, []);
+  useEffect(
+    () =>
+      getAccount().then((res) => {
+        getUser(res.address).then((user) => {
+          if (user) setIsLoggedIn(res.result);
+        });
+      }),
+    []
+  );
 
   return (
     <>
@@ -41,9 +47,12 @@ const Navbar = () => {
                 Presentation
               </Nav.Link>
               {!isLoggedIn ? (
-                <Nav.Link as={Link} to="/signup" className="text-white font-demi px-4">
-                  Register
-                </Nav.Link>
+                // <Nav.Link as={Link} to="/signup" className="text-white font-demi px-4">
+                //   Sign Up
+                // </Nav.Link>
+                <Button onClick={() => logIn().then(() => (window.location.href = "/signup"))}>
+                  Sign In
+                </Button>
               ) : (
                 <Nav.Link as={Link} to="/editProfile" className="text-white font-demi px-4">
                   My Profile

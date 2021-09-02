@@ -19,25 +19,22 @@ function EditProfile() {
     window.scrollTo({ top: 0 });
   }, []);
 
-  useEffect(() => {
-    getAccount().then(async (res) => {
-      if (res.result) {
-        setBalance((await getBalance(res.address)) / 1000000);
-        setAddress(res.address);
-        getUser(res.address).then((data) => setFormData(data));
-      } else window.location.href = "/signup";
-    });
-  }, []);
+  useEffect(() =>
+    getAccount().then((res) => {
+      if (!res.result) window.location.href = "/";
+      getUser(res.address).then(async (user) => {
+        if (user) {
+          setBalance((await getBalance(res.address)) / 1000000);
+          setAddress(res.address);
+          setFormData(user);
+        } else window.location.href = "/signup";
+      });
+    })
+  );
 
   const handleSubmit = (e) => {
     e.preventDefault();
     updateProfile(formData?.bio, formData?.name);
-    // .then((res) => {
-    //   Swal.fire("You agreed with T&C :)");
-    // })
-    // .catch((e) => {
-    //   Swal.fire("You agreed with T&C :)");
-    // });
   };
 
   const handleChange = (e) => {
