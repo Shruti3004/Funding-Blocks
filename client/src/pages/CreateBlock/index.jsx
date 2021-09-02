@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { fundingBlockify } from "../../api";
 import Button from "../../components/button";
 import Map from "../../components/map/Map";
+import { Fade } from "react-reveal";
 
 function slugify(text) {
   return text
@@ -63,120 +64,122 @@ function CreateBlock() {
                   The more accurate and brief details you write the more donors will trust you.
                 </span>
               </div>
-              <form onSubmit={handleSubmit}>
-                <label className="font-demi text-primaryColor font-14 mt-4 fields-required">
-                  Title
-                </label>
-                <div className="input-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="What is it called?"
-                    name="title"
-                    value={formData.title}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-                <label className="font-demi text-primaryColor font-14 mt-4 fields-required">
-                  Block Description
-                </label>
-                <div className="input-group">
-                  <textarea
-                    type="text"
-                    className="form-control"
-                    placeholder="Enter the Block Description"
-                    name="description"
-                    value={formData.description}
-                    onChange={handleChange}
-                    required
-                    rows="5"
-                  />
-                </div>
-                <label className="font-demi text-primaryColor font-14 mt-4 fields-required">
-                  Choose the mishappening location
-                </label>
-                <div style={{ height: "50vh", width: "100%" }}>
-                  <Map
-                    coordinates={coordinates}
-                    handleCoordinates={handleCoordinates}
-                    type="create"
-                  />
-                </div>
-                <label className="font-demi text-primaryColor font-14 mt-4 fields-required">
-                  Target Amount
-                </label>
-                <div className="input-group">
-                  <input
-                    type="number"
-                    className="form-control"
-                    placeholder="What is your target amount?"
-                    name="target_amount"
-                    value={formData.target_amount}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-                <label className="font-demi text-primaryColor font-14 mt-4 fields-required">
-                  Image URL
-                </label>
-                <div className="input-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Enter the Image URL"
-                    name="image"
-                    value={formData.image}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-                <label className="font-demi text-primaryColor font-14 mt-4 fields-required">
-                  Actions
-                </label>
-                <div className="input-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Enter the link"
-                    name="actions"
-                    value={formData.actions}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-                <label className="font-demi text-primaryColor font-14 mt-4 fields-required">
-                  Legal Statement
-                </label>
-                <div className="input-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Enter the link"
-                    name="legal_statements"
-                    value={formData.legal_statements}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-                <label className="font-demi text-primaryColor font-14 mt-4 fields-required">
-                  Thankyou Statement
-                </label>
-                <div className="input-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Enter the link"
-                    name="thankyou"
-                    value={formData.thankyou}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-                <div className="d-flex justify-content-center">
-                  <Button title="Create" className="mt-5" />
-                </div>
-              </form>
+              <Fade bottom>
+                <form onSubmit={handleSubmit}>
+                  <label className="font-demi text-primaryColor font-14 mt-4 fields-required">
+                    Title
+                  </label>
+                  <div className="input-group">
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="What is it called?"
+                      name="title"
+                      value={formData.title}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                  <label className="font-demi text-primaryColor font-14 mt-4 fields-required">
+                    Block Description
+                  </label>
+                  <div className="input-group">
+                    <textarea
+                      type="text"
+                      className="form-control"
+                      placeholder="Enter the Block Description"
+                      name="description"
+                      value={formData.description}
+                      onChange={handleChange}
+                      required
+                      rows="5"
+                    />
+                  </div>
+                  <label className="font-demi text-primaryColor font-14 mt-4 fields-required">
+                    Choose the mishappening location
+                  </label>
+                  <div style={{ height: "50vh", width: "100%" }}>
+                    <Map
+                      coordinates={coordinates}
+                      handleCoordinates={handleCoordinates}
+                      type="create"
+                    />
+                  </div>
+                  <label className="font-demi text-primaryColor font-14 mt-4 fields-required">
+                    Target Amount
+                  </label>
+                  <div className="input-group">
+                    <input
+                      type="number"
+                      className="form-control"
+                      placeholder="What is your target amount?"
+                      name="target_amount"
+                      value={formData.target_amount}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                  <label className="font-demi text-primaryColor font-14 mt-4 fields-required">
+                    Image URL
+                  </label>
+                  <div className="input-group">
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Enter the Image URL"
+                      name="image"
+                      value={formData.image}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                  <label className="font-demi text-primaryColor font-14 mt-4 fields-required">
+                    Actions
+                  </label>
+                  <div className="input-group">
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Enter the link"
+                      name="actions"
+                      value={formData.actions}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                  <label className="font-demi text-primaryColor font-14 mt-4 fields-required">
+                    Legal Statement
+                  </label>
+                  <div className="input-group">
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Enter the link"
+                      name="legal_statements"
+                      value={formData.legal_statements}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                  <label className="font-demi text-primaryColor font-14 mt-4 fields-required">
+                    Thankyou Statement
+                  </label>
+                  <div className="input-group">
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Enter the link"
+                      name="thankyou"
+                      value={formData.thankyou}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                  <div className="d-flex justify-content-center">
+                    <Button title="Create" className="mt-5" />
+                  </div>
+                </form>
+              </Fade>
             </div>
           </div>
         </div>
