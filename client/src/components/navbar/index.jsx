@@ -15,7 +15,7 @@ const Navbar = () => {
     <>
       <NavCustom
         variant="dark"
-        expand="lg"
+        expand="xl"
         className="bg-primaryColor py-0"
         collapseOnSelect={true}
       >

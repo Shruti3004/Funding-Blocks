@@ -354,6 +354,7 @@ select {
 .goog-te-gadget {
   color: transparent !important;
   margin-bottom: -10px;
+  font-size: 10px !important;
 }
 
 .navbar-toggler {
@@ -362,6 +363,10 @@ select {
   line-height: 1;
   background-color: transparent;
   border: none !important;
+}
+.navbar-toggler:focus,
+.navbar-toggler:active {
+  outline: none;
 }
 
 button.close {
