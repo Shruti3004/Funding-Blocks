@@ -13,7 +13,12 @@ const Navbar = () => {
 
   return (
     <>
-      <NavCustom collapseOnSelect variant="dark" expand="lg" className="bg-primaryColor py-0 ">
+      <NavCustom
+        variant="dark"
+        expand="lg"
+        className="bg-primaryColor py-0"
+        collapseOnSelect={true}
+      >
         <Container className="justify-content-around">
           <NavCustom.Brand as={Link} to="/" className="w-50">
             <img src={Logo} alt="Funding Blocks" className="img-fluid my-2" width="50%" />
