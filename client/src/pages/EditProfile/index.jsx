@@ -16,6 +16,10 @@ function EditProfile() {
   });
 
   useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
+
+  useEffect(() => {
     getAccount().then(async (res) => {
       if (res.result) {
         setBalance((await getBalance(res.address)) / 1000000);

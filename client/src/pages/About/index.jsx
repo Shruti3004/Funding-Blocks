@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CardImage from "../../assets/images/card.jpg";
 import workflow from "../../assets/images/workflow.png";
 
 const About = () => {
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
   return (
     <>
       <section className="bg-light">
@@ -36,15 +39,11 @@ const About = () => {
               </p>
               <ul className="font-14 mt-5">
                 <li>People donate less.</li>
-
                 <li>No trust on the organisations.</li>
-
                 <li>They don’t get anything in return.</li>
                 <br />
                 <li>Sometimes It takes weeks to raise the minimum amount needed.</li>
-
                 <li>Average person gets aware in around 24 hours.</li>
-
                 <li>Spreading awareness consumes majority of time.</li>
                 <br />
                 <li>What if they raised 100k but only used 80k?.</li>

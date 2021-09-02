@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { fundingBlockify } from "../../api";
 import Button from "../../components/button";
 import Map from "../../components/map/Map";
@@ -49,6 +49,10 @@ function CreateBlock() {
       [e.target.name]: e.target.value,
     });
   };
+
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
 
   return (
     <div className="bg-light">

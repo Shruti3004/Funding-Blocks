@@ -34,6 +34,10 @@ function SignUp() {
     });
   };
 
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
+
   return (
     <div className="bg-light">
       <div className="bg-secondaryColor py-section">

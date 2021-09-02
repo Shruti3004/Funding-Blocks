@@ -92,12 +92,14 @@ const Card = ({ type, block, setModal }) => {
             </Link>
           </div>
           <div>
-            <h4 className="card-title mt-4 text-primaryColor font-demi font-22">
-              {block && block?.value?.title}
-            </h4>
-            <p className="card-text text-muted font-medium mt-3">
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-            </p>
+            <Link to={`/blockDetails/${block?.key}`}>
+              <h4 className="card-title mt-4 text-primaryColor font-demi font-22">
+                {block && block?.value?.title}
+              </h4>
+              <p className="card-text text-muted font-medium mt-3">
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+              </p>
+            </Link>
             <hr />
             <div className="d-flex justify-content-between">
               <div className="font-22 font-bold text-primaryColor mt-3">

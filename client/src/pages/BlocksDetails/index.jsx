@@ -17,10 +17,12 @@ const BlockDetails = () => {
       setBlock(data);
       setLoading(false);
     });
-
     return () => setBlock({});
   }, []);
-  console.log(modal);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
 
   return loading ? (
     <div>Loading...</div>

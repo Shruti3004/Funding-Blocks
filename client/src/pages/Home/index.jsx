@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "../../components/button";
 import Card from "../../components/card";
 import { Link } from "react-router-dom";
 import HomeHero from "../../components/hero";
 
 const Home = () => {
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
+
   return (
     <>
       <HomeHero />

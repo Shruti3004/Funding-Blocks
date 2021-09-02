@@ -11,7 +11,9 @@ const Blocks = () => {
       setLoading(false);
     });
   }, []);
-  console.log(blocks);
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
   if (loading) {
     return <div>Loading...</div>;
   }
