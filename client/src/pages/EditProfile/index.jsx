@@ -70,7 +70,7 @@ function EditProfile() {
                 Balance: <code>{balance} ꜩ</code>
               </h6>
               <form onSubmit={handleSubmit}>
-                <label className="font-regular text-muted font-14 mt-4 fields-required">
+                <label className="font-demi text-primaryColor font-14 mt-4 fields-required">
                   Your Name
                 </label>
                 <div className="input-group">
@@ -83,7 +83,7 @@ function EditProfile() {
                     required
                   />
                 </div>
-                <label className="font-regular text-muted font-14 mt-4 fields-required">Bio</label>
+                <label className="font-demi text-primaryColor font-14 mt-4 fields-required">Bio</label>
                 <div className="input-group">
                   <textarea
                     type="text"

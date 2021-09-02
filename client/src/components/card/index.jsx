@@ -32,11 +32,11 @@ const Card = ({ type, block, setModal }) => {
           <div className={`card-body`}>
             <hr />
             <div className="font-22 font-bold text-primaryColor mt-4">
-              ₹ {block && block?.value?.final_amount}{" "}
+               ꜩ {block && block?.value?.final_amount}{" "}
               <span className="text-muted font-14 font-regular">raised of </span> <br />
               <span className="text-muted font-demi">
                 {" "}
-                ₹ {block && block?.value?.target_amount}{" "}
+                 ꜩ {block && block?.value?.target_amount}{" "}
               </span>
               <span className="text-muted font-14 font-regular">goal</span>
             </div>
@@ -101,10 +101,10 @@ const Card = ({ type, block, setModal }) => {
             <hr />
             <div className="d-flex justify-content-between">
               <div className="font-22 font-bold text-primaryColor mt-3">
-                ₹ {block && block?.value?.final_amount}{" "}
+                 ꜩ {block && block?.value?.final_amount}{" "}
                 <span className="text-muted font-14 font-regular">raised of </span> <br />
                 <span className="text-muted font-demi">
-                  ₹ {block && block?.value?.target_amount}{" "}
+                   ꜩ {block && block?.value?.target_amount}{" "}
                 </span>
                 <span className="text-muted font-14 font-regular">goal</span>
               </div>

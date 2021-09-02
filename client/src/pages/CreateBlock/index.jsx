@@ -64,7 +64,7 @@ function CreateBlock() {
                 </span>
               </div>
               <form onSubmit={handleSubmit}>
-                <label className="font-regular text-muted font-14 mt-4 fields-required">
+                <label className="font-demi text-primaryColor font-14 mt-4 fields-required">
                   Title
                 </label>
                 <div className="input-group">
@@ -78,7 +78,7 @@ function CreateBlock() {
                     required
                   />
                 </div>
-                <label className="font-regular text-muted font-14 mt-4 fields-required">
+                <label className="font-demi text-primaryColor font-14 mt-4 fields-required">
                   Block Description
                 </label>
                 <div className="input-group">
@@ -93,7 +93,7 @@ function CreateBlock() {
                     rows="5"
                   />
                 </div>
-                <label className="font-regular text-muted font-14 mt-4 fields-required">
+                <label className="font-demi text-primaryColor font-14 mt-4 fields-required">
                   Choose the mishappening location
                 </label>
                 <div style={{ height: "50vh", width: "100%" }}>
@@ -103,7 +103,7 @@ function CreateBlock() {
                     type="create"
                   />
                 </div>
-                <label className="font-regular text-muted font-14 mt-4 fields-required">
+                <label className="font-demi text-primaryColor font-14 mt-4 fields-required">
                   Target Amount
                 </label>
                 <div className="input-group">
@@ -117,7 +117,7 @@ function CreateBlock() {
                     required
                   />
                 </div>
-                <label className="font-regular text-muted font-14 mt-4 fields-required">
+                <label className="font-demi text-primaryColor font-14 mt-4 fields-required">
                   Image URL
                 </label>
                 <div className="input-group">
@@ -131,7 +131,7 @@ function CreateBlock() {
                     required
                   />
                 </div>
-                <label className="font-regular text-muted font-14 mt-4 fields-required">
+                <label className="font-demi text-primaryColor font-14 mt-4 fields-required">
                   Actions
                 </label>
                 <div className="input-group">
@@ -145,7 +145,7 @@ function CreateBlock() {
                     required
                   />
                 </div>
-                <label className="font-regular text-muted font-14 mt-4 fields-required">
+                <label className="font-demi text-primaryColor font-14 mt-4 fields-required">
                   Legal Statement
                 </label>
                 <div className="input-group">
@@ -159,7 +159,7 @@ function CreateBlock() {
                     required
                   />
                 </div>
-                <label className="font-regular text-muted font-14 mt-4 fields-required">
+                <label className="font-demi text-primaryColor font-14 mt-4 fields-required">
                   Thankyou Statement
                 </label>
                 <div className="input-group">
