@@ -7,9 +7,11 @@ const Modalcentered = (props) => {
   return (
     <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">Donate</Modal.Title>
+        <div className="bg-primaryColor px-4 text-white">
+          <h3 className="text-white mt-2">Donate</h3>
+        </div>
       </Modal.Header>
-      <Modal.Body>
+      <div className="bg-light p-5">
         <h4>Select the amount</h4>
         <p>Your donation can save multiple lives. Be a hero today.</p>
         <div className="w-80 d-flex justify-content-between align-items-center">
@@ -31,9 +33,9 @@ const Modalcentered = (props) => {
             xmax={15000}
             onChange={({ x }) => setState((state) => ({ ...state, x }))}
           />
-          ꜩ {state.x}
+          <span className="font-demi">ꜩ {state.x}</span>
         </div>
-      </Modal.Body>
+      </div>
       <Modal.Footer>
         <Button onClick={props.onHide}>Close</Button>
       </Modal.Footer>
