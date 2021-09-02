@@ -1,7 +1,6 @@
 import React from "react";
 import Button from "../../components/button";
 import Card from "../../components/card";
-import CountUp from "react-countup";
 import { Link } from "react-router-dom";
 import HomeHero from "../../components/hero";
 

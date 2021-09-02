@@ -3,21 +3,21 @@ import { Link } from "react-router-dom";
 import Button from "../button";
 import CardButton from "../cardButton";
 import { upVote, downVote } from "../../api";
-import {ProgressBar } from "react-bootstrap"
+import { ProgressBar } from "react-bootstrap";
 import {
   EmailShareButton,
   FacebookShareButton,
   TwitterShareButton,
   WhatsappShareButton,
 } from "react-share";
+import { Fade } from "react-reveal";
 
 const Card = ({ type, block, setModal }) => {
-
   let percent = block ? (block.value.target_amount / block.value.final_amount) * 100 : 0;
 
-  percent = percent.toString().substr(0,2);
+  percent = percent.toString().substr(0, 2);
   percent = parseInt(percent);
-  console.log("k",typeof percent);
+  console.log("k", typeof percent);
   if (type === "fundDetails") {
     return (
       <div>
@@ -49,32 +49,35 @@ const Card = ({ type, block, setModal }) => {
   if (type === "blockDetails") {
     console.log(setModal);
     return (
-      <div className={`box blockDetails_card`}>
-        <div className={`card-body `}>
-          <img src={block?.value?.image} alt="card-image" className="card-img-top" />
-          <div className="pt-3">
-            <div className="d-flex justify-content-between">
-              <h4 className="card-title text-primaryColor mt-3">About</h4>
-              {/* <CardButton type="share" className="px-4">
+      <Fade bottom>
+        <div className={`box blockDetails_card`}>
+          <div className={`card-body `}>
+            <img src={block?.value?.image} alt="card-image" className="card-img-top" />
+            <div className="pt-3">
+              <div className="d-flex justify-content-between">
+                <h4 className="card-title text-primaryColor mt-3">About</h4>
+                {/* <CardButton type="share" className="px-4">
                     <i className="fas fa-share-alt"></i>&nbsp;&nbsp;&nbsp;Share Now&nbsp;&nbsp;
                   </CardButton> */}
-              <EmailShareButton subject="se" body="x" />
-              <WhatsappShareButton title="Share" />
+                <EmailShareButton subject="se" body="x" />
+                <WhatsappShareButton title="Share" />
+              </div>
+              <hr />
+              <p className="card-text text-muted font-medium">
+                {block && block?.value?.description}
+              </p>
+
+              <CardButton setModal={setModal} className="mt-4">
+                Donate
+              </CardButton>
             </div>
-            <hr />
-            <p className="card-text text-muted font-medium">{block && block?.value?.description}</p>
-           
-            <CardButton setModal={setModal} className="mt-4">
-              Donate
-            </CardButton>
-         
           </div>
         </div>
-      </div>
+      </Fade>
     );
   }
   return (
-    <div>
+    <Fade bottom>
       <div className={`box`}>
         <div className={`card-body`}>
           <div>
@@ -105,36 +108,28 @@ const Card = ({ type, block, setModal }) => {
                 </span>
                 <span className="text-muted font-14 font-regular">goal</span>
               </div>
-              {/* <div className="votes text-primaryColor" style={{ marginRight: "10px" }}>
-                <i
-                  onClick={() => {
-                    upVote(block?.key);
-                  }}
-                  className="fas fa-arrow-alt-circle-up fa-2x mt-3"
-                ></i>
-                <br />
-                <i
-                  onClick={() => {
-                    downVote(block?.key);
-                  }}
-                  className="fas fa-arrow-alt-circle-down fa-2x"
-                ></i>
-              </div> */}
             </div>
-              
             <div className="progress mt-3">
-              <ProgressBar style={{width: "100%"}}now={!isNaN(percent) ? percent : 0} label={`${!isNaN(percent) ? `${percent}%` : "0%"}`}/>
-           
+              <ProgressBar
+                animated
+                style={{ width: "100%" }}
+                now={!isNaN(percent) ? percent : 0}
+                label={`${!isNaN(percent) ? `${percent}%` : "0%"}`}
+              />
             </div>
             <hr />
           </div>
           <div className="d-flex justify-content-between">
-           <CardButton typeB="success" className="bg-secondaryColor" block={block} vote={upVote}>Support</CardButton>
-            <CardButton typeB="report"  block={block} vote={downVote}>Report</CardButton>
+            <CardButton typeB="success" className="bg-secondaryColor" block={block} vote={upVote}>
+              Support
+            </CardButton>
+            <CardButton typeB="report" block={block} vote={downVote}>
+              Report
+            </CardButton>
           </div>
         </div>
       </div>
-    </div>
+    </Fade>
   );
 };
 

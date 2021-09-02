@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import CountUp from "react-countup";
 import Button from "../button";
 import Modalcentered from "../modals/Modalcentered";
+import { Fade } from "react-reveal";
 
 const HomeHero = () => {
   const [modal, setModal] = useState(false);
@@ -16,10 +17,14 @@ const HomeHero = () => {
             <h1 className="display-2 text-secondaryColor">
               <CountUp end={10000000} duration={5} className="text-center" />
             </h1>
-            <h1 className="text-white">An easy way to raise funds</h1>
-            <div className="text-white display-4 font-demi">
-              What if donations becomes transparent?
-            </div>
+            <Fade bottom>
+              <h1 className="text-white">An easy way to raise funds</h1>
+            </Fade>
+            <Fade bottom>
+              <div className="text-white display-4 font-demi">
+                What if donations becomes transparent?
+              </div>
+            </Fade>
             <Button title="Donate Now" className="mt-4 mb-5" handleSubmit={handleSubmit} />
           </div>
         </div>
@@ -27,10 +32,9 @@ const HomeHero = () => {
       <div className="features container mb-3">
         <div className="row mt-5">
           <div className="col-lg-3 col-md-3 col-sm-12 col-12 bg-primaryColor text-white text-center center py-5">
-            <p className="font-demi font-22">The Primary capibilities of Funding Blocks</p>
-            <p className="font-14 font-regular">
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-            </p>
+            <Fade bottom>
+              <p className="font-demi font-22">The Primary capibilities of Funding Blocks</p>
+            </Fade>
           </div>
           <div className="col-lg-9 col-md-9 col-sm-12 col-12 font-regular bg-white py-3">
             <div className="container">
