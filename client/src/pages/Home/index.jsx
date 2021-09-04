@@ -33,10 +33,10 @@ const Home = () => {
           </div>
           <div className="d-flex justify-content-center mt-4 pb-5">
             <Link to="/blocks">
-              <Button title="All Disasters" className="mx-2" />
+              <Button title="All Blocks" className="mx-2" />
             </Link>
             <Link to="/createBlock">
-              <Button title="Create Fundraiser" type="outline" className="mx-2" />
+              <Button title="Create Funding Block" type="outline" className="mx-2" />
             </Link>
           </div>
         </div>
