@@ -1,5 +1,5 @@
 import React from "react";
-// import Button from "../button";
+import { Link } from "react-router-dom";
 import Logo from "../../assets/images/logo-footer.svg";
 
 const Footer = () => {
@@ -14,12 +14,18 @@ const Footer = () => {
           <div className="d-flex flex-column justify-content-center align-items-center">
             <img src={Logo} alt="logo" max-width="20%" className="mb-4" />
             <div className="flex-container container justify-content-center pt-4 pb-5 font-medium text-center">
-              <div className="px-4 py-1">Name</div>
-              <div className="px-4 py-1">Address</div>
-              <div className="px-4 py-1">Edit Profile</div>
-              <div className="px-4 py-1">Current Balance</div>
-              <div className="px-4 py-1">Register</div>
-              <div className="px-4 py-1">Login</div>
+              <Link to="/">
+                <div className="px-4 py-1 text-white">Home</div>
+              </Link>
+              <Link to="/about">
+                <div className="px-4 py-1 text-white">About</div>
+              </Link>
+              <Link to="/editProfile">
+                <div className="px-4 py-1 text-white">Edit Profile</div>
+              </Link>
+              <Link to="/createBlock">
+                <div className="px-4 py-1 text-white">Create Block</div>
+              </Link>
             </div>
           </div>
         </div>
