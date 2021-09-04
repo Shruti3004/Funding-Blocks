@@ -39,7 +39,7 @@ const HomeHero = () => {
           <div className="col-lg-9 col-md-9 col-sm-12 col-12 font-regular bg-white py-3">
             <div className="container">
               <div className="row mt-3">
-                <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center box py-2">
+                <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center py-2">
                   <Fade bottom>
                     <div className="card">
                       <div className="card-img-top">
@@ -53,7 +53,7 @@ const HomeHero = () => {
                     </div>
                   </Fade>
                 </div>
-                <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center box py-2">
+                <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center py-2">
                   <Fade bottom>
                     <div className="card">
                       <div className="card-img-top">
@@ -67,7 +67,7 @@ const HomeHero = () => {
                     </div>
                   </Fade>
                 </div>
-                <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center box py-2">
+                <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center py-2">
                   <Fade bottom>
                     <div className="card">
                       <div className="card-img-top">
@@ -81,7 +81,7 @@ const HomeHero = () => {
                     </div>
                   </Fade>
                 </div>
-                <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center box py-2">
+                <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center py-2">
                   <Fade bottom>
                     <div className="card">
                       <div className="card-img-top">
@@ -97,7 +97,7 @@ const HomeHero = () => {
                 </div>
               </div>
               <div className="row my-4">
-                <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center box py-2">
+                <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center py-2">
                   <Fade bottom>
                     <div className="card">
                       <div className="card-img-top">
@@ -111,7 +111,7 @@ const HomeHero = () => {
                     </div>
                   </Fade>
                 </div>
-                <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center box py-2">
+                <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center py-2">
                   <Fade bottom>
                     <div className="card">
                       <div className="card-img-top">
@@ -125,7 +125,7 @@ const HomeHero = () => {
                     </div>
                   </Fade>
                 </div>
-                <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center box py-2">
+                <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center py-2">
                   <Fade bottom>
                     <div className="card">
                       <div className="card-img-top">
@@ -139,7 +139,7 @@ const HomeHero = () => {
                     </div>
                   </Fade>
                 </div>
-                <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center box py-2">
+                <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center py-2">
                   <Fade bottom>
                     <div className="card">
                       <div className="card-img-top">

@@ -34,7 +34,7 @@ const Modalcentered = (props) => {
             axis="x"
             xmin={1000}
             x={state.x}
-            xmax={1000000}
+            xmax={1000000000}
             onChange={({ x }) => setState((state) => ({ ...state, x }))}
           />
           <span>muTez</span>

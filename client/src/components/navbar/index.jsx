@@ -25,8 +25,8 @@ const Navbar = () => {
         className="bg-primaryColor py-0"
         collapseOnSelect={true}
       >
-        <Container className="justify-content-around">
-          <NavCustom.Brand as={Link} to="/" className="w-50">
+        <Container className="justify-content-between">
+          <NavCustom.Brand as={Link} to="/">
             <img src={Logo} alt="Funding Blocks" className="img-fluid my-2" width="50%" />
           </NavCustom.Brand>
           <NavCustom.Toggle aria-controls="responsive-navbar-nav" />
@@ -39,6 +39,9 @@ const Navbar = () => {
               <Nav.Link as={Link} to="/about" className="text-white font-demi px-4">
                 About
               </Nav.Link>
+              <Nav.Link as={Link} to="/createBlock" className="text-white font-demi px-4">
+                Create Block
+              </Nav.Link>
               <Nav.Link
                 target="_blank"
                 href="https://docs.google.com/presentation/d/1gfT7ly5WP2uYMpUgfPnc9wF2VfY-Yz1DNhWUIAQM4Og/edit#slide=id.gcb9a0b074_1_0"
@@ -47,9 +50,6 @@ const Navbar = () => {
                 Presentation
               </Nav.Link>
               {!isLoggedIn ? (
-                // <Nav.Link as={Link} to="/signup" className="text-white font-demi px-4">
-                //   Sign Up
-                // </Nav.Link>
                 <span className="mr-2">
                   <Button onClick={() => logIn().then(() => (window.location.href = "/signup"))}>
                     Sign In

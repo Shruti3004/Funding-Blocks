@@ -9,15 +9,21 @@ import { Fade } from "react-reveal";
 import { Button as BootstrapButton } from "react-bootstrap";
 
 const Card = ({ type, block, setModal }) => {
+
+
+
+
   let percent = block ? (block.value.target_amount / block.value.final_amount) * 100 : 0;
   percent = percent.toString().substr(0, 2);
   percent = parseInt(percent);
-  console.log("k", typeof percent);
+  console.log("k", block);
+
+
   if (type === "fundDetails") {
     return (
       <div>
         <div className={`box`}>
-          <div>
+          <div className="px-3">
             <Button
               title="Contribute Now ❤️"
               className="mt-4 w-100 bg-secondaryColor"
@@ -31,7 +37,7 @@ const Card = ({ type, block, setModal }) => {
               ꜩ {block && block?.value?.final_amount}
               <span className="text-muted font-14 font-regular"> decided of </span> <br />
               <span className="text-muted font-demi">ꜩ {block && block?.value?.target_amount}</span>
-              <span className="text-muted font-14 font-regular">goal</span>
+              <span className="text-muted font-14 font-regular"> needed</span>
             </div>
           </div>
         </div>
@@ -60,7 +66,7 @@ const Card = ({ type, block, setModal }) => {
                 <CardButton setModal={setModal} className="mt-4">
                   Vote
                 </CardButton>
-                <CardButton typeB="report" setModal={setModal} className="mt-4">
+                <CardButton typeB="report" vote={downVote} setModal={setModal} className="mt-4">
                   Report
                 </CardButton>
               </div>
@@ -102,7 +108,7 @@ const Card = ({ type, block, setModal }) => {
                 <span className="text-muted font-demi">
                   ꜩ {block && block?.value?.target_amount}
                 </span>
-                <span className="text-muted font-14 font-regular">needed</span>
+                <span className="text-muted font-14 font-regular"> needed</span>
               </div>
             </div>
             <div className="progress mt-3">
@@ -116,9 +122,13 @@ const Card = ({ type, block, setModal }) => {
             <hr />
           </div>
           <div className="d-flex justify-content-between align-items-center">
-            <i onClick={() => upVote(block?.key)} className="far fa-heart"></i>
+            <i
+              onClick={() => upVote(block?.key)}
+              className="far fa-heart fa-2x"
+              style={{ cursor: "pointer" }}
+            ></i>
             <Link to={`/blockDetails/${block?.key}`}>
-              <Button title="Details" />
+              <Button title="View Details" />
             </Link>
           </div>
         </div>
