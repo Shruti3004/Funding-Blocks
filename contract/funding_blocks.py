@@ -3,54 +3,8 @@ import smartpy as sp
 
 FA2 = sp.io.import_script_from_url("https://smartpy.io/dev/templates/FA2.py")
 
-class FundingBlock(sp.Contract):
-    def __init__(self):
-        """
-        Initialize the contract.
-        """
-        self.init_type(
-            sp.TRecord(
-                profiles=sp.TBigMap(
-                    sp.TAddress,  # Unique address of the user
-                    sp.TRecord(
-                        name=sp.TString,  # Name of the user
-                        bio=sp.TString,  # Bio of the user
-                        donated=sp.TMutez,  # Total amount of donated tokens
-                        upvoted=sp.TSet(sp.TString),  # Set of upvoted funding blocks
-                        downvoted=sp.TSet(sp.TString),  # Set of downvoted funding blocks
-                        voted=sp.TMap(sp.TString, sp.TMutez),  # Map of block names to their voted amounts
-                    ),
-                ),
-                blocks=sp.TBigMap(
-                    sp.TString,  # Funding block slug
-                    sp.TRecord(
-                        active=sp.TBool,  # Whether the funding block is active
-                        title=sp.TString,  # Title of the block
-                        description=sp.TString,  # Description of the block
-                        location=sp.TRecord(
-                            latitude=sp.TString,  # Latitude of the location
-                            longitude=sp.TString,  # Longitude of the location
-                        ),
-                        image=sp.TString,  # Image of the block
-                        target_amount=sp.TNat,  # Target amount of tokens to be raised
-                        actions=sp.TString,  # Actions to be taken
-                        legal_statements=sp.TString,  # Legal statements
-                        thankyou=sp.TString,  # Thank you message
-                        author=sp.TAddress,  # Unique address of the user who created the block
-                        upvotes=sp.TNat,  # Number of upvotes
-                        upvoted_average=sp.TNat,  # Represents how much people have upvoted the block
-                        downvotes=sp.TNat,  # Number of downvotes
-                        downvoted_average=sp.TNat,  # Represents how much people have upvoted the block
-                        voters=sp.TMap(sp.TAddress, sp.TMutez),  # Map of addresses to their voted amounts
-                        voters_weight=sp.TMutez,  # Total apparent weight of votes
-                        final_amount=sp.TMutez,  # Amount decided by the voters
-                    ),
-                ),
-                active_blocks=sp.TInt,  # Number of active blocks
-            )
-        )
-        self.init(profiles=sp.big_map(), blocks=sp.big_map(), active_blocks=0)
 
+class Block:
     @sp.entry_point
     def register(self, params):
         """
@@ -267,11 +221,129 @@ class FundingCertificate(FA2.FA2):
         return token_id
 
 
+class FundingBlocks(Block, FundingCertificate):
+    def __init__(self, config, metadata, admin, *args, **kwargs):
+        if config.assume_consecutive_token_ids:
+            self.all_tokens.doc = """
+            This view is specified (but optional) in the standard.
+
+            This contract is built with assume_consecutive_token_ids =
+            True, so we return a list constructed from the number of tokens.
+            """
+        else:
+            self.all_tokens.doc = """
+            This view is specified (but optional) in the standard.
+
+            This contract is built with assume_consecutive_token_ids =
+            False, so we convert the set of tokens from the storage to a list
+            to fit the expected type of TZIP-16.
+            """
+        list_of_views = [
+            self.get_balance
+            , self.does_token_exist
+            , self.count_tokens
+            , self.all_tokens
+            , self.is_operator
+        ]
+
+        if config.store_total_supply:
+            list_of_views = list_of_views + [self.total_supply]
+        if config.use_token_metadata_offchain_view:
+            self.set_token_metadata_view()
+            list_of_views = list_of_views + [self.token_metadata]
+
+        metadata_base = {
+            "version": config.name
+            , "description" : (
+                "This is a didactic reference implementation of FA2,"
+                + " a.k.a. TZIP-012, using SmartPy.\n\n"
+                + "This particular contract uses the configuration named: "
+                + config.name + "."
+            )
+            , "interfaces": ["TZIP-012", "TZIP-016"]
+            , "authors": [
+                "Seb Mondet <https://seb.mondet.org>"
+            ]
+            , "homepage": "https://gitlab.com/smondet/fa2-smartpy"
+            , "views": list_of_views
+            , "source": {
+                "tools": ["SmartPy"]
+                , "location": "https://gitlab.com/smondet/fa2-smartpy.git"
+            }
+            , "permissions": {
+                "operator":
+                "owner-or-operator-transfer" if config.support_operator else "owner-transfer"
+                , "receiver": "owner-no-hook"
+                , "sender": "owner-no-hook"
+            }
+            , "fa2-smartpy": {
+                "configuration" :
+                dict([(k, getattr(config, k)) for k in dir(config) if "__" not in k and k != 'my_map'])
+            }
+        }
+        self.init_metadata("metadata_base", metadata_base)
+        FA2.FA2_core.__init__(self, config, metadata, paused = False, administrator = admin, *args, **kwargs)
+
+
 # Test
 @sp.add_test(name = "Funding Block test")
 def test():
-    contract = FundingBlock()
     scenario = sp.test_scenario()
+    admin = sp.test_account("Admin")
+    contract = FundingBlocks(
+        FA2.FA2_config(
+            single_asset=False,
+            non_fungible=True,      
+            assume_consecutive_token_ids = True,
+        ),
+        metadata = sp.big_map({
+            "": sp.utils.bytes_of_string("tezos-storage:content"),
+            "content": sp.utils.bytes_of_string(
+                dumps({
+                    "name": "Funding-Blocks Certificate"
+                })
+            ),}
+        ),
+        admin = admin.address,
+        profiles=sp.big_map(
+            tkey = sp.TAddress,  # Unique address of the user
+            tvalue = sp.TRecord(
+                name=sp.TString,  # Name of the user
+                bio=sp.TString,  # Bio of the user
+                donated=sp.TMutez,  # Total amount of donated tokens
+                upvoted=sp.TSet(sp.TString),  # Set of upvoted funding blocks
+                downvoted=sp.TSet(sp.TString),  # Set of downvoted funding blocks
+                voted=sp.TMap(sp.TString, sp.TMutez),  # Map of block names to their voted amounts
+                certificate_token_id=sp.TMap(sp.TString, sp.TNat)  # Map of block names to their certificates NFT-token-ids
+            )
+        ),
+        blocks=sp.big_map(
+            tkey = sp.TString,  # Unique slug for Funding Block
+            tvalue = sp.TRecord(
+                active=sp.TBool,  # Whether the funding block is active
+                title=sp.TString,  # Title of the block
+                description=sp.TString,  # Description of the block
+                location=sp.TRecord(
+                    latitude=sp.TString,  # Latitude of the location
+                    longitude=sp.TString,  # Longitude of the location
+                ),
+                image=sp.TString,  # Image of the block
+                target_amount=sp.TNat,  # Target amount of tokens to be raised
+                actions=sp.TString,  # Actions to be taken
+                legal_statements=sp.TString,  # Legal statements
+                thankyou=sp.TString,  # Thank you message
+                author=sp.TAddress,  # Unique address of the user who created the block
+                upvotes=sp.TNat,  # Number of upvotes
+                upvoted_average=sp.TNat,  # Represents how much people have upvoted the block
+                downvotes=sp.TNat,  # Number of downvotes
+                downvoted_average=sp.TNat,  # Represents how much people have upvoted the block
+                voters=sp.TMap(sp.TAddress, sp.TMutez),  # Map of addresses to their voted amounts
+                voters_weight=sp.TMutez,  # Total apparent weight of votes
+                final_amount=sp.TMutez,  # Amount decided by the voters
+            )
+        ),
+        active_blocks=0
+    )
     scenario += contract
 
     scenario.h1("5 Users getting ready")
