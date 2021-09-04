@@ -86,18 +86,6 @@ class FundingBlock(sp.Contract):
         self.data.profiles[sp.sender].donated += sp.amount
 
     @sp.entry_point
-    def withdraw_back(self, params):
-        """
-        Withdraw your own tokens from the main Funding block
-        """
-        sp.verify(self.data.profiles.contains(sp.sender), "User not registered")
-        sp.verify(self.data.profiles[sp.sender].donated >= params.amount, "Not enough tokens")
-        sp.verify(self.data.active_blocks == sp.int(0), "Cannont withdraw while blocks are active")
-
-        self.data.profiles[sp.sender].donated -= sp.amount
-        sp.send(sp.sender, params.amount)
-
-    @sp.entry_point
     def funding_blockify(self, params):
         """
         Create a new funding block
@@ -250,11 +238,6 @@ def test():
     scenario += contract.donate().run(sender=user3, amount=sp.tez(234534))
     scenario += contract.donate().run(sender=user4, amount=sp.tez(654234))
     scenario += contract.donate().run(sender=user5, amount=sp.tez(34523), valid=False)
-
-    scenario.h2("Withdrawing back some tokens")
-    scenario += contract.withdraw_back(amount=sp.tez(43423)).run(sender=user2)
-    scenario += contract.withdraw_back(amount=sp.tez(234535)).run(sender=user3, valid=False)
-    scenario += contract.withdraw_back(amount=sp.tez(34523)).run(sender=user5, valid=False)
 
     scenario.h1("Users making funding blocks")
     scenario += contract.funding_blockify(
