@@ -1,5 +1,7 @@
+from json import dumps
 import smartpy as sp
 
+FA2 = sp.io.import_script_from_url("https://smartpy.io/dev/templates/FA2.py")
 
 class FundingBlock(sp.Contract):
     def __init__(self):
@@ -63,6 +65,7 @@ class FundingBlock(sp.Contract):
             upvoted=sp.set(),
             downvoted=sp.set(),
             voted=sp.map(),
+            certificate_token_id=sp.map(),
         )
         self.data.profiles[sp.sender] = profile
 
@@ -191,9 +194,78 @@ class FundingBlock(sp.Contract):
         sp.verify(self.data.blocks[params.block_slug].active, "Block is not active")
         sp.verify(self.data.blocks[params.block_slug].voters_weight >= sp.split_tokens(sp.balance, sp.nat(1), sp.nat(4)), "Need more voters")
 
+        sp.for voter in self.data.blocks[params.block_slug].voters.keys():
+            effective_donation = sp.split_tokens(
+                self.data.profiles[voter].donated,
+                self.data.blocks[params.block_slug].final_amount, 
+                sp.balance
+            )
+            token_id = self.mint(
+                address = voter,
+                amount = 1,
+                metadata = FundingBlocks.make_metadata(
+                    block = sp.record(
+                        slug = params.block_slug,
+                        title = self.data.blocks[params.block_slug].title,
+                    ),
+                    donor = sp.record(
+                        name = self.data.profiles[voter].name,
+                        address = voter,
+                    ),
+                    donation = effective_donation
+                )
+            )
+            self.data.profiles[voter].certificate_token_id[params.block_slug] = token_id
+
         sp.send(sp.sender, self.data.blocks[params.block_slug].final_amount)
         self.data.blocks[params.block_slug].active = sp.bool(False)
         self.data.active_blocks -= sp.int(1)
+
+
+class FundingCertificate(FA2.FA2):
+    def make_metadata(block, donor, donation):
+        "Helper function to build metadata JSON bytes values."
+        return (sp.map(l = {
+            "block_slug" : sp.utils.bytes_of_string(str(block.slug)),
+            "block_title" : sp.utils.bytes_of_string(str(block.title)),
+            "issuer_address": sp.utils.bytes_of_string(str(sp.source)),
+            "donor_name": sp.utils.bytes_of_string(str(donor.name)),
+            "donor_address": sp.utils.bytes_of_string(str(donor.address)),
+            "effective_donation": sp.utils.bytes_of_string(str(donation)),
+            "issuance_date": sp.utils.bytes_of_string(str(sp.now)),
+        }))
+
+    def mint(self, amount, address, metadata):
+        """
+        Mint Certificate as a Non-Fungible Token.
+        """
+        token_id = self.token_id_set.cardinal(self.data.all_tokens)
+        if self.config.single_asset:
+            sp.verify(token_id == 0, message = "single-asset: token-id <> 0")
+        if self.config.non_fungible:
+            sp.verify(amount == 1, message = "NFT-asset: amount <> 1")
+            sp.verify(
+                ~ self.token_id_set.contains(self.data.all_tokens, token_id),
+                message = "NFT-asset: cannot mint twice same token"
+            )
+        user = self.ledger_key.make(address, token_id)
+        self.token_id_set.add(self.data.all_tokens, token_id)
+        sp.if self.data.ledger.contains(user):
+            self.data.ledger[user].balance += amount
+        sp.else:
+            self.data.ledger[user] = FA2.Ledger_value.make(amount)
+        sp.if self.data.token_metadata.contains(token_id):
+            if self.config.store_total_supply:
+                self.data.total_supply[token_id] = amount
+        sp.else:
+            self.data.token_metadata[token_id] = sp.record(
+                token_id    = token_id,
+                token_info  = metadata
+            )
+            if self.config.store_total_supply:
+                self.data.total_supply[token_id] = amount
+        return token_id
+
 
 # Test
 @sp.add_test(name = "Funding Block test")
