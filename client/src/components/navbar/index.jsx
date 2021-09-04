@@ -50,9 +50,11 @@ const Navbar = () => {
                 // <Nav.Link as={Link} to="/signup" className="text-white font-demi px-4">
                 //   Sign Up
                 // </Nav.Link>
-                <Button onClick={() => logIn().then(() => (window.location.href = "/signup"))}>
-                  Sign In
-                </Button>
+                <span className="mr-2">
+                  <Button onClick={() => logIn().then(() => (window.location.href = "/signup"))}>
+                    Sign In
+                  </Button>
+                </span>
               ) : (
                 <Nav.Link as={Link} to="/editProfile" className="text-white font-demi px-4">
                   My Profile

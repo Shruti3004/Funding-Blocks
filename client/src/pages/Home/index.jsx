@@ -4,6 +4,7 @@ import Card from "../../components/card";
 import { Link } from "react-router-dom";
 import HomeHero from "../../components/hero";
 import { getFeaturedBlocks } from "../../api";
+import { Fade } from "react-reveal";
 
 const Home = () => {
   const [blocks, setBlocks] = React.useState([]);
@@ -49,124 +50,144 @@ const Home = () => {
         <div className="container px-4">
           <div className="row d-flex justify-content-center">
             <div className="col-lg-2 col-md-3 col-sm-6 col-6 mt-4">
-              <div className="card">
-                <div className="card-img-top">
-                  <img src="/images/accident.jpg" alt="accident" className="img-fluid" />
-                </div>
-                <div className="card-content">
-                  <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
-                    Accident
+              <Fade bottom>
+                <div className="card">
+                  <div className="card-img-top">
+                    <img src="/images/accident.jpg" alt="accident" className="img-fluid" />
+                  </div>
+                  <div className="card-content">
+                    <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
+                      Accident
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Fade>
             </div>
             <div className="col-lg-2 col-md-3 col-sm-6 col-6 mt-4">
-              <div className="card">
-                <div className="card-img-top">
-                  <img src="/images/covid.png" alt="covid" className="img-fluid" />
-                </div>
-                <div className="card-content">
-                  <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
-                    Pandemic
+              <Fade bottom>
+                <div className="card">
+                  <div className="card-img-top">
+                    <img src="/images/covid.png" alt="covid" className="img-fluid" />
+                  </div>
+                  <div className="card-content">
+                    <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
+                      Pandemic
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Fade>
             </div>
             <div className="col-lg-2 col-md-3 col-sm-6 col-6 mt-4">
-              <div className="card">
-                <div className="card-img-top">
-                  <img src="/images/cyclone.jpg" alt="cyclone" className="img-fluid" />
-                </div>
-                <div className="card-content">
-                  <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
-                    Cyclone
+              <Fade bottom>
+                <div className="card">
+                  <div className="card-img-top">
+                    <img src="/images/cyclone.jpg" alt="cyclone" className="img-fluid" />
+                  </div>
+                  <div className="card-content">
+                    <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
+                      Cyclone
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Fade>
             </div>
             <div className="col-lg-2 col-md-3 col-sm-6 col-6 mt-4">
-              <div className="card">
-                <div className="card-img-top">
-                  <img src="/images/earthquake.jpg" alt="earthquake" className="img-fluid" />
-                </div>
-                <div className="card-content">
-                  <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
-                    Earthquake
+              <Fade bottom>
+                <div className="card">
+                  <div className="card-img-top">
+                    <img src="/images/earthquake.jpg" alt="earthquake" className="img-fluid" />
+                  </div>
+                  <div className="card-content">
+                    <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
+                      Earthquake
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Fade>
             </div>
             <div className="col-lg-2 col-md-3 col-sm-6 col-6 mt-4">
-              <div className="card">
-                <div className="card-img-top">
-                  <img src="/images/epidemic.jpg" alt="epidemic" className="img-fluid" />
-                </div>
-                <div className="card-content">
-                  <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
-                    Epidemic
+              <Fade bottom>
+                <div className="card">
+                  <div className="card-img-top">
+                    <img src="/images/epidemic.jpg" alt="epidemic" className="img-fluid" />
+                  </div>
+                  <div className="card-content">
+                    <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
+                      Epidemic
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Fade>
             </div>
             <div className="col-lg-2 col-md-3 col-sm-6 col-6 mt-4">
-              <div className="card">
-                <div className="card-img-top">
-                  <img src="/images/flood.jpg" alt="flood" className="img-fluid" />
-                </div>
-                <div className="card-content">
-                  <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
-                    Flood
+              <Fade bottom>
+                <div className="card">
+                  <div className="card-img-top">
+                    <img src="/images/flood.jpg" alt="flood" className="img-fluid" />
+                  </div>
+                  <div className="card-content">
+                    <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
+                      Flood
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Fade>
             </div>
             <div className="col-lg-2 col-md-3 col-sm-6 col-6 mt-4">
-              <div className="card">
-                <div className="card-img-top">
-                  <img src="/images/landslide.jpg" alt="landslide" className="img-fluid" />
-                </div>
-                <div className="card-content">
-                  <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
-                    Landslide
+              <Fade bottom>
+                <div className="card">
+                  <div className="card-img-top">
+                    <img src="/images/landslide.jpg" alt="landslide" className="img-fluid" />
+                  </div>
+                  <div className="card-content">
+                    <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
+                      Landslide
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Fade>
             </div>
             <div className="col-lg-2 col-md-3 col-sm-6 col-6 mt-4">
-              <div className="card">
-                <div className="card-img-top">
-                  <img src="/images/wildfire.jpg" alt="wildfire" className="img-fluid" />
-                </div>
-                <div className="card-content">
-                  <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
-                    Wildfire
+              <Fade bottom>
+                <div className="card">
+                  <div className="card-img-top">
+                    <img src="/images/wildfire.jpg" alt="wildfire" className="img-fluid" />
+                  </div>
+                  <div className="card-content">
+                    <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
+                      Wildfire
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Fade>
             </div>
             <div className="col-lg-2 col-md-3 col-sm-6 col-6 mt-4">
-              <div className="card">
-                <div className="card-img-top">
-                  <img src="/images/tornado.jpg" alt="tornado" className="img-fluid" />
-                </div>
-                <div className="card-content">
-                  <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
-                    Tornado
+              <Fade bottom>
+                <div className="card">
+                  <div className="card-img-top">
+                    <img src="/images/tornado.jpg" alt="tornado" className="img-fluid" />
+                  </div>
+                  <div className="card-content">
+                    <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
+                      Tornado
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Fade>
             </div>
             <div className="col-lg-2 col-md-3 col-sm-6 col-6 mt-4">
-              <div className="card">
-                <div className="card-img-top">
-                  <img src="/images/tsunami.jpg" alt="tsunami" className="img-fluid" />
-                </div>
-                <div className="card-content">
-                  <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
-                    Tsunami
+              <Fade bottom>
+                <div className="card">
+                  <div className="card-img-top">
+                    <img src="/images/tsunami.jpg" alt="tsunami" className="img-fluid" />
+                  </div>
+                  <div className="card-content">
+                    <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
+                      Tsunami
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Fade>
             </div>
           </div>
         </div>
@@ -188,9 +209,6 @@ const Home = () => {
                   Startups can also create their Funding Blocks.
                 </p>
               </div>
-              {/* <div className="d-flex justify-content-center">
-                <div className="py-4 bg-secondaryColor triangle" style={{ width: "80px" }}></div>
-              </div> */}
             </div>
             <div className="col-lg-4 col-md-6 col-sm-12 col-12 text-center text-white mt-3">
               <div className="bg-tertiaryColor py-5 h-100">

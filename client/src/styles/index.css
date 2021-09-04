@@ -164,6 +164,9 @@ h6 {
   background: var(--tertiary-color);
   color: #ffffff;
 }
+.mr-2 {
+  margin-right: 2rem;
+}
 
 .custom-cardbutton {
   border: none;
