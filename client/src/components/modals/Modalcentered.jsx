@@ -57,7 +57,7 @@ const Modalcentered = (props) => {
         </div>
       </div>
       <Modal.Footer>
-        <Button title="Contriute now" handleSubmit={() => donate(state.x / 1000000)} />
+        <Button title="Contriute now" handleSubmit={() => donate(state.x)} />
       </Modal.Footer>
     </Modal>
   );
