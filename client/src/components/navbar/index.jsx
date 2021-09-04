@@ -25,14 +25,13 @@ const Navbar = () => {
         className="bg-primaryColor py-0"
         collapseOnSelect={true}
       >
-        <Container className="justify-content-between">
+        <div className="px-5 d-flex justify-content-between w-100">
           <NavCustom.Brand as={Link} to="/">
-            <img src={Logo} alt="Funding Blocks" className="img-fluid my-2" width="50%" />
+            <img src={Logo} alt="Funding Blocks" className="img-fluid my-2" width="35%" />
           </NavCustom.Brand>
           <NavCustom.Toggle aria-controls="responsive-navbar-nav" />
-          <NavCustom.Collapse id="responsive-navbar-nav" className="text-white text-center">
-            <Nav className="me-auto"></Nav>
-            <Nav>
+          <NavCustom.Collapse id="responsive-navbar-nav" className="text-white text-center ml-auto">
+            <Nav style={{marginLeft: "auto"}}>
               <Nav.Link as={Link} to="/" className="text-white font-demi px-4">
                 Home
               </Nav.Link>
@@ -41,6 +40,9 @@ const Navbar = () => {
               </Nav.Link>
               <Nav.Link as={Link} to="/createBlock" className="text-white font-demi px-4">
                 Create Block
+              </Nav.Link>
+              <Nav.Link as={Link} to="/blocks" className="text-white font-demi px-4">
+                All Blocks
               </Nav.Link>
               <Nav.Link
                 target="_blank"
@@ -63,7 +65,7 @@ const Navbar = () => {
               <div id="google_translate_element"></div>
             </Nav>
           </NavCustom.Collapse>
-        </Container>
+        </div>
         {/* <div className="sidebar" id="sidebar">
           <div className="sidebar-content">
             <Link to="/profile" className="px-5 d-flex mb-4 mt-3" style={{ cursor: "pointer" }}>

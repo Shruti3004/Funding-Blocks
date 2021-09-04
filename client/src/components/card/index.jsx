@@ -6,18 +6,12 @@ import { upVote, downVote, donate } from "../../api";
 import { ProgressBar } from "react-bootstrap";
 import { EmailShareButton, WhatsappShareButton } from "react-share";
 import { Fade } from "react-reveal";
-import { Button as BootstrapButton } from "react-bootstrap";
 
 const Card = ({ type, block, setModal }) => {
-
-
-
-
   let percent = block ? (block.value.target_amount / block.value.final_amount) * 100 : 0;
   percent = percent.toString().substr(0, 2);
   percent = parseInt(percent);
   console.log("k", block);
-
 
   if (type === "fundDetails") {
     return (
@@ -60,7 +54,10 @@ const Card = ({ type, block, setModal }) => {
               </div>
               <hr />
               <p className="card-text text-muted font-medium">
-                {block && block?.value?.description}
+                <span className="font-30 text-primaryColor text-uppercase font-demi">
+                  {block && block?.value?.description[0]}
+                </span>
+                {block && block?.value?.description.substring(1, block?.value?.description.length)}
               </p>
               <div className="d-flex justify-content-between align-items-center">
                 <CardButton setModal={setModal} className="mt-4">
@@ -78,7 +75,7 @@ const Card = ({ type, block, setModal }) => {
   }
   return (
     <Fade bottom>
-      <div className="box card-hover">
+      <div className="box card-hover h-100">
         <div className={`card-body`}>
           <div>
             <Link to={`/blockDetails/${block?.key}`}>
@@ -97,16 +94,16 @@ const Card = ({ type, block, setModal }) => {
                 {block && block?.value?.title}
               </h4>
               <p className="card-text text-muted font-medium mt-3">
-                {block && block?.value?.description}
+                {block && block?.value?.description.substring(0, 100)}...
               </p>
             </Link>
             <hr />
             <div className="d-flex justify-content-between">
               <div className="font-22 font-bold text-primaryColor mt-3">
-                ꜩ {block && block?.value?.final_amount}
+                ꜩ {block && parseFloat(block?.value?.final_amount / 1000000).toFixed(6)}
                 <span className="text-muted font-14 font-regular"> decided of </span> <br />
                 <span className="text-muted font-demi">
-                  ꜩ {block && block?.value?.target_amount}
+                  ꜩ {block && parseFloat(block?.value?.target_amount / 1000000).toFixed(6)}
                 </span>
                 <span className="text-muted font-14 font-regular"> needed</span>
               </div>

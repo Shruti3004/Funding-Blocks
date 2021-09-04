@@ -26,7 +26,7 @@ const Home = () => {
         <div className="container">
           <div className="row d-flex justify-content-center py-5 ">
             {blocks.map((block) => (
-              <div key={block.id} className="col-lg-4 col-md-4 col-sm-6 col-12 mt-3 h-100">
+              <div key={block.id} className="col-lg-4 col-md-4 col-sm-6 col-12 mt-3">
                 <Card block={block} />
               </div>
             ))}

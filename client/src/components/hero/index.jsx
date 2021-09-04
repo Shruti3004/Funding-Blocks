@@ -1,12 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CountUp from "react-countup";
 import Button from "../button";
 import Modalcentered from "../modals/Modalcentered";
 import { Fade } from "react-reveal";
+import { getBalance } from "../../api";
 
 const HomeHero = () => {
   const [modal, setModal] = useState(false);
+  const [balance, setBalance] = useState(0);
+
   const handleSubmit = () => setModal(true);
+
+  useEffect(() => {
+    getBalance().then((value) => setBalance(value));
+  }, []);
 
   return (
     <div>
@@ -15,7 +22,7 @@ const HomeHero = () => {
         <div className="home-text text-center py-section">
           <div className="d-flex justify-content-center align-items-center h-100 flex-column">
             <h1 className="display-2 text-secondaryColor">
-              <CountUp end={10000000} duration={5} className="text-center" />
+              <CountUp end={balance} duration={5} className="text-center" />
             </h1>
             <Fade bottom>
               <h1 className="text-white">An easy way to raise funds</h1>

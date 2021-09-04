@@ -18,6 +18,17 @@
   border-radius: 10px;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 /**************************************************** Font family ****************************************************/
 @font-face {
   font-family: Avenir-bold;
@@ -119,6 +130,9 @@ h6 {
 }
 .font-22 {
   font-size: 22px;
+}
+.font-30 {
+  font-size: 30px;
 }
 .font-20 {
   font-size: 20px;

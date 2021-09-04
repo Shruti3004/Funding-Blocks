@@ -1,11 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
 import Slider from "react-input-slider";
 import Button from "../button";
-import { donate } from "../../api";
+import { donate, getBalance, getAccount } from "../../api";
 
 const Modalcentered = (props) => {
-  const [state, setState] = useState({ x: 1000, y: 10 });
+  const [state, setState] = useState({ x: 1, y: 10 });
+  const [balance, setBalance] = useState(10000);
+
+  useEffect(() => {
+    getAccount().then(async (res) => {
+      if (res.result) setBalance((await getBalance(res.address)) / 1000000);
+    });
+  }, []);
 
   return (
     <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
@@ -27,22 +34,24 @@ const Modalcentered = (props) => {
                 backgroundColor: "grey",
               },
               disabled: {
-                opacity: 0.5,
+                opacity: 0.7,
               },
             }}
             className="w-75"
             axis="x"
-            xmin={1000}
+            xmin={1}
             x={state.x}
-            xmax={1000000000}
+            xmax={balance}
+            xstep={0.000001}
             onChange={({ x }) => setState((state) => ({ ...state, x }))}
           />
-          <span>muTez</span>
+          <span style={{ marginLeft: "10px" }}>ꜩ</span>
           <input
             type="number"
             value={state.x}
             className="form-control w-25"
             style={{ marginLeft: "20px" }}
+            step=".000001"
             onChange={(e) => setState((state) => ({ ...state, x: e.target.value }))}
           />
         </div>

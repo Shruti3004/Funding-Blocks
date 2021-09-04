@@ -6,6 +6,7 @@ import "../../styles/blockDetails.css";
 import Modalcentered from "../../components/modals/Modalcentered";
 
 import { getBlock } from "../../api/";
+import Loader from "../../components/loader";
 
 const BlockDetails = () => {
   const params = useParams();
@@ -31,7 +32,9 @@ const BlockDetails = () => {
   }, []);
 
   return loading ? (
-    <div>Loading...</div>
+    <div>
+      <Loader />
+    </div>
   ) : (
     <>
       <Modalcentered show={modal} onHide={() => setModal(false)} />
