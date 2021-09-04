@@ -25,7 +25,7 @@ const HomeHero = () => {
                 What if donations becomes transparent?
               </div>
             </Fade>
-            <Button title="Donate Now" className="mt-4 mb-5" handleSubmit={handleSubmit} />
+            <Button title="Contribute Now" className="mt-4 mb-5" handleSubmit={handleSubmit} />
           </div>
         </div>
       </div>
