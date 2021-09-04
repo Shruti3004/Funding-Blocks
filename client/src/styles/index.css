@@ -386,6 +386,6 @@ button:active {
 .form-margin {
   margin-top: -10%;
 }
-.modal-header{
+.modal-header {
   background: var(--primary-color);
 }

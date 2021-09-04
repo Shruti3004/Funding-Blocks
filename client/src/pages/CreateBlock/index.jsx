@@ -151,7 +151,7 @@ function CreateBlock() {
                       required
                     />
                   </div>
-                  <label className="font-demi text-primaryColor font-14 mt-4 fields-required">
+                  <label className="font-demi text-primaryColor font-14 mt-4">
                     Legal Statement
                   </label>
                   <div className="input-group">
@@ -162,7 +162,6 @@ function CreateBlock() {
                       name="legal_statements"
                       value={formData.legal_statements}
                       onChange={handleChange}
-                      required
                     />
                   </div>
                   <label className="font-demi text-primaryColor font-14 mt-4 fields-required">

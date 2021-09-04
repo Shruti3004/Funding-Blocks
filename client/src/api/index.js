@@ -218,3 +218,11 @@ export const getAllBlocks = async () => {
     return error;
   }
 };
+
+export const getFeaturedBlocks = async () => {
+  const blocks = await getAllBlocks();
+
+  return blocks
+    .sort((a, b) => parseInt(b.value.upvoted_average) - parseInt(a.value.upvoted_average))
+    .slice(0, 3);
+};

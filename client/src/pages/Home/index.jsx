@@ -1,12 +1,21 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "../../components/button";
 import Card from "../../components/card";
 import { Link } from "react-router-dom";
 import HomeHero from "../../components/hero";
+import { getFeaturedBlocks } from "../../api";
 
 const Home = () => {
+  const [blocks, setBlocks] = React.useState([]);
+
   useEffect(() => {
     window.scrollTo({ top: 0 });
+  }, []);
+
+  useEffect(() => {
+    getFeaturedBlocks().then((res) => {
+      setBlocks(res);
+    });
   }, []);
 
   return (
@@ -15,15 +24,11 @@ const Home = () => {
       <div className="bg-light">
         <div className="container">
           <div className="row d-flex justify-content-center py-5 ">
-            <div className="col-lg-4 col-md-4 col-sm-6 col-12 mt-3">
-              <Card />
-            </div>
-            <div className="col-lg-4 col-md-4 col-sm-6 col-12 mt-3">
-              <Card />
-            </div>
-            <div className="col-lg-4 col-md-4 col-sm-6 col-12 mt-3">
-              <Card />
-            </div>
+            {blocks.map((block) => (
+              <div key={block.id} className="col-lg-4 col-md-4 col-sm-6 col-12 mt-3 h-100">
+                <Card block={block} />
+              </div>
+            ))}
           </div>
           <div className="d-flex justify-content-center mt-4 pb-5">
             <Link to="/blocks">

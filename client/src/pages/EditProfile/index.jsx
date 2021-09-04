@@ -63,14 +63,14 @@ function EditProfile() {
                 <hr />
                 <br />
                 <h4 className="text-center">
-                  Total Donation: <code>{parseInt(formData?.donated) / 1000000} ꜩ</code>
+                  Total Donation: &nbsp;<code>ꜩ {parseInt(formData?.donated) / 1000000}</code>
                 </h4>
                 <br />
                 <h6>
                   Address: <code>{address}</code>
                 </h6>
                 <h6>
-                  Balance: <code>{balance} ꜩ</code>
+                  Balance: &nbsp;<code>ꜩ {balance}</code>
                 </h6>
                 <form onSubmit={handleSubmit}>
                   <label className="font-demi text-primaryColor font-14 mt-4 fields-required">
@@ -81,7 +81,7 @@ function EditProfile() {
                       type="text"
                       className="form-control"
                       name="name"
-                      value={formData?.name}
+                      defaultValue={formData?.name}
                       onChange={handleChange}
                       required
                     />
@@ -94,7 +94,7 @@ function EditProfile() {
                       type="text"
                       className="form-control"
                       name="bio"
-                      value={formData?.bio}
+                      defaultValue={formData?.bio}
                       onChange={handleChange}
                       rows="5"
                       required

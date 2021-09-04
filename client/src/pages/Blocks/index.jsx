@@ -6,18 +6,20 @@ import Loader from "../../components/loader";
 const Blocks = () => {
   const [blocks, setBlocks] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
+
   useEffect(() => {
     getAllBlocks().then((res) => {
       setBlocks(res);
       setLoading(false);
     });
   }, []);
+
   useEffect(() => {
     window.scrollTo({ top: 0 });
   }, []);
-  if (loading) {
-    return <Loader />;
-  }
+
+  if (loading) return <Loader />;
+
   return (
     <>
       <div className="bg-light">
