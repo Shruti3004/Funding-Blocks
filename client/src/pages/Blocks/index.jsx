@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Card from "../../components/card";
 import { getAllBlocks } from "../../api";
+import Loader from "../../components/loader";
 
 const Blocks = () => {
   const [blocks, setBlocks] = React.useState([]);
@@ -15,7 +16,7 @@ const Blocks = () => {
     window.scrollTo({ top: 0 });
   }, []);
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
   return (
     <>
