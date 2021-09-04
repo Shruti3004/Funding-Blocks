@@ -4,12 +4,7 @@ import Button from "../button";
 import CardButton from "../cardButton";
 import { upVote, downVote } from "../../api";
 import { ProgressBar } from "react-bootstrap";
-import {
-  EmailShareButton,
-  FacebookShareButton,
-  TwitterShareButton,
-  WhatsappShareButton,
-} from "react-share";
+import { EmailShareButton, WhatsappShareButton } from "react-share";
 import { Fade } from "react-reveal";
 
 const Card = ({ type, block, setModal }) => {
@@ -32,12 +27,9 @@ const Card = ({ type, block, setModal }) => {
           <div className={`card-body`}>
             <hr />
             <div className="font-22 font-bold text-primaryColor mt-4">
-              {block && block?.value?.final_amount} ꜩ{" "}
+              ꜩ {block && block?.value?.final_amount}
               <span className="text-muted font-14 font-regular">raised of </span> <br />
-              <span className="text-muted font-demi">
-                {" "}
-                {block && block?.value?.target_amount} ꜩ{" "}
-              </span>
+              <span className="text-muted font-demi">ꜩ {block && block?.value?.target_amount}</span>
               <span className="text-muted font-14 font-regular">goal</span>
             </div>
           </div>
@@ -56,9 +48,6 @@ const Card = ({ type, block, setModal }) => {
             <div className="pt-3">
               <div className="d-flex justify-content-between">
                 <h4 className="card-title text-primaryColor mt-3">About</h4>
-                {/* <CardButton type="share" className="px-4">
-                    <i className="fas fa-share-alt"></i>&nbsp;&nbsp;&nbsp;Share Now&nbsp;&nbsp;
-                  </CardButton> */}
                 <EmailShareButton subject="se" body="x" />
                 <WhatsappShareButton title="Share" />
               </div>
@@ -66,7 +55,6 @@ const Card = ({ type, block, setModal }) => {
               <p className="card-text text-muted font-medium">
                 {block && block?.value?.description}
               </p>
-
               <CardButton setModal={setModal} className="mt-4">
                 Donate
               </CardButton>
@@ -103,10 +91,10 @@ const Card = ({ type, block, setModal }) => {
             <hr />
             <div className="d-flex justify-content-between">
               <div className="font-22 font-bold text-primaryColor mt-3">
-                {block && block?.value?.final_amount} ꜩ{" "}
+                ꜩ {block && block?.value?.final_amount}
                 <span className="text-muted font-14 font-regular">raised of </span> <br />
                 <span className="text-muted font-demi">
-                  {block && block?.value?.target_amount} ꜩ{" "}
+                  ꜩ {block && block?.value?.target_amount}
                 </span>
                 <span className="text-muted font-14 font-regular">goal</span>
               </div>
@@ -125,9 +113,9 @@ const Card = ({ type, block, setModal }) => {
             <CardButton typeB="success" className="bg-secondaryColor" block={block} vote={upVote}>
               Support
             </CardButton>
-            <CardButton typeB="report" block={block} vote={downVote}>
+            <Button typeB="report" block={block} vote={downVote}>
               Report
-            </CardButton>
+            </Button>
           </div>
         </div>
       </div>
