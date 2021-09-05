@@ -21,7 +21,7 @@ const Modalcentered = (props) => {
           <h3 className="text-white mt-2 ">Become the saviour</h3>
         </div>
       </Modal.Header>
-      <div className="bg-light p-5">
+      <div className="bg-light p-lg-5 p-3">
         <h4>Select the amount</h4>
         <p>Your donation can save multiple lives. Be a hero today.</p>
         <div className="w-80 d-flex justify-content-between align-items-center">
