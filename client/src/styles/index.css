@@ -412,3 +412,7 @@ button:active {
 .modal-header {
   background: var(--primary-color);
 }
+
+.certificate-border{
+  border: 6px double var(--primary-color);
+}

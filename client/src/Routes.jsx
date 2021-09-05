@@ -5,6 +5,7 @@ import Navbar from "./components/navbar";
 import About from "./pages/About";
 import Blocks from "./pages/Blocks";
 import BlockDetails from "./pages/BlocksDetails";
+import Certificate from "./pages/Certificate";
 import CreateBlock from "./pages/CreateBlock";
 import Default from "./pages/Default";
 import EditProfile from "./pages/EditProfile";
@@ -24,6 +25,7 @@ const Routes = () => {
           <Route exact path="/blockDetails/:id" component={BlockDetails} />
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/editProfile" component={EditProfile} />
+          <Route exact path="/certificate" component={Certificate} />
           <Route path="*" component={Default} />
         </Switch>
         <Footer />
