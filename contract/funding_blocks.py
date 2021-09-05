@@ -49,7 +49,7 @@ class Block:
         """
         sp.verify(self.data.profiles.contains(sp.sender), "User not registered")
         sp.if self.data.blocks.contains(params.slug):
-            sp.verify(self.data.blocks[params.slug].author == sp.sender, "Block with this slug already exists")
+            sp.verify(self.data.blocks[params.slug].author == sp.sender, "User is not the author of this Block")
 
         self.data.blocks[params.slug] = sp.record(
             active=True,
@@ -417,6 +417,20 @@ def test():
         longitude="77.069710",
         image="https://www.brookings.edu/wp-content/uploads/2016/06/wildfire001.jpg",
         target_amount=1000000000000,
+        actions="https://www.chubb.com/us-en/individuals-families/resources/what-to-do-when-a-wildfire-approaches.html",
+        legal_statements="",
+        thankyou="Thank you message 2",
+    ).run(sender=user3)
+
+    scenario.h1("Updating a Funding Block")
+    scenario += contract.funding_blockify(
+        slug="blk2",
+        title="Funding Block2",
+        description="This is the second funding block",
+        latitude="28.679079",
+        longitude="77.069710",
+        image="https://www.brookings.edu/wp-content/uploads/2016/06/wildfire001.jpg",
+        target_amount=1200000000000,
         actions="https://www.chubb.com/us-en/individuals-families/resources/what-to-do-when-a-wildfire-approaches.html",
         legal_statements="",
         thankyou="Thank you message 2",
