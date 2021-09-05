@@ -313,7 +313,7 @@ def test():
             "": sp.utils.bytes_of_string("tezos-storage:content"),
             "content": sp.utils.bytes_of_string(
                 dumps({
-                    "name": "Funding-Blocks Certificate"
+                    "name": "Funding-Blocks"
                 })
             ),}
         ),
