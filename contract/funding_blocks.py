@@ -433,6 +433,18 @@ def test():
         legal_statements="",
         thankyou="Thank you message 2",
     ).run(sender=user3)
+    scenario += contract.funding_blockify(
+        slug="blk3",
+        title="Funding Block3",
+        description="This is the third funding block",
+        latitude="28.679079",
+        longitude="77.069710",
+        image="https://www.brookings.edu/wp-content/uploads/2016/06/wildfire001.jpg",
+        target_amount=1000000000000,
+        actions="https://www.chubb.com/us-en/individuals-families/resources/what-to-do-when-a-wildfire-approaches.html",
+        legal_statements="",
+        thankyou="Thank you message 3",
+    ).run(sender=user2)
 
     scenario.h1("Updating a Funding Block")
     scenario += contract.funding_blockify(
@@ -446,7 +458,23 @@ def test():
         actions="https://www.chubb.com/us-en/individuals-families/resources/what-to-do-when-a-wildfire-approaches.html",
         legal_statements="",
         thankyou="Thank you message 2",
+    ).run(sender=user2, valid=False)
+    scenario += contract.funding_blockify(
+        slug="blk2",
+        title="Funding Block2",
+        description="This is the second funding block",
+        latitude="28.679079",
+        longitude="77.069710",
+        image="https://www.brookings.edu/wp-content/uploads/2016/06/wildfire001.jpg",
+        target_amount=1200000000000,
+        actions="https://www.chubb.com/us-en/individuals-families/resources/what-to-do-when-a-wildfire-approaches.html",
+        legal_statements="",
+        thankyou="Thank you message 2",
     ).run(sender=user3)
+
+    scenario.h1("Deleting a Funding Block")
+    scenario += contract.delete_block(slug="blk3").run(sender=user3, valid=False)
+    scenario += contract.delete_block(slug="blk3").run(sender=user2)
 
     scenario.h1("Users upvoting/downvoting the funding block")
     scenario += contract.upvote(block_slug="blk1").run(sender=user2)
