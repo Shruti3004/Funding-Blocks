@@ -73,6 +73,18 @@ class Block:
         self.data.active_blocks += 1
 
     @sp.entry_point
+    def delete_block(self, params):
+        """
+        Delete a block
+        """
+        sp.verify(self.data.profiles.contains(sp.sender), "User not registered")
+        sp.verify(self.data.blocks[params.slug].author == sp.sender, "Not the author of this block")
+
+        sp.if self.data.blocks[params.slug].active:
+            self.data.active_blocks -= 1
+        del self.data.blocks[params.slug]
+
+    @sp.entry_point
     def upvote(self, params):
         """
         Upvote a funding block
