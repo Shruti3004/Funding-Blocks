@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { Button as Link } from "react-bootstrap";
 import Button from "../../components/button";
-import { updateProfile, getAccount, getUser, getBalance, fundingBlockify } from "../../api";
+import { updateProfile, getAccount, getUser, getBalance, logIn } from "../../api";
 import { Fade } from "react-reveal";
 
 function EditProfile() {
@@ -104,6 +105,14 @@ function EditProfile() {
                     <Button title="Update" className="mt-5" />
                   </div>
                 </form>
+                <div className="d-flex mt-4 justify-content-center">
+                  <Link
+                    variant="link"
+                    onClick={() => logIn().then(() => (window.location.href = "/signup"))}
+                  >
+                    Connect Another Wallet
+                  </Link>
+                </div>
               </div>
             </Fade>
           </div>

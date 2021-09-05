@@ -18,6 +18,17 @@
   border-radius: 10px;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 /**************************************************** Font family ****************************************************/
 @font-face {
   font-family: Avenir-bold;
@@ -120,6 +131,9 @@ h6 {
 .font-22 {
   font-size: 22px;
 }
+.font-30 {
+  font-size: 30px;
+}
 .font-20 {
   font-size: 20px;
 }
@@ -221,9 +235,15 @@ h6 {
   background: #ffffff;
   border-radius: 5px;
   padding: 10px;
-  box-shadow: 0 4px 40px -10px rgb(32 32 72 / 10%);
+  box-shadow: 4px -4px 20px 10px rgb(32 32 72 / 10%);
+  transition: all 0.5s ease-in-out;
 }
-
+.box:hover {
+  box-shadow: 8px -8px 40px 20px rgb(32 32 72 / 10%);
+}
+.card-hover:hover {
+  transform: scale3d(2) !important;
+}
 .custom-blue-bg {
   background: url("../assets/images/bg.webp");
   background-repeat: no-repeat;
@@ -373,7 +393,7 @@ select {
 }
 
 button.close {
-  color: var(--primary-color);
+  color: #fff;
   border: none;
   background: transparent;
   font-size: 2rem;

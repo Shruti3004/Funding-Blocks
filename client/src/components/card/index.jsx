@@ -2,35 +2,37 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Button from "../button";
 import CardButton from "../cardButton";
-import { upVote, downVote } from "../../api";
+import { upVote, downVote, donate } from "../../api";
 import { ProgressBar } from "react-bootstrap";
 import { EmailShareButton, WhatsappShareButton } from "react-share";
 import { Fade } from "react-reveal";
 
 const Card = ({ type, block, setModal }) => {
   let percent = block ? (block.value.target_amount / block.value.final_amount) * 100 : 0;
-
   percent = percent.toString().substr(0, 2);
   percent = parseInt(percent);
-  console.log("k", typeof percent);
+
   if (type === "fundDetails") {
     return (
       <div>
         <div className={`box`}>
-          <div>
+          <div className="px-3">
             <Button
               title="Contribute Now ❤️"
               className="mt-4 w-100 bg-secondaryColor"
               type="outline"
+              // handleSubmit={}
             />
           </div>
           <div className={`card-body`}>
             <hr />
             <div className="font-22 font-bold text-primaryColor mt-4">
-              ꜩ {block && block?.value?.final_amount}
-              <span className="text-muted font-14 font-regular">raised of </span> <br />
-              <span className="text-muted font-demi">ꜩ {block && block?.value?.target_amount}</span>
-              <span className="text-muted font-14 font-regular">goal</span>
+              ꜩ {block && parseFloat(block?.value?.final_amount / 1000000).toFixed(6)}
+              <span className="text-muted font-14 font-regular"> decided of </span> <br />
+              <span className="text-muted font-demi">
+                ꜩ {block && parseFloat(block?.value?.target_amount / 1000000).toFixed(6)}
+              </span>
+              <span className="text-muted font-14 font-regular"> needed</span>
             </div>
           </div>
         </div>
@@ -53,11 +55,19 @@ const Card = ({ type, block, setModal }) => {
               </div>
               <hr />
               <p className="card-text text-muted font-medium">
-                {block && block?.value?.description}
+                <span className="font-30 text-primaryColor text-uppercase font-demi">
+                  {block && block?.value?.description[0]}
+                </span>
+                {block && block?.value?.description.substring(1, block?.value?.description.length)}
               </p>
-              <CardButton setModal={setModal} className="mt-4">
-                Donate
-              </CardButton>
+              <div className="d-flex justify-content-between align-items-center">
+                <CardButton setModal={setModal} className="mt-4">
+                  Vote
+                </CardButton>
+                <CardButton typeB="report" vote={downVote} setModal={setModal} className="mt-4">
+                  Report
+                </CardButton>
+              </div>
             </div>
           </div>
         </div>
@@ -66,7 +76,7 @@ const Card = ({ type, block, setModal }) => {
   }
   return (
     <Fade bottom>
-      <div className={`box`}>
+      <div className="box card-hover h-100">
         <div className={`card-body`}>
           <div>
             <Link to={`/blockDetails/${block?.key}`}>
@@ -85,18 +95,18 @@ const Card = ({ type, block, setModal }) => {
                 {block && block?.value?.title}
               </h4>
               <p className="card-text text-muted font-medium mt-3">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                {block && block?.value?.description.substring(0, 100)}...
               </p>
             </Link>
             <hr />
             <div className="d-flex justify-content-between">
               <div className="font-22 font-bold text-primaryColor mt-3">
-                ꜩ {block && block?.value?.final_amount}
-                <span className="text-muted font-14 font-regular">raised of </span> <br />
+                ꜩ {block && parseFloat(block?.value?.final_amount / 1000000).toFixed(6)}
+                <span className="text-muted font-14 font-regular"> decided of </span> <br />
                 <span className="text-muted font-demi">
-                  ꜩ {block && block?.value?.target_amount}
+                  ꜩ {block && parseFloat(block?.value?.target_amount / 1000000).toFixed(6)}
                 </span>
-                <span className="text-muted font-14 font-regular">goal</span>
+                <span className="text-muted font-14 font-regular"> needed</span>
               </div>
             </div>
             <div className="progress mt-3">
@@ -109,13 +119,15 @@ const Card = ({ type, block, setModal }) => {
             </div>
             <hr />
           </div>
-          <div className="d-flex justify-content-between">
-            <CardButton typeB="success" className="bg-secondaryColor" block={block} vote={upVote}>
-              Support
-            </CardButton>
-            <Button typeB="report" block={block} vote={downVote}>
-              Report
-            </Button>
+          <div className="d-flex justify-content-between align-items-center">
+            <i
+              onClick={() => upVote(block?.key)}
+              className="far fa-heart fa-2x"
+              style={{ cursor: "pointer" }}
+            ></i>
+            <Link to={`/blockDetails/${block?.key}`}>
+              <Button title="View Details" />
+            </Link>
           </div>
         </div>
       </div>

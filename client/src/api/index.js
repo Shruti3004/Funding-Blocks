@@ -30,6 +30,11 @@ export const logIn = () =>
     resolve();
   });
 
+export const logOut = async () => {
+  await Wallet.clearActiveAccount();
+  logIn();
+};
+
 // Contract Interaction
 export const registerUser = async (bio, name) => {
   try {
@@ -80,7 +85,7 @@ export const fundingBlockify = async ({
             legal_statements,
             longitude,
             slug,
-            target_amount,
+            parseInt(target_amount * 1000000),
             thankyou,
             title
           )
@@ -213,7 +218,9 @@ export const getAllBlocks = async () => {
         process.env.REACT_APP_CONTRACT_ADDRESS +
         "/bigmaps/blocks/keys"
     );
-    return body.data;
+    return body.data.sort(
+      (a, b) => parseInt(b.value.upvoted_average) - parseInt(a.value.upvoted_average)
+    );
   } catch (error) {
     return error;
   }
@@ -221,8 +228,5 @@ export const getAllBlocks = async () => {
 
 export const getFeaturedBlocks = async () => {
   const blocks = await getAllBlocks();
-
-  return blocks
-    .sort((a, b) => parseInt(b.value.upvoted_average) - parseInt(a.value.upvoted_average))
-    .slice(0, 3);
+  return blocks.slice(0, 3);
 };

@@ -26,17 +26,17 @@ const Home = () => {
         <div className="container">
           <div className="row d-flex justify-content-center py-5 ">
             {blocks.map((block) => (
-              <div key={block.id} className="col-lg-4 col-md-4 col-sm-6 col-12 mt-3 h-100">
+              <div key={block.id} className="col-lg-4 col-md-4 col-sm-6 col-12 mt-3">
                 <Card block={block} />
               </div>
             ))}
           </div>
           <div className="d-flex justify-content-center mt-4 pb-5">
             <Link to="/blocks">
-              <Button title="All Disasters" className="mx-2" />
+              <Button title="All Blocks" className="mx-2" />
             </Link>
             <Link to="/createBlock">
-              <Button title="Create Fundraiser" type="outline" className="mx-2" />
+              <Button title="Create Funding Block" type="outline" className="mx-2" />
             </Link>
           </div>
         </div>

@@ -110,7 +110,7 @@ function CreateBlock() {
                     />
                   </div>
                   <label className="font-demi text-primaryColor font-14 mt-4 fields-required">
-                    Target Amount
+                    Target Amount (ꜩ)
                   </label>
                   <div className="input-group">
                     <input

@@ -1,12 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CountUp from "react-countup";
 import Button from "../button";
 import Modalcentered from "../modals/Modalcentered";
 import { Fade } from "react-reveal";
+import { getBalance } from "../../api";
 
 const HomeHero = () => {
   const [modal, setModal] = useState(false);
+  const [balance, setBalance] = useState(0);
+
   const handleSubmit = () => setModal(true);
+
+  useEffect(() => {
+    getBalance().then((value) => setBalance(value / 1000000));
+  }, []);
 
   return (
     <div>
@@ -15,7 +22,7 @@ const HomeHero = () => {
         <div className="home-text text-center py-section">
           <div className="d-flex justify-content-center align-items-center h-100 flex-column">
             <h1 className="display-2 text-secondaryColor">
-              <CountUp end={10000000} duration={5} className="text-center" />
+              <CountUp end={balance} duration={2} decimals={6} className="text-center" /> ꜩ
             </h1>
             <Fade bottom>
               <h1 className="text-white">An easy way to raise funds</h1>
@@ -25,7 +32,11 @@ const HomeHero = () => {
                 What if donations becomes transparent?
               </div>
             </Fade>
-            <Button title="Contribute Now" className="mt-4 mb-5" handleSubmit={handleSubmit} />
+            <Button
+              title="Contribute Now ❤️"
+              className="mt-4 mb-5 px-3"
+              handleSubmit={handleSubmit}
+            />
           </div>
         </div>
       </div>
@@ -39,7 +50,7 @@ const HomeHero = () => {
           <div className="col-lg-9 col-md-9 col-sm-12 col-12 font-regular bg-white py-3">
             <div className="container">
               <div className="row mt-3">
-                <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center box py-2">
+                <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center py-2">
                   <Fade bottom>
                     <div className="card">
                       <div className="card-img-top">
@@ -53,7 +64,7 @@ const HomeHero = () => {
                     </div>
                   </Fade>
                 </div>
-                <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center box py-2">
+                <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center py-2">
                   <Fade bottom>
                     <div className="card">
                       <div className="card-img-top">
@@ -67,7 +78,7 @@ const HomeHero = () => {
                     </div>
                   </Fade>
                 </div>
-                <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center box py-2">
+                <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center py-2">
                   <Fade bottom>
                     <div className="card">
                       <div className="card-img-top">
@@ -81,7 +92,7 @@ const HomeHero = () => {
                     </div>
                   </Fade>
                 </div>
-                <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center box py-2">
+                <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center py-2">
                   <Fade bottom>
                     <div className="card">
                       <div className="card-img-top">
@@ -97,7 +108,7 @@ const HomeHero = () => {
                 </div>
               </div>
               <div className="row my-4">
-                <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center box py-2">
+                <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center py-2">
                   <Fade bottom>
                     <div className="card">
                       <div className="card-img-top">
@@ -111,7 +122,7 @@ const HomeHero = () => {
                     </div>
                   </Fade>
                 </div>
-                <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center box py-2">
+                <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center py-2">
                   <Fade bottom>
                     <div className="card">
                       <div className="card-img-top">
@@ -125,7 +136,7 @@ const HomeHero = () => {
                     </div>
                   </Fade>
                 </div>
-                <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center box py-2">
+                <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center py-2">
                   <Fade bottom>
                     <div className="card">
                       <div className="card-img-top">
@@ -139,7 +150,7 @@ const HomeHero = () => {
                     </div>
                   </Fade>
                 </div>
-                <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center box py-2">
+                <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center py-2">
                   <Fade bottom>
                     <div className="card">
                       <div className="card-img-top">
