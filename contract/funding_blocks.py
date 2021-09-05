@@ -45,10 +45,11 @@ class Block:
     @sp.entry_point
     def funding_blockify(self, params):
         """
-        Create a new funding block
+        Create/Update a new funding block
         """
         sp.verify(self.data.profiles.contains(sp.sender), "User not registered")
-        sp.verify(~self.data.blocks.contains(params.slug), "Block with this slug already exists")
+        sp.if self.data.blocks.contains(params.slug):
+            sp.verify(self.data.blocks[params.slug].author == sp.sender, "Block with this slug already exists")
 
         self.data.blocks[params.slug] = sp.record(
             active=True,
