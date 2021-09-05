@@ -11,7 +11,6 @@ const Card = ({ type, block, setModal }) => {
   let percent = block ? (block.value.target_amount / block.value.final_amount) * 100 : 0;
   percent = percent.toString().substr(0, 2);
   percent = parseInt(percent);
-  console.log("k", block);
 
   if (type === "fundDetails") {
     return (
@@ -22,15 +21,17 @@ const Card = ({ type, block, setModal }) => {
               title="Contribute Now ❤️"
               className="mt-4 w-100 bg-secondaryColor"
               type="outline"
-              handleSubmit
+              // handleSubmit={}
             />
           </div>
           <div className={`card-body`}>
             <hr />
             <div className="font-22 font-bold text-primaryColor mt-4">
-              ꜩ {block && block?.value?.final_amount}
+              ꜩ {block && parseFloat(block?.value?.final_amount / 1000000).toFixed(6)}
               <span className="text-muted font-14 font-regular"> decided of </span> <br />
-              <span className="text-muted font-demi">ꜩ {block && block?.value?.target_amount}</span>
+              <span className="text-muted font-demi">
+                ꜩ {block && parseFloat(block?.value?.target_amount / 1000000).toFixed(6)}
+              </span>
               <span className="text-muted font-14 font-regular"> needed</span>
             </div>
           </div>

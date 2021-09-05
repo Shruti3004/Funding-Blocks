@@ -66,7 +66,9 @@ const BlockDetails = () => {
           </div>
         </div>
       ) : (
-        <h1 className="text-center text-primaryColor my-5 py-5">No fundraiser exist with such name</h1>
+        <h1 className="text-center text-primaryColor my-5 py-5">
+          No fundraiser exist with such name
+        </h1>
       )}
     </>
   );

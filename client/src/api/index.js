@@ -85,7 +85,7 @@ export const fundingBlockify = async ({
             legal_statements,
             longitude,
             slug,
-            target_amount,
+            parseInt(target_amount * 1000000),
             thankyou,
             title
           )
