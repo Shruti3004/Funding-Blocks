@@ -122,6 +122,10 @@ export const downVote = async (slug) => {
       .then((op) => op.confirmation(1).then(() => op.opHash));
     return { result: true, message: hash };
   } catch (error) {
+    if (error.name === "UnconfiguredSignerError") {
+      swal("Oos!", "You need to sign up first", "error");
+      return;
+    }
     return { result: false, message: error };
   }
 };
