@@ -95,9 +95,9 @@ const Card = ({ type, block, setModal }) => {
 
   return (
     <Fade bottom>
-      <div className="box card-hover h-100">
+      <div className="box card-hover">
         <div className={`card-body`}>
-          <div>
+          <Link to={`/blockDetails/${block?.key}`}>
             <img
               src={block?.value?.image}
               alt="card-image"
@@ -105,14 +105,16 @@ const Card = ({ type, block, setModal }) => {
               style={{ objectFit: "cover" }}
               className="card-img-top"
             />
-          </div>
+          </Link>
           <div>
-            <h4 className="card-title mt-4 text-primaryColor font-demi font-22">
-              {block && block?.value?.title}
-            </h4>
-            <p className="card-text text-muted font-medium mt-3">
-              {block && block?.value?.description.substring(0, 100)}...
-            </p>
+            <div className="card-content-height">
+              <h4 className="card-title mt-4 text-primaryColor font-demi font-22">
+                {block && block?.value?.title}
+              </h4>
+              <p className="card-text text-muted font-medium mt-3">
+                {block && block?.value?.description.substring(0, 100)}...
+              </p>
+            </div>
             <hr />
             <div className="d-flex justify-content-between">
               <div className="font-22 font-bold text-primaryColor mt-3">
@@ -135,14 +137,16 @@ const Card = ({ type, block, setModal }) => {
             <hr />
           </div>
           <div className="d-flex justify-content-between align-items-center">
-            <i
-              onClick={() => upVote(block?.key)}
-              className="far fa-heart fa-2x"
-              style={{ cursor: "pointer" }}
-            ></i>
-            <b>
-              {parseFloat((parseInt(block?.value?.upvoted_average) * 100) / balance).toFixed(1)}%
-            </b>
+            <div>
+              <i
+                onClick={() => upVote(block?.key)}
+                className="far fa-heart fa-2x"
+                style={{ cursor: "pointer" }}
+              ></i>
+              <span style={{ marginLeft: "10px" }} className="font-demi">
+                {parseFloat((parseInt(block?.value?.upvoted_average) * 100) / balance).toFixed(1)}%
+              </span>
+            </div>
             <Link to={`/blockDetails/${block?.key}`}>
               <Button title="View Details" />
             </Link>
