@@ -195,14 +195,14 @@ export const getUser = async (address) => {
   }
 };
 
-export const getBlock = async (address) => {
+export const getBlock = async (slug) => {
   try {
     const body = await axios.get(
       process.env.REACT_APP_API_URL +
         "/contracts/" +
         process.env.REACT_APP_CONTRACT_ADDRESS +
         "/bigmaps/blocks/keys/" +
-        address
+        slug
     );
     return body.data;
   } catch (error) {
@@ -227,6 +227,72 @@ export const getAllBlocks = async () => {
 };
 
 export const getFeaturedBlocks = async () => {
-  const blocks = await getAllBlocks();
-  return blocks.slice(0, 3);
+  try {
+    const blocks = await getAllBlocks();
+    return blocks.slice(0, 3);
+  } catch (error) {
+    return error;
+  }
+};
+
+export const isAuthor = async (slug) => {
+  try {
+    const block = await getBlock(slug);
+    const user = await getAccount();
+    return block.value.author == user.address;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const isLiked = async (slug) => {
+  try {
+    const user = await getAccount();
+    const userDetails = await getUser(user.address);
+    return userDetails.value.upvoted.includes(slug);
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getCertificateDetails = async (id) => {
+  return await axios.get(
+    process.env.REACT_APP_API_URL +
+      "/contracts/" +
+      process.env.REACT_APP_CONTRACT_ADDRESS +
+      "/bigmaps/token_metadata/keys/" +
+      id
+  );
+};
+
+export const getCertificate = async (id) => {
+  try {
+    return (await getCertificateDetails(id)).data.value;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getAllCertificates = async (address) => {
+  try {
+    const ids = Object.values((await getUser(address)).certificate_token_id);
+    let certificates = [];
+    for (let id of ids) {
+      certificates.push((await getCertificateDetails(id)).data.value);
+    }
+    return certificates;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getLocation = async () => {
+  try {
+    const location = await axios.get(
+      "http://api.ipstack.com/check?access_key=" + process.env.REACT_APP_LOCATION_API_KEY
+    );
+    return { lat: location.data.latitude, lng: location.data.longitude };
+  } catch (error) {
+    console.log(error);
+  }
 };

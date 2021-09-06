@@ -1,16 +1,25 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
 import Button from "../button";
 import CardButton from "../cardButton";
-import { upVote, downVote, donate } from "../../api";
+import { upVote, downVote, donate, isAuthor, claimBlockAmount, getBalance } from "../../api";
 import { ProgressBar } from "react-bootstrap";
 import { EmailShareButton, WhatsappShareButton } from "react-share";
 import { Fade } from "react-reveal";
 
 const Card = ({ type, block, setModal }) => {
-  let percent = block ? (block.value.target_amount / block.value.final_amount) * 100 : 0;
-  percent = percent.toString().substr(0, 2);
-  percent = parseInt(percent);
+  const [isOwner, setIsOwner] = useState(false);
+  const [balance, setBalance] = useState(1);
+  const slug = useParams().id;
+
+  useEffect(() => {
+    isAuthor(slug).then((value) => setIsOwner(value));
+    getBalance().then((value) => setBalance(value));
+  }, []);
+
+  const percent = block
+    ? Math.ceil((block.value.final_amount / block.value.target_amount) * 100)
+    : 0;
 
   if (type === "fundDetails") {
     return (
@@ -64,6 +73,15 @@ const Card = ({ type, block, setModal }) => {
                 <CardButton setModal={setModal} className="mt-4">
                   Vote
                 </CardButton>
+                {isOwner && (
+                  <Button
+                    title="Withdraw"
+                    handleSubmit={() => claimBlockAmount(slug.id)}
+                    className="mt-4"
+                  >
+                    Withdraw
+                  </Button>
+                )}
                 <CardButton typeB="report" vote={downVote} setModal={setModal} className="mt-4">
                   Report
                 </CardButton>
@@ -74,30 +92,27 @@ const Card = ({ type, block, setModal }) => {
       </Fade>
     );
   }
+
   return (
     <Fade bottom>
       <div className="box card-hover h-100">
         <div className={`card-body`}>
           <div>
-            <Link to={`/blockDetails/${block?.key}`}>
-              <img
-                src={block?.value?.image}
-                alt="card-image"
-                height="160px"
-                style={{ objectFit: "cover" }}
-                className="card-img-top"
-              />
-            </Link>
+            <img
+              src={block?.value?.image}
+              alt="card-image"
+              height="160px"
+              style={{ objectFit: "cover" }}
+              className="card-img-top"
+            />
           </div>
           <div>
-            <Link to={`/blockDetails/${block?.key}`}>
-              <h4 className="card-title mt-4 text-primaryColor font-demi font-22">
-                {block && block?.value?.title}
-              </h4>
-              <p className="card-text text-muted font-medium mt-3">
-                {block && block?.value?.description.substring(0, 100)}...
-              </p>
-            </Link>
+            <h4 className="card-title mt-4 text-primaryColor font-demi font-22">
+              {block && block?.value?.title}
+            </h4>
+            <p className="card-text text-muted font-medium mt-3">
+              {block && block?.value?.description.substring(0, 100)}...
+            </p>
             <hr />
             <div className="d-flex justify-content-between">
               <div className="font-22 font-bold text-primaryColor mt-3">
@@ -125,6 +140,9 @@ const Card = ({ type, block, setModal }) => {
               className="far fa-heart fa-2x"
               style={{ cursor: "pointer" }}
             ></i>
+            <b>
+              {parseFloat((parseInt(block?.value?.upvoted_average) * 100) / balance).toFixed(1)}%
+            </b>
             <Link to={`/blockDetails/${block?.key}`}>
               <Button title="View Details" />
             </Link>
