@@ -21,7 +21,7 @@ const Footer = () => {
                 <div className="px-4 py-1 text-white">About</div>
               </Link>
               <Link to="/editProfile">
-                <div className="px-4 py-1 text-white">Edit Profile</div>
+                <div className="px-4 py-1 text-white">My Profile</div>
               </Link>
               <Link to="/createBlock">
                 <div className="px-4 py-1 text-white">Create Block</div>

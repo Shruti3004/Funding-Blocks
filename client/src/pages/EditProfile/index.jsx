@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { Button as Link } from "react-bootstrap";
 import Button from "../../components/button";
-import { updateProfile, getAccount, getUser, getBalance, logIn } from "../../api";
+import {
+  updateProfile,
+  getAccount,
+  getUser,
+  getBalance,
+  logIn,
+  getAllCertificates,
+} from "../../api";
 import { Fade } from "react-reveal";
 
 function EditProfile() {
   const [address, setAddress] = useState(null);
   const [balance, setBalance] = useState(0);
+  const [certificates, setCertificates] = useState([]);
   const [formData, setFormData] = useState({
     name: "",
     bio: "",
@@ -20,18 +28,22 @@ function EditProfile() {
     window.scrollTo({ top: 0 });
   }, []);
 
-  useEffect(() =>
-    getAccount().then((res) => {
-      if (!res.result) window.location.href = "/";
-      getUser(res.address).then(async (user) => {
-        if (user) {
-          setBalance((await getBalance(res.address)) / 1000000);
-          setAddress(res.address);
-          setFormData(user);
-        } else window.location.href = "/signup";
-      });
-    })
+  useEffect(
+    () =>
+      getAccount().then((res) => {
+        if (!res.result) window.location.href = "/";
+        getUser(res.address).then(async (user) => {
+          if (user) {
+            setBalance((await getBalance(res.address)) / 1000000);
+            setAddress(res.address);
+            setFormData(user);
+          } else window.location.href = "/signup";
+        });
+      }),
+    []
   );
+
+  useEffect(() => getAllCertificates(address).then((data) => setCertificates(data)), []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -114,6 +126,7 @@ function EditProfile() {
                   </Link>
                 </div>
               </div>
+              <code>{JSON.stringify(certificates)}</code>
             </Fade>
           </div>
         </div>

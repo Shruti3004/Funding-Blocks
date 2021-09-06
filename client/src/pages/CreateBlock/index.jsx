@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fundingBlockify } from "../../api";
+import { fundingBlockify, getLocation } from "../../api";
 import Button from "../../components/button";
 import Map from "../../components/map/Map";
 import { Fade } from "react-reveal";
@@ -16,7 +16,7 @@ function slugify(text) {
 }
 
 function CreateBlock() {
-  const [coordinates, setCoordinates] = useState({ lat: 24, lng: 78 });
+  const [coordinates, setCoordinates] = useState({ lat: 0, lng: 0 });
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -29,6 +29,10 @@ function CreateBlock() {
     latitude: "",
     longitude: "",
   });
+
+  useEffect(() => {
+    getLocation().then((loc) => setCoordinates(loc));
+  }, []);
 
   const handleCoordinates = (e) => {
     setCoordinates({ lat: e.lat, lng: e.lng });
