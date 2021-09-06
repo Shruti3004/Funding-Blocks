@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import CardImage from "../../assets/images/card.jpg";
-import workflow from "../../assets/images/workflow.png";
+import workflow from "../../assets/images/how-it-works.webm";
 
 const About = () => {
   useEffect(() => {
@@ -63,7 +63,9 @@ const About = () => {
       <section className="bg-light py-section">
         <div className="container d-flex justify-content-center flex-column">
           <h1 className="mb-2 text-center text-primaryColor">How we tackle the scenario</h1>
-          <img src={workflow} alt="workflow" className="img-fluid box" />
+          <video controls autoPlay loop>
+            <source src={workflow} type="video/webm" />
+          </video>
         </div>
       </section>
       <section className="custom-blue-bg py-section"></section>

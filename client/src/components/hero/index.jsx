@@ -40,6 +40,9 @@ const HomeHero = () => {
           </div>
         </div>
       </div>
+      <div className="bg-light">
+
+      </div>
       <div className="features container mb-3">
         <div className="row mt-5">
           <div className="col-lg-3 col-md-3 col-sm-12 col-12 bg-primaryColor text-white text-center center py-5">
