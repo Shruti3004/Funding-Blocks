@@ -197,26 +197,32 @@ const Home = () => {
           <h1 className="text-primaryColor text-center mb-4">Future Enchancements</h1>
           <div className="row d-flex justify-content-center">
             <div className="col-lg-4 col-md-6 col-sm-12 col-12 text-center text-white mt-3">
-              <div className="bg-primaryColor py-5 h-100">
-                <h3>Personal Fundraising</h3>
-                <p className="font-medium font-18">Anyone will be able to raise funds.</p>
-              </div>
+              <Fade bottom>
+                <div className="bg-primaryColor py-5 h-100">
+                  <h3>Personal Fundraising</h3>
+                  <p className="font-medium font-18">Anyone will be able to raise funds.</p>
+                </div>
+              </Fade>
             </div>
             <div className="col-lg-4 col-md-6 col-sm-12 col-12 text-center text-white mt-3">
-              <div className="bg-secondaryColor py-5 h-100">
-                <h3>Startup Funding</h3>
-                <p className="font-medium font-18">
-                  Startups can also create their Funding Blocks.
-                </p>
-              </div>
+              <Fade bottom>
+                <div className="bg-secondaryColor py-5 h-100">
+                  <h3>Startup Funding</h3>
+                  <p className="font-medium font-18">
+                    Startups can also create their Funding Blocks.
+                  </p>
+                </div>
+              </Fade>
             </div>
             <div className="col-lg-4 col-md-6 col-sm-12 col-12 text-center text-white mt-3">
-              <div className="bg-tertiaryColor py-5 h-100">
-                <h3>Refugee Relief</h3>
-                <p className="font-medium font-18">
-                  The total relief funds will be distributed to each wallet separately.
-                </p>
-              </div>
+              <Fade bottom>
+                <div className="bg-tertiaryColor py-5 h-100">
+                  <h3>Refugee Relief</h3>
+                  <p className="font-medium font-18">
+                    The total relief funds will be distributed to each wallet separately.
+                  </p>
+                </div>
+              </Fade>
             </div>
           </div>
         </div>
