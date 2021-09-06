@@ -35,7 +35,6 @@ const CardButton = ({ title, type, className, children, setModal, block, vote, t
     );
   }
   if (typeB === "success") {
-    console.log(vote);
     return (
       <button
         onClick={() => {
@@ -55,7 +54,6 @@ const CardButton = ({ title, type, className, children, setModal, block, vote, t
     );
   }
   if (typeB === "report") {
-    console.log(vote);
     return (
       <button
         onClick={() => vote(block?.key)}

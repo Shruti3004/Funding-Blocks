@@ -6,11 +6,10 @@ import {
   upVote,
   downVote,
   donate,
-  getAccount,
   isAuthor,
   claimBlockAmount,
   getBalance,
-  getUser,
+  isLiked,
 } from "../../api";
 import { ProgressBar } from "react-bootstrap";
 import { EmailShareButton, WhatsappShareButton } from "react-share";
@@ -21,15 +20,11 @@ const Card = ({ type, block, setModal }) => {
   const [balance, setBalance] = useState(1);
   const [isUpvoted, setIsUpvoted] = useState(false);
   const slug = useParams().id;
-  console.log(block);
+
   useEffect(() => {
     isAuthor(slug).then((value) => setIsOwner(value));
     getBalance().then((value) => setBalance(value));
-    getAccount().then((res) => {
-      getUser(res.address).then((value) => {
-        if (value) setIsUpvoted(value?.upvoted?.includes(block?.key));
-      });
-    });
+    isLiked(block?.key).then((res) => setIsUpvoted(res));
   }, []);
 
   const percent = block
@@ -155,18 +150,16 @@ const Card = ({ type, block, setModal }) => {
             <div>
               {isUpvoted ? (
                 <i
-                  onClick={() => upVote(block?.key)}
                   className="fas fa-heart fa-2x"
-                  style={{ cursor: "pointer", color: "red" }}
+                  style={{ cursor: "not-allowed", color: "red" }}
                 ></i>
               ) : (
                 <i
                   onClick={() => upVote(block?.key)}
                   className="far fa-heart fa-2x"
-                  style={{ cursor: "pointer", color: "red" }}
+                  style={{ cursor: "pointer" }}
                 ></i>
               )}
-
               <span style={{ marginLeft: "10px" }} className="font-demi">
                 {parseFloat((parseInt(block?.value?.upvoted_average) * 100) / balance).toFixed(1)}%
               </span>
