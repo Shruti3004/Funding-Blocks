@@ -1,7 +1,7 @@
 import { TezosToolkit } from "@taquito/taquito";
 import { BeaconWallet } from "@taquito/beacon-wallet";
 import axios from "axios";
-
+import swal from 'sweetalert';
 export const Tezos = new TezosToolkit(process.env.REACT_APP_RPC_URL);
 export const Wallet = new BeaconWallet({
   name: process.env.REACT_APP_WALLET_NAME,
@@ -12,6 +12,7 @@ export const getAccount = async () => {
     const activeAccount = await Wallet.client.getActiveAccount();
     if (activeAccount) {
       Tezos.setWalletProvider(Wallet);
+      console.log(Wallet)
       return { result: true, address: activeAccount.address };
     } else return { result: false, address: null };
   } catch (error) {
@@ -27,6 +28,7 @@ export const logIn = () =>
       },
     });
     Tezos.setWalletProvider(Wallet);
+    console.log(Wallet)
     resolve();
   });
 
@@ -44,6 +46,7 @@ export const registerUser = async (bio, name) => {
       .then((op) => op.confirmation(1).then(() => op.opHash));
     return { result: true, message: hash };
   } catch (error) {
+
     return { result: false, message: error };
   }
 };
@@ -106,6 +109,7 @@ export const donate = async (amount) => {
       .then((op) => op.confirmation(1).then(() => op.opHash));
     return { result: true, message: hash };
   } catch (error) {
+    swal("Oops!", "Seems like we couldn't fetch the info", "error");
     return { result: false, message: error };
   }
 };
@@ -128,8 +132,15 @@ export const upVote = async (slug) => {
       .at(process.env.REACT_APP_CONTRACT_ADDRESS)
       .then((contract) => contract.methods.upvote(String(slug)).send())
       .then((op) => op.confirmation(1).then(() => op.opHash));
+
     return { result: true, message: hash };
   } catch (error) {
+    console.log(error)
+    if (error.name === "UnconfiguredSignerError") {
+      swal("Oos!", "You need to sign up first", "error");
+      return;
+    }
+    swal("Oops!", error.data[1].with.string, "error");
     return { result: false, message: error };
   }
 };
@@ -184,11 +195,12 @@ export const getUser = async (address) => {
   try {
     const body = await axios.get(
       process.env.REACT_APP_API_URL +
-        "/contracts/" +
-        process.env.REACT_APP_CONTRACT_ADDRESS +
-        "/bigmaps/profiles/keys/" +
-        address
+      "/contracts/" +
+      process.env.REACT_APP_CONTRACT_ADDRESS +
+      "/bigmaps/profiles/keys/" +
+      address
     );
+    console.log(body.data.value);
     return body.data.value;
   } catch (error) {
     return error;
@@ -199,10 +211,10 @@ export const getBlock = async (slug) => {
   try {
     const body = await axios.get(
       process.env.REACT_APP_API_URL +
-        "/contracts/" +
-        process.env.REACT_APP_CONTRACT_ADDRESS +
-        "/bigmaps/blocks/keys/" +
-        slug
+      "/contracts/" +
+      process.env.REACT_APP_CONTRACT_ADDRESS +
+      "/bigmaps/blocks/keys/" +
+      slug
     );
     return body.data;
   } catch (error) {
@@ -214,9 +226,9 @@ export const getAllBlocks = async () => {
   try {
     const body = await axios.get(
       process.env.REACT_APP_API_URL +
-        "/contracts/" +
-        process.env.REACT_APP_CONTRACT_ADDRESS +
-        "/bigmaps/blocks/keys"
+      "/contracts/" +
+      process.env.REACT_APP_CONTRACT_ADDRESS +
+      "/bigmaps/blocks/keys"
     );
     return body.data.sort(
       (a, b) => parseInt(b.value.upvoted_average) - parseInt(a.value.upvoted_average)
@@ -258,10 +270,10 @@ export const isLiked = async (slug) => {
 export const getCertificateDetails = async (id) => {
   return await axios.get(
     process.env.REACT_APP_API_URL +
-      "/contracts/" +
-      process.env.REACT_APP_CONTRACT_ADDRESS +
-      "/bigmaps/token_metadata/keys/" +
-      id
+    "/contracts/" +
+    process.env.REACT_APP_CONTRACT_ADDRESS +
+    "/bigmaps/token_metadata/keys/" +
+    id
   );
 };
 

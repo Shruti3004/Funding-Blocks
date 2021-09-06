@@ -2,7 +2,16 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import Button from "../button";
 import CardButton from "../cardButton";
-import { upVote, downVote, donate, isAuthor, claimBlockAmount, getBalance } from "../../api";
+import {
+  upVote,
+  downVote,
+  donate,
+  getAccount,
+  isAuthor,
+  claimBlockAmount,
+  getBalance,
+  getUser,
+} from "../../api";
 import { ProgressBar } from "react-bootstrap";
 import { EmailShareButton, WhatsappShareButton } from "react-share";
 import { Fade } from "react-reveal";
@@ -10,11 +19,17 @@ import { Fade } from "react-reveal";
 const Card = ({ type, block, setModal }) => {
   const [isOwner, setIsOwner] = useState(false);
   const [balance, setBalance] = useState(1);
+  const [isUpvoted, setIsUpvoted] = useState(false);
   const slug = useParams().id;
-
+  console.log(block);
   useEffect(() => {
     isAuthor(slug).then((value) => setIsOwner(value));
     getBalance().then((value) => setBalance(value));
+    getAccount().then((res) => {
+      getUser(res.address).then((value) => {
+        if (value) setIsUpvoted(value?.upvoted?.includes(block?.key));
+      });
+    });
   }, []);
 
   const percent = block
@@ -138,11 +153,20 @@ const Card = ({ type, block, setModal }) => {
           </div>
           <div className="d-flex justify-content-between align-items-center">
             <div>
-              <i
-                onClick={() => upVote(block?.key)}
-                className="far fa-heart fa-2x"
-                style={{ cursor: "pointer" }}
-              ></i>
+              {isUpvoted ? (
+                <i
+                  onClick={() => upVote(block?.key)}
+                  className="fas fa-heart fa-2x"
+                  style={{ cursor: "pointer", color: "red" }}
+                ></i>
+              ) : (
+                <i
+                  onClick={() => upVote(block?.key)}
+                  className="far fa-heart fa-2x"
+                  style={{ cursor: "pointer", color: "red" }}
+                ></i>
+              )}
+
               <span style={{ marginLeft: "10px" }} className="font-demi">
                 {parseFloat((parseInt(block?.value?.upvoted_average) * 100) / balance).toFixed(1)}%
               </span>
