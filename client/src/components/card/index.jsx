@@ -15,7 +15,7 @@ import { ProgressBar } from "react-bootstrap";
 import { EmailShareButton, WhatsappShareButton } from "react-share";
 import { Fade } from "react-reveal";
 
-const Card = ({ type, block, setModal }) => {
+const Card = ({ type, block, setModal, setVotemodal }) => {
   const [isOwner, setIsOwner] = useState(false);
   const [balance, setBalance] = useState(1);
   const [isUpvoted, setIsUpvoted] = useState(false);
@@ -80,7 +80,7 @@ const Card = ({ type, block, setModal }) => {
                 {block && block?.value?.description.substring(1, block?.value?.description.length)}
               </p>
               <div className="d-flex justify-content-between align-items-center">
-                <CardButton setModal={setModal} className="mt-4">
+                <CardButton setVotemodal={setVotemodal} setModal={setModal} className="mt-4">
                   Vote
                 </CardButton>
                 {isOwner && (

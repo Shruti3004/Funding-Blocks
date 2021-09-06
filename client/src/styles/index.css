@@ -413,9 +413,9 @@ button:active {
   background: var(--primary-color);
 }
 
-.certificate-border{
+.certificate-border {
   border: 6px double var(--primary-color);
 }
-.card-content-height{
+.card-content-height {
   min-height: 147px;
 }

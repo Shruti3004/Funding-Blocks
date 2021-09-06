@@ -1,6 +1,16 @@
 import React from "react";
 
-const CardButton = ({ title, type, className, children, setModal, block, vote, typeB }) => {
+const CardButton = ({
+  title,
+  type,
+  className,
+  children,
+  setModal,
+  block,
+  vote,
+  typeB,
+  setVotemodal,
+}) => {
   if (type === "share") {
     return (
       <>
@@ -71,7 +81,7 @@ const CardButton = ({ title, type, className, children, setModal, block, vote, t
   }
   return (
     <button
-      onClick={() => setModal(true)}
+      onClick={() => setVotemodal(true)}
       className={
         type === "outline"
           ? `text-secondaryColor font-medium font-18 custom-cardbutton-outline ${
