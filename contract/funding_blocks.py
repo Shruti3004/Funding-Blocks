@@ -48,6 +48,8 @@ class Block:
         Create/Update a new funding block
         """
         sp.verify(self.data.profiles.contains(sp.sender), "User not registered")
+        sp.verify(params.slug != "", "Slug cannot be empty")
+        sp.verify(self.data.blocks[params.slug].active, "Block not active")
         sp.if self.data.blocks.contains(params.slug):
             sp.verify(self.data.blocks[params.slug].author == sp.sender, "User is not the author of this Block")
 
@@ -78,6 +80,7 @@ class Block:
         Delete a block
         """
         sp.verify(self.data.profiles.contains(sp.sender), "User not registered")
+        sp.verify(self.data.blocks[params.slug].active, "Block not active")
         sp.verify(self.data.blocks[params.slug].author == sp.sender, "Not the author of this block")
 
         sp.if self.data.blocks[params.slug].active:
