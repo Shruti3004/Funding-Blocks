@@ -57,7 +57,7 @@ const HomeHero = () => {
                   <Fade bottom>
                     <div className="box h-100">
                       <div className="card-img-top">
-                        <img src="/images/certificate.png" alt="NFT" className="img-fluid px-5" />
+                        <img src="/images/certificate.png" alt="NFT" className="img-fluid px-lg-5 px-3" />
                       </div>
                       <p className="font-medium text-primaryColor text-center">
                         Get Certificate for donation as NFT
@@ -69,7 +69,7 @@ const HomeHero = () => {
                   <Fade bottom>
                     <div className="box h-100">
                       <div className="card-img-top">
-                        <img src="/images/funding.png" alt="funding" className="img-fluid px-5" />
+                        <img src="/images/funding.png" alt="funding" className="img-fluid px-lg-5 px-3" />
                       </div>
                       <p className="font-medium text-primaryColor text-center">
                         Funds cannot be stolen
@@ -84,7 +84,7 @@ const HomeHero = () => {
                         <img
                           src="/images/profit.png"
                           alt="fund-withdrawn"
-                          className="img-fluid px-5"
+                          className="img-fluid px-lg-5 px-3"
                         />
                       </div>
                       <p className="font-medium text-primaryColor text-center">
@@ -97,7 +97,7 @@ const HomeHero = () => {
                   <Fade bottom>
                     <div className="box h-100">
                       <div className="card-img-top">
-                        <img src="/images/vote.png" alt="earthquake" className="img-fluid px-5" />
+                        <img src="/images/vote.png" alt="earthquake" className="img-fluid px-lg-5 px-3" />
                       </div>
                       <p className="font-medium text-primaryColor text-center">
                         Get Certificate for donation as NFT
@@ -114,7 +114,7 @@ const HomeHero = () => {
                         <img
                           src="/images/total-amount.png"
                           alt="total-amount"
-                          className="img-fluid px-5"
+                          className="img-fluid px-lg-5 px-3"
                         />
                       </div>
                       <p className="font-medium text-primaryColor text-center">
@@ -127,7 +127,7 @@ const HomeHero = () => {
                   <Fade bottom>
                     <div className="box h-100">
                       <div className="card-img-top">
-                        <img src="/images/vote.png" alt="flood" className="img-fluid px-5" />
+                        <img src="/images/vote.png" alt="flood" className="img-fluid px-lg-5 px-3" />
                       </div>
                       <p className="font-medium text-primaryColor text-center">
                         Donors vote for the amount to be withdrawn
@@ -139,7 +139,7 @@ const HomeHero = () => {
                   <Fade bottom>
                     <div className="box h-100">
                       <div className="card-img-top">
-                        <img src="/images/gross.png" alt="gross" className="img-fluid px-5" />
+                        <img src="/images/gross.png" alt="gross" className="img-fluid px-lg-5 px-3" />
                       </div>
                       <p className="font-medium text-primaryColor text-center">
                         Amount withdrawn is fully transparent
@@ -154,7 +154,7 @@ const HomeHero = () => {
                         <img
                           src="/images/hourglass.png"
                           alt="hourglass"
-                          className="img-fluid px-5"
+                          className="img-fluid px-lg-5 px-3"
                         />
                       </div>
                       <p className="font-medium text-primaryColor text-center">
