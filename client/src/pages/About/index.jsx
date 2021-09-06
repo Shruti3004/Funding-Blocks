@@ -63,7 +63,7 @@ const About = () => {
       <section className="bg-light py-section">
         <div className="container d-flex justify-content-center flex-column">
           <h1 className="mb-2 text-center text-primaryColor">How we tackle the scenario</h1>
-          <video controls autoPlay loop>
+          <video autoPlay loop>
             <source src={workflow} type="video/webm" />
           </video>
         </div>
