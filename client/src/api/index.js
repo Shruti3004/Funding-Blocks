@@ -292,7 +292,26 @@ export const getCertificateDetails = async (id) => {
 
 export const getCertificate = async (id) => {
   try {
-    return (await getCertificateDetails(id)).data.value;
+    let data = (await getCertificateDetails(id)).data.value;
+    const donor = (await getAccount()).address;
+    const user = await getUser(donor);
+    console.log("USER", user);
+    const arr1 = Object.keys(user.certificate_token_id);
+    console.log("ARR1", arr1);
+    const slug = arr1.map((key) => {
+      if(user.certificate_token_id[key] == id )
+       return key;
+    })[0];
+    console.log("SLUG", slug);
+    const block = (await getBlock(slug)).value;
+    data.token_info.block_slug = slug;
+    data.token_info.donor_name = user.name;
+    data.token_info.block_title = block.title;
+    data.token_info.donor_address = donor;
+    data.token_info.issuer_address = block.author;
+    data.token_info.effective_donation =
+      (parseInt(user.donated) * parseInt(block.final_amount)) / (await getBalance());
+    console.log(data);
   } catch (error) {
     console.log(error);
   }
@@ -300,10 +319,11 @@ export const getCertificate = async (id) => {
 
 export const getAllCertificates = async (address) => {
   try {
-    const ids = Object.values((await getUser(address)).certificate_token_id);
+    const tokens = (await getUser(address)).certificate_token_id;
+    const slugs = Object.keys((await getUser(address)).certificate_token_id);
     let certificates = [];
-    for (let id of ids) {
-      certificates.push((await getCertificateDetails(id)).data.value);
+    for (let slug of slugs) {
+      certificates.push((await getCertificateDetails(tokens[slug], slug)).data.value);
     }
     return certificates;
   } catch (error) {

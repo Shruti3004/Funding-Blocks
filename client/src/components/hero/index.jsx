@@ -56,6 +56,22 @@ const HomeHero = () => {
                     <div className="box h-100">
                       <div className="card-img-top">
                         <img
+                          src="/images/donors.png"
+                          alt="earthquake"
+                          className="img-fluid px-lg-5 px-3"
+                        />
+                      </div>
+                      <p className="font-medium text-primaryColor text-center mt-2">
+                        Donors can raise fund before a calamity.
+                      </p>
+                    </div>
+                  </Fade>
+                </div>
+                <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center py-2">
+                  <Fade bottom>
+                    <div className="box h-100">
+                      <div className="card-img-top">
+                        <img
                           src="/images/certificate.png"
                           alt="NFT"
                           className="img-fluid px-lg-5 px-3"
@@ -95,22 +111,6 @@ const HomeHero = () => {
                       </div>
                       <p className="font-medium text-primaryColor text-center mt-2">
                         Cannot be withdrawn without any need
-                      </p>
-                    </div>
-                  </Fade>
-                </div>
-                <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center py-2">
-                  <Fade bottom>
-                    <div className="box h-100">
-                      <div className="card-img-top">
-                        <img
-                          src="/images/vote.png"
-                          alt="earthquake"
-                          className="img-fluid px-lg-5 px-3"
-                        />
-                      </div>
-                      <p className="font-medium text-primaryColor text-center mt-2">
-                        Get Certificate for donation as NFT
                       </p>
                     </div>
                   </Fade>
