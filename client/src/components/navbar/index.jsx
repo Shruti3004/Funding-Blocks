@@ -31,7 +31,7 @@ const Navbar = () => {
         </NavCustom.Brand>
         <NavCustom.Toggle aria-controls="basic-navbar-nav" />
         <NavCustom.Collapse id="basic-navbar-nav">
-          <Nav style={{ marginLeft: "auto" }}>
+          <Nav style={{ marginLeft: "auto", textAlign: "center" }}>
             <Nav.Link as={Link} to="/" className="text-white font-demi px-4">
               Home
             </Nav.Link>
