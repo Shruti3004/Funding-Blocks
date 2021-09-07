@@ -92,9 +92,16 @@ export const fundingBlockify = async ({
           )
           .send()
       )
-      .then((op) => op.confirmation(1).then(() => op.opHash));
+      .then((op) => op.confirmation(1).then(() => op.opHash))
+      .then(() => swal("You're a hero", "Wait for other heroes to donate", "success"));
     return { result: true, message: hash };
   } catch (error) {
+    console.log(error);
+    if (error.name === "UnconfiguredSignerError") {
+      swal("Oops!", "You need to sign up first", "error");
+      return;
+    }
+    swal("Oops!", error.data[1].with.string, "error");
     return { result: false, message: error };
   }
 };
@@ -116,9 +123,15 @@ export const donate = async (amount) => {
     const hash = Tezos.wallet
       .at(process.env.REACT_APP_CONTRACT_ADDRESS)
       .then((contract) => contract.methods.donate("").send({ amount }))
-      .then((op) => op.confirmation(1).then(() => op.opHash));
+      .then((op) => op.confirmation(1).then(() => op.opHash))
+      .then(() => swal("Yay!", "Seems like you're a hero", "success"));
+
     return { result: true, message: hash };
   } catch (error) {
+    if (error.name === "UnconfiguredSignerError") {
+      swal("Oops!", "You need to sign up first", "error");
+      return;
+    }
     swal("Oops!", "Seems like we couldn't fetch the info", "error");
     return { result: false, message: error };
   }
@@ -145,7 +158,8 @@ export const upVote = async (slug) => {
     const hash = await Tezos.wallet
       .at(process.env.REACT_APP_CONTRACT_ADDRESS)
       .then((contract) => contract.methods.upvote(String(slug)).send())
-      .then((op) => op.confirmation(1).then(() => op.opHash));
+      .then((op) => op.confirmation(1).then(() => op.opHash))
+      .then(() => swal("Yay!", "Seems like you're a hero", "success"));
 
     return { result: true, message: hash };
   } catch (error) {
@@ -166,6 +180,11 @@ export const claimBlockAmount = async (slug) => {
       .then((op) => op.confirmation(1).then(() => op.opHash));
     return { result: true, message: hash };
   } catch (error) {
+    if (error.name === "UnconfiguredSignerError") {
+      swal("Oops!", "You need to sign up first", "error");
+      return;
+    }
+    swal("Oops!", "You cannot claim other's balance", "error");
     return { result: false, message: error };
   }
 };
@@ -178,6 +197,10 @@ export const withdrawBack = async (mutez) => {
       .then((op) => op.confirmation(1).then(() => op.opHash));
     return { result: true, message: hash };
   } catch (error) {
+    if (error.name === "UnconfiguredSignerError") {
+      swal("Oops!", "You need to sign up first", "error");
+      return;
+    }
     return { result: false, message: error };
   }
 };
@@ -187,9 +210,17 @@ export const vote = async (mutez, slug) => {
     const hash = await Tezos.wallet
       .at(process.env.REACT_APP_CONTRACT_ADDRESS)
       .then((contract) => contract.methods.vote(parseInt(mutez), String(slug)).send())
-      .then((op) => op.confirmation(1).then(() => op.opHash));
+      .then((op) => op.confirmation(1).then(() => op.opHash))
+      .then(() => swal("Yay!", "Seems like you're a hero", "success"));
+
     return { result: true, message: hash };
   } catch (error) {
+    console.log(error);
+    if (error.name === "UnconfiguredSignerError") {
+      swal("Oops!", "You need to sign up first", "error");
+      return;
+    }
+    swal("Oops!", error.data[1].with.string, "error");
     return { result: false, message: error };
   }
 };
@@ -230,6 +261,7 @@ export const getBlock = async (slug) => {
     );
     return body.data;
   } catch (error) {
+    swal("Oops!", "Something went wrong", "error");
     return error;
   }
 };
@@ -290,28 +322,23 @@ export const getCertificateDetails = async (id) => {
   );
 };
 
-export const getCertificate = async (id) => {
+export const getCertificate = async (id, address) => {
   try {
     let data = (await getCertificateDetails(id)).data.value;
-    const donor = (await getAccount()).address;
-    const user = await getUser(donor);
-    console.log("USER", user);
-    const arr1 = Object.keys(user.certificate_token_id);
-    console.log("ARR1", arr1);
-    const slug = arr1.map((key) => {
-      if(user.certificate_token_id[key] == id )
-       return key;
+    const user = await getUser(address);
+    const slugs = Object.keys(user.certificate_token_id);
+    const slug = slugs.map((key) => {
+      if (user.certificate_token_id[key] == id) return key;
     })[0];
-    console.log("SLUG", slug);
     const block = (await getBlock(slug)).value;
     data.token_info.block_slug = slug;
     data.token_info.donor_name = user.name;
     data.token_info.block_title = block.title;
-    data.token_info.donor_address = donor;
+    data.token_info.donor_address = address;
     data.token_info.issuer_address = block.author;
     data.token_info.effective_donation =
       (parseInt(user.donated) * parseInt(block.final_amount)) / (await getBalance());
-    console.log(data);
+    return data;
   } catch (error) {
     console.log(error);
   }
@@ -319,11 +346,12 @@ export const getCertificate = async (id) => {
 
 export const getAllCertificates = async (address) => {
   try {
-    const tokens = (await getUser(address)).certificate_token_id;
-    const slugs = Object.keys((await getUser(address)).certificate_token_id);
+    const tokens = await getUser(address).then((data) => data.certificate_token_id);
+    const slugs = Object.keys(tokens);
+    console.log(tokens, slugs);
     let certificates = [];
     for (let slug of slugs) {
-      certificates.push((await getCertificateDetails(tokens[slug], slug)).data.value);
+      certificates.push(await getCertificateDetails(tokens[slug], address));
     }
     return certificates;
   } catch (error) {

@@ -6,17 +6,19 @@ const About = () => {
   useEffect(() => {
     window.scrollTo({ top: 0 });
   }, []);
+
   return (
     <>
       <section className="bg-light">
         <div className="container">
           <div className="row d-flex justify-content-center align-items-stretch py-5">
-            <div className="col-lg-4 col-md-6 col-sm-6 col-12">
-              <h2>About US</h2>
-              <p className="text-justify">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis expedita enim minus
-                accusamus in ratione nam explicabo praesentium corporis deserunt, ipsa aspernatur
-                officia nemo adipisci natus numquam, dolores illo aut?
+            <div className="col-lg-4 col-md-6 col-sm-6 col-12 text-center">
+              <h1>🔎 About US 🔎</h1>
+              <p className="text-center font-medium">
+                Funding Blocks is the first of its kind decentralized donation app. It eliminates
+                the majority of obstacles and risk factors that we face while Donating relief funds.
+                It ensures transparency in a trustless environment, enabling rapid action to any
+                disaster in the world.
               </p>
             </div>
           </div>

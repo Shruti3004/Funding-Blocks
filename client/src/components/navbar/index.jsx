@@ -25,12 +25,13 @@ const Navbar = () => {
         className="bg-primaryColor py-0"
         collapseOnSelect={true}
       >
-        <div className="px-5 d-flex justify-content-between w-100">
+        <div className="px-5 w-100 d-flex">
           <NavCustom.Brand as={Link} to="/">
             <img src={Logo} alt="Funding Blocks" className="img-fluid my-2" width="35%" />
           </NavCustom.Brand>
           <NavCustom.Toggle aria-controls="responsive-navbar-nav" />
-          <NavCustom.Collapse id="responsive-navbar-nav" className="text-white text-center ml-auto">
+          <div>
+          <NavCustom.Collapse id="responsive-navbar-nav" className="text-white text-center">
             <Nav style={{ marginLeft: "auto" }}>
               <Nav.Link as={Link} to="/" className="text-white font-demi px-4">
                 Home
@@ -65,7 +66,9 @@ const Navbar = () => {
               <div id="google_translate_element"></div>
             </Nav>
           </NavCustom.Collapse>
-        </div>
+
+          </div>
+           </div>
         {/* <div className="sidebar" id="sidebar">
           <div className="sidebar-content">
             <Link to="/profile" className="px-5 d-flex mb-4 mt-3" style={{ cursor: "pointer" }}>

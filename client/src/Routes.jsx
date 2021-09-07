@@ -27,7 +27,7 @@ const Routes = () => {
           <Route exact path="/blockDetails/:id/edit" component={EditBlock} />
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/editProfile" component={EditProfile} />
-          <Route exact path="/certificate/:id" component={Certificate} />
+          <Route exact path="/certificate" component={Certificate} />
           <Route path="*" component={Default} />
         </Switch>
         <Footer />

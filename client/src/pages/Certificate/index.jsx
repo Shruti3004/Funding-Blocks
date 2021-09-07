@@ -3,11 +3,13 @@ import { useParams } from "react-router-dom";
 import { getCertificate } from "../../api";
 
 const Certificate = () => {
-  const id = useParams().id;
-  const [certificate, setCertificate] = useState({ id, result: "404 Not Found" });
+  const params = new URLSearchParams(window.location.search);
+  const [certificate, setCertificate] = useState({ id: params.get("id"), result: "404 Not Found" });
+  const id = params.get("id") || 123;
+  const o = params.get("owner") || "abc";
 
   useEffect(() => {
-    getCertificate(id).then((data) => {
+    getCertificate(id, o).then((data) => {
       if (data) setCertificate(data);
     });
   }, []);

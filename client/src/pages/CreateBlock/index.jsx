@@ -41,7 +41,6 @@ function CreateBlock() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({ ...formData, slug: slugify(formData.title) });
     fundingBlockify({ ...formData, slug: slugify(formData.title) }).then((res) => {
       console.log(res);
     });
