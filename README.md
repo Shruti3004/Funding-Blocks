@@ -6,7 +6,7 @@
 What if donations become transparent?<br/>Introducing a new and decentralised way to help!
 </p>
 <p align="center">
-<a href="https://funding-blocks.netlify.app/">View Demo</a>
+<a href="https://fundingblocks.ml/">View Demo</a>
 </p>
 
 <details open="open">
@@ -33,7 +33,7 @@ What if donations become transparent?<br/>Introducing a new and decentralised wa
 
 # 🔎 About the Project
 
-[Funding Blocks](https://funding-blocks.netlify.app/) is the First of it's kind decentralised donation app. It eliminates majority of obstacles and risk factors that we face while Donating relief funds.
+[Funding Blocks](https://fundingblocks.ml/) is the First of it's kind decentralised donation app. It eliminates majority of obstacles and risk factors that we face while Donating relief funds.
 It ensures the transparency in a trustless environment, enabling rapid action to any disaster in the world.
 
 <a id=built-with></a>

@@ -1,6 +1,7 @@
 import { TezosToolkit } from "@taquito/taquito";
 import { BeaconWallet } from "@taquito/beacon-wallet";
 import axios from "axios";
+import swal from "sweetalert";
 
 export const Tezos = new TezosToolkit(process.env.REACT_APP_RPC_URL);
 export const Wallet = new BeaconWallet({
@@ -98,6 +99,18 @@ export const fundingBlockify = async ({
   }
 };
 
+export const deleteBlock = async (slug) => {
+  try {
+    const hash = await Tezos.wallet
+      .at(process.env.REACT_APP_CONTRACT_ADDRESS)
+      .then((contract) => contract.methods.delete_block(String(slug)).send())
+      .then((op) => op.confirmation(1).then(() => op.opHash));
+    return { result: true, message: hash };
+  } catch (error) {
+    return { result: false, message: error };
+  }
+};
+
 export const donate = async (amount) => {
   try {
     const hash = Tezos.wallet
@@ -106,6 +119,7 @@ export const donate = async (amount) => {
       .then((op) => op.confirmation(1).then(() => op.opHash));
     return { result: true, message: hash };
   } catch (error) {
+    swal("Oops!", "Seems like we couldn't fetch the info", "error");
     return { result: false, message: error };
   }
 };
@@ -118,6 +132,10 @@ export const downVote = async (slug) => {
       .then((op) => op.confirmation(1).then(() => op.opHash));
     return { result: true, message: hash };
   } catch (error) {
+    if (error.name === "UnconfiguredSignerError") {
+      swal("Oops!", "You need to sign up first", "error");
+      return;
+    }
     return { result: false, message: error };
   }
 };
@@ -128,8 +146,14 @@ export const upVote = async (slug) => {
       .at(process.env.REACT_APP_CONTRACT_ADDRESS)
       .then((contract) => contract.methods.upvote(String(slug)).send())
       .then((op) => op.confirmation(1).then(() => op.opHash));
+
     return { result: true, message: hash };
   } catch (error) {
+    if (error.name === "UnconfiguredSignerError") {
+      swal("Oops!", "You need to sign up first", "error");
+      return;
+    }
+    swal("Oops!", error.data[1].with.string, "error");
     return { result: false, message: error };
   }
 };
@@ -249,7 +273,8 @@ export const isLiked = async (slug) => {
   try {
     const user = await getAccount();
     const userDetails = await getUser(user.address);
-    return userDetails.value.upvoted.includes(slug);
+    if (!userDetails) return false;
+    return userDetails.upvoted.includes(slug);
   } catch (error) {
     return error;
   }
@@ -267,7 +292,26 @@ export const getCertificateDetails = async (id) => {
 
 export const getCertificate = async (id) => {
   try {
-    return (await getCertificateDetails(id)).data.value;
+    let data = (await getCertificateDetails(id)).data.value;
+    const donor = (await getAccount()).address;
+    const user = await getUser(donor);
+    console.log("USER", user);
+    const arr1 = Object.keys(user.certificate_token_id);
+    console.log("ARR1", arr1);
+    const slug = arr1.map((key) => {
+      if(user.certificate_token_id[key] == id )
+       return key;
+    })[0];
+    console.log("SLUG", slug);
+    const block = (await getBlock(slug)).value;
+    data.token_info.block_slug = slug;
+    data.token_info.donor_name = user.name;
+    data.token_info.block_title = block.title;
+    data.token_info.donor_address = donor;
+    data.token_info.issuer_address = block.author;
+    data.token_info.effective_donation =
+      (parseInt(user.donated) * parseInt(block.final_amount)) / (await getBalance());
+    console.log(data);
   } catch (error) {
     console.log(error);
   }
@@ -275,10 +319,11 @@ export const getCertificate = async (id) => {
 
 export const getAllCertificates = async (address) => {
   try {
-    const ids = Object.values((await getUser(address)).certificate_token_id);
+    const tokens = (await getUser(address)).certificate_token_id;
+    const slugs = Object.keys((await getUser(address)).certificate_token_id);
     let certificates = [];
-    for (let id of ids) {
-      certificates.push((await getCertificateDetails(id)).data.value);
+    for (let slug of slugs) {
+      certificates.push((await getCertificateDetails(tokens[slug], slug)).data.value);
     }
     return certificates;
   } catch (error) {

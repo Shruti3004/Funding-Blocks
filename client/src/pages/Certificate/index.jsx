@@ -39,6 +39,10 @@ const Certificate = () => {
               survived not only five centuries, but also the leap into electronic typesetting,
               remaining essentially unchanged.
             </p>
+            <div className="mt-4 d-flex justify-content-between align-items-center">
+              <span>20/10/2020</span>
+              <span>30/12/2020</span>
+            </div>
           </div>
         </div>
       </div>

@@ -2,19 +2,30 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import Button from "../button";
 import CardButton from "../cardButton";
-import { upVote, downVote, donate, isAuthor, claimBlockAmount, getBalance } from "../../api";
+import {
+  upVote,
+  downVote,
+  donate,
+  deleteBlock,
+  isAuthor,
+  claimBlockAmount,
+  getBalance,
+  isLiked,
+} from "../../api";
 import { ProgressBar } from "react-bootstrap";
 import { EmailShareButton, WhatsappShareButton } from "react-share";
 import { Fade } from "react-reveal";
 
-const Card = ({ type, block, setModal }) => {
+const Card = ({ type, block, setModal, setVotemodal }) => {
   const [isOwner, setIsOwner] = useState(false);
   const [balance, setBalance] = useState(1);
+  const [isUpvoted, setIsUpvoted] = useState(false);
   const slug = useParams().id;
 
   useEffect(() => {
     isAuthor(slug).then((value) => setIsOwner(value));
     getBalance().then((value) => setBalance(value));
+    isLiked(block?.key).then((res) => setIsUpvoted(res));
   }, []);
 
   const percent = block
@@ -50,7 +61,6 @@ const Card = ({ type, block, setModal }) => {
   }
 
   if (type === "blockDetails") {
-    console.log(setModal);
     return (
       <Fade bottom>
         <div className={`box blockDetails_card`}>
@@ -70,21 +80,43 @@ const Card = ({ type, block, setModal }) => {
                 {block && block?.value?.description.substring(1, block?.value?.description.length)}
               </p>
               <div className="d-flex justify-content-between align-items-center">
-                <CardButton setModal={setModal} className="mt-4">
-                  Vote
-                </CardButton>
+                {isOwner ? (
+                  <CardButton
+                    typeB="redirect"
+                    vote={() => (window.location.href = "/blockDetails/" + slug + "/edit")}
+                    className="mt-4"
+                  >
+                    Edit Block
+                  </CardButton>
+                ) : (
+                  <CardButton setVotemodal={setVotemodal} setModal={setModal} className="mt-4">
+                    Vote
+                  </CardButton>
+                )}
                 {isOwner && (
                   <Button
                     title="Withdraw"
-                    handleSubmit={() => claimBlockAmount(slug.id)}
+                    handleSubmit={() => claimBlockAmount(slug)}
                     className="mt-4"
                   >
                     Withdraw
                   </Button>
                 )}
-                <CardButton typeB="report" vote={downVote} setModal={setModal} className="mt-4">
-                  Report
-                </CardButton>
+                {isOwner ? (
+                  <CardButton typeB="delete" block={block} vote={deleteBlock} className="mt-4">
+                    Delete
+                  </CardButton>
+                ) : (
+                  <CardButton
+                    typeB="report"
+                    block={block}
+                    vote={downVote}
+                    setModal={setModal}
+                    className="mt-4"
+                  >
+                    Report
+                  </CardButton>
+                )}
               </div>
             </div>
           </div>
@@ -95,9 +127,9 @@ const Card = ({ type, block, setModal }) => {
 
   return (
     <Fade bottom>
-      <div className="box card-hover h-100">
+      <div className="box card-hover">
         <div className={`card-body`}>
-          <div>
+          <Link to={`/blockDetails/${block?.key}`}>
             <img
               src={block?.value?.image}
               alt="card-image"
@@ -105,14 +137,16 @@ const Card = ({ type, block, setModal }) => {
               style={{ objectFit: "cover" }}
               className="card-img-top"
             />
-          </div>
+          </Link>
           <div>
-            <h4 className="card-title mt-4 text-primaryColor font-demi font-22">
-              {block && block?.value?.title}
-            </h4>
-            <p className="card-text text-muted font-medium mt-3">
-              {block && block?.value?.description.substring(0, 100)}...
-            </p>
+            <div className="card-content-height">
+              <h4 className="card-title mt-4 text-primaryColor font-demi font-22">
+                {block && block?.value?.title}
+              </h4>
+              <p className="card-text text-muted font-medium mt-3">
+                {block && block?.value?.description.substring(0, 100)}...
+              </p>
+            </div>
             <hr />
             <div className="d-flex justify-content-between">
               <div className="font-22 font-bold text-primaryColor mt-3">
@@ -135,14 +169,23 @@ const Card = ({ type, block, setModal }) => {
             <hr />
           </div>
           <div className="d-flex justify-content-between align-items-center">
-            <i
-              onClick={() => upVote(block?.key)}
-              className="far fa-heart fa-2x"
-              style={{ cursor: "pointer" }}
-            ></i>
-            <b>
-              {parseFloat((parseInt(block?.value?.upvoted_average) * 100) / balance).toFixed(1)}%
-            </b>
+            <div>
+              {isUpvoted ? (
+                <i
+                  className="fas fa-heart fa-2x"
+                  style={{ cursor: "not-allowed", color: "red" }}
+                ></i>
+              ) : (
+                <i
+                  onClick={() => upVote(block?.key)}
+                  className="far fa-heart fa-2x"
+                  style={{ cursor: "pointer" }}
+                ></i>
+              )}
+              <span style={{ marginLeft: "10px" }} className="font-demi">
+                {parseFloat((parseInt(block?.value?.upvoted_average) * 100) / balance).toFixed(1)}%
+              </span>
+            </div>
             <Link to={`/blockDetails/${block?.key}`}>
               <Button title="View Details" />
             </Link>

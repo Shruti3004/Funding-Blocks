@@ -40,6 +40,7 @@ const HomeHero = () => {
           </div>
         </div>
       </div>
+      <div className="bg-light"></div>
       <div className="features container mb-3">
         <div className="row mt-5">
           <div className="col-lg-3 col-md-3 col-sm-12 col-12 bg-primaryColor text-white text-center center py-5">
@@ -52,57 +53,65 @@ const HomeHero = () => {
               <div className="row mt-3">
                 <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center py-2">
                   <Fade bottom>
-                    <div className="card">
+                    <div className="box h-100">
                       <div className="card-img-top">
-                        <img src="/images/accident.jpg" alt="accident" className="img-fluid" />
+                        <img
+                          src="/images/donors.png"
+                          alt="earthquake"
+                          className="img-fluid px-lg-5 px-3"
+                        />
                       </div>
-                      <div className="card-content">
-                        <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
-                          Accident
-                        </div>
-                      </div>
+                      <p className="font-medium text-primaryColor text-center mt-2">
+                        Donors can raise fund before a calamity.
+                      </p>
                     </div>
                   </Fade>
                 </div>
                 <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center py-2">
                   <Fade bottom>
-                    <div className="card">
+                    <div className="box h-100">
                       <div className="card-img-top">
-                        <img src="/images/wildfire.jpg" alt="wildfire" className="img-fluid" />
+                        <img
+                          src="/images/certificate.png"
+                          alt="NFT"
+                          className="img-fluid px-lg-5 px-3"
+                        />
                       </div>
-                      <div className="card-content">
-                        <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
-                          Wildfire
-                        </div>
-                      </div>
+                      <p className="font-medium text-primaryColor text-center mt-2">
+                        Get Certificate for donation as NFT
+                      </p>
                     </div>
                   </Fade>
                 </div>
                 <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center py-2">
                   <Fade bottom>
-                    <div className="card">
+                    <div className="box h-100">
                       <div className="card-img-top">
-                        <img src="/images/cyclone.jpg" alt="cyclone" className="img-fluid" />
+                        <img
+                          src="/images/funding.png"
+                          alt="funding"
+                          className="img-fluid px-lg-5 px-3"
+                        />
                       </div>
-                      <div className="card-content">
-                        <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
-                          Cyclone
-                        </div>
-                      </div>
+                      <p className="font-medium text-primaryColor text-center mt-2">
+                        Funds cannot be stolen
+                      </p>
                     </div>
                   </Fade>
                 </div>
                 <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center py-2">
                   <Fade bottom>
-                    <div className="card">
+                    <div className="box h-100">
                       <div className="card-img-top">
-                        <img src="/images/earthquake.jpg" alt="earthquake" className="img-fluid" />
+                        <img
+                          src="/images/profit.png"
+                          alt="fund-withdrawn"
+                          className="img-fluid px-lg-5 px-3"
+                        />
                       </div>
-                      <div className="card-content">
-                        <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
-                          Earthquake
-                        </div>
-                      </div>
+                      <p className="font-medium text-primaryColor text-center mt-2">
+                        Cannot be withdrawn without any need
+                      </p>
                     </div>
                   </Fade>
                 </div>
@@ -110,57 +119,65 @@ const HomeHero = () => {
               <div className="row my-4">
                 <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center py-2">
                   <Fade bottom>
-                    <div className="card">
+                    <div className="box h-100">
                       <div className="card-img-top">
-                        <img src="/images/epidemic.jpg" alt="epidemic" className="img-fluid" />
+                        <img
+                          src="/images/total-amount.png"
+                          alt="total-amount"
+                          className="img-fluid px-lg-5 px-3"
+                        />
                       </div>
-                      <div className="card-content">
-                        <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
-                          Epidemic
-                        </div>
-                      </div>
+                      <p className="font-medium text-primaryColor text-center mt-2">
+                        Total amount collected is always transparent
+                      </p>
                     </div>
                   </Fade>
                 </div>
                 <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center py-2">
                   <Fade bottom>
-                    <div className="card">
+                    <div className="box h-100">
                       <div className="card-img-top">
-                        <img src="/images/flood.jpg" alt="flood" className="img-fluid" />
+                        <img
+                          src="/images/vote.png"
+                          alt="flood"
+                          className="img-fluid px-lg-5 px-3"
+                        />
                       </div>
-                      <div className="card-content">
-                        <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
-                          Flood
-                        </div>
-                      </div>
+                      <p className="font-medium text-primaryColor text-center mt-2">
+                        Donors vote for the amount to be withdrawn
+                      </p>
                     </div>
                   </Fade>
                 </div>
                 <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center py-2">
                   <Fade bottom>
-                    <div className="card">
+                    <div className="box h-100">
                       <div className="card-img-top">
-                        <img src="/images/landslide.jpg" alt="landslide" className="img-fluid" />
+                        <img
+                          src="/images/gross.png"
+                          alt="gross"
+                          className="img-fluid px-lg-5 px-3"
+                        />
                       </div>
-                      <div className="card-content">
-                        <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
-                          Landslide
-                        </div>
-                      </div>
+                      <p className="font-medium text-primaryColor text-center mt-2">
+                        Amount withdrawn is fully transparent
+                      </p>
                     </div>
                   </Fade>
                 </div>
                 <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center py-2">
                   <Fade bottom>
-                    <div className="card">
+                    <div className="box h-100">
                       <div className="card-img-top">
-                        <img src="/images/tornado.jpg" alt="tornado" className="img-fluid" />
+                        <img
+                          src="/images/hourglass.png"
+                          alt="hourglass"
+                          className="img-fluid px-lg-5 px-3"
+                        />
                       </div>
-                      <div className="card-content">
-                        <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
-                          Tornado
-                        </div>
-                      </div>
+                      <p className="font-medium text-primaryColor text-center mt-2">
+                        Total time can be just a couple of minutes
+                      </p>
                     </div>
                   </Fade>
                 </div>

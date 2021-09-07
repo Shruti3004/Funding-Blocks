@@ -4,18 +4,27 @@ import { useParams } from "react-router-dom";
 import Map from "../../components/map/Map";
 import "../../styles/blockDetails.css";
 import Modalcentered from "../../components/modals/Modalcentered";
-
-import { getBlock } from "../../api/";
+import VoteModal from "../../components/voteModal";
+import { getBlock, getBalance } from "../../api/";
 import Loader from "../../components/loader";
 
 const BlockDetails = () => {
   const params = useParams();
   const [modal, setModal] = useState(false);
   const [block, setBlock] = useState({});
+  const [votemodal, setVotemodal] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [balance, setBalance] = useState(0);
+
+  useEffect(
+    () =>
+      (async () => {
+        setBalance((await getBalance()) / 1000000);
+      })(),
+    []
+  );
 
   useEffect(() => {
-    console.log("Use Effect");
     getBlock(params.id)
       .then((data) => {
         setBlock(data);
@@ -38,16 +47,22 @@ const BlockDetails = () => {
   ) : (
     <>
       <Modalcentered show={modal} onHide={() => setModal(false)} />
+      <VoteModal block={block} show={votemodal} onHide={() => setVotemodal(false)} />
       {block.value ? (
         <div className="bg-light py-5">
           <div className="container py-4">
             <h3 className="text-center my-2 text-primaryColor">{block && block?.value?.title}</h3>
             <div className="row d-flex justify-content-center align-items-start">
               <div className="col-md-6 col-lg-6 col-12 py-3">
-                <Card type="blockDetails" block={block} setModal={setModal} />
+                <Card
+                  type="blockDetails"
+                  block={block}
+                  setModal={setModal}
+                  setVotemodal={setVotemodal}
+                />
               </div>
               <div className="col-md-4 col-lg-4 col-12 py-3">
-                <Card type="fundDetails" block={block} />
+                <Card type="fundDetails" block={block} setVotemodal={setVotemodal} />
                 <div>
                   <div className={`box mt-4`}>
                     <div style={{ height: "50vh", width: "100%" }}>
