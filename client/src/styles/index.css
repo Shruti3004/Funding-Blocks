@@ -241,6 +241,16 @@ h6 {
 .box:hover {
   box-shadow: 8px -8px 40px 20px rgb(32 32 72 / 10%);
 }
+.img-container{
+  position: relative;
+  overflow: hidden;
+}
+.card-img-top{
+  transition: all 0.5s linear;
+}
+.card-img-top:hover{
+  transform: scale(1.2);
+}
 .card-hover:hover {
   transform: scale3d(2) !important;
 }

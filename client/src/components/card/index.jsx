@@ -65,7 +65,9 @@ const Card = ({ type, block, setModal, setVotemodal }) => {
       <Fade bottom>
         <div className={`box blockDetails_card`}>
           <div className={`card-body `}>
-            <img src={block?.value?.image} alt="card-image" className="card-img-top" />
+            <div className="img-container">
+              <img src={block?.value?.image} alt="card-image" className="card-img-top" />
+            </div>
             <div className="pt-3">
               <div className="d-flex justify-content-between">
                 <h4 className="card-title text-primaryColor mt-3">About</h4>
@@ -129,15 +131,17 @@ const Card = ({ type, block, setModal, setVotemodal }) => {
     <Fade bottom>
       <div className="box card-hover">
         <div className={`card-body`}>
-          <Link to={`/blockDetails/${block?.key}`}>
-            <img
-              src={block?.value?.image}
-              alt="card-image"
-              height="160px"
-              style={{ objectFit: "cover" }}
-              className="card-img-top"
-            />
-          </Link>
+          <div className="img-container">
+            <Link to={`/blockDetails/${block?.key}`}>
+              <img
+                src={block?.value?.image}
+                alt="card-image"
+                height="160px"
+                style={{ objectFit: "cover" }}
+                className="card-img-top"
+              />
+            </Link>
+          </div>
           <div>
             <div className="card-content-height">
               <h4 className="card-title mt-4 text-primaryColor font-demi font-22">

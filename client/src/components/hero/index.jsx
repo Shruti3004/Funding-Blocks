@@ -54,7 +54,7 @@ const HomeHero = () => {
                 <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center py-2">
                   <Fade bottom>
                     <div className="box h-100">
-                      <div className="card-img-top">
+                      <div>
                         <img
                           src="/images/donors.png"
                           alt="earthquake"
@@ -70,7 +70,7 @@ const HomeHero = () => {
                 <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center py-2">
                   <Fade bottom>
                     <div className="box h-100">
-                      <div className="card-img-top">
+                      <div>
                         <img
                           src="/images/certificate.png"
                           alt="NFT"
@@ -86,7 +86,7 @@ const HomeHero = () => {
                 <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center py-2">
                   <Fade bottom>
                     <div className="box h-100">
-                      <div className="card-img-top">
+                      <div>
                         <img
                           src="/images/funding.png"
                           alt="funding"
@@ -102,7 +102,7 @@ const HomeHero = () => {
                 <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center py-2">
                   <Fade bottom>
                     <div className="box h-100">
-                      <div className="card-img-top">
+                      <div>
                         <img
                           src="/images/profit.png"
                           alt="fund-withdrawn"
@@ -120,7 +120,7 @@ const HomeHero = () => {
                 <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center py-2">
                   <Fade bottom>
                     <div className="box h-100">
-                      <div className="card-img-top">
+                      <div>
                         <img
                           src="/images/total-amount.png"
                           alt="total-amount"
@@ -136,7 +136,7 @@ const HomeHero = () => {
                 <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center py-2">
                   <Fade bottom>
                     <div className="box h-100">
-                      <div className="card-img-top">
+                      <div>
                         <img
                           src="/images/vote.png"
                           alt="flood"
@@ -152,7 +152,7 @@ const HomeHero = () => {
                 <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center py-2">
                   <Fade bottom>
                     <div className="box h-100">
-                      <div className="card-img-top">
+                      <div>
                         <img
                           src="/images/gross.png"
                           alt="gross"
@@ -168,7 +168,7 @@ const HomeHero = () => {
                 <div className="col-lg-3 col-md-3 col-sm-6 col-6 text-center py-2">
                   <Fade bottom>
                     <div className="box h-100">
-                      <div className="card-img-top">
+                      <div>
                         <img
                           src="/images/hourglass.png"
                           alt="hourglass"
