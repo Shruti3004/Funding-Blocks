@@ -45,14 +45,10 @@ class Block:
     @sp.entry_point
     def funding_blockify(self, params):
         """
-        Create/Update a new funding block
+        Create a new funding block
         """
         sp.verify(self.data.profiles.contains(sp.sender), "User not registered")
-        sp.verify(params.slug != "", "Slug cannot be empty")
-        sp.verify(self.data.blocks[params.slug].active, "Block not active")
-        sp.if self.data.blocks.contains(params.slug):
-            sp.verify(self.data.blocks[params.slug].author == sp.sender, "User is not the author of this Block")
-
+        sp.verify(~self.data.blocks.contains(params.slug), "Block with this slug already exists")
         self.data.blocks[params.slug] = sp.record(
             active=True,
             title=params.title,
@@ -75,6 +71,34 @@ class Block:
         self.data.active_blocks += 1
 
     @sp.entry_point
+    def edit_funding_block(self, params):
+        """
+        Edit a funding block
+        """
+        sp.verify(self.data.blocks[params.slug].active, "Block not active")
+        sp.verify(self.data.blocks[params.slug].author == sp.sender, "User is not the author of this Block")
+
+        self.data.blocks[params.slug] = sp.record(
+            active=True,
+            title=params.title,
+            description=params.description,
+            location=sp.record(latitude=params.latitude, longitude=params.longitude),
+            image=params.image,
+            target_amount=params.target_amount,
+            actions=params.actions,
+            legal_statements=params.legal_statements,
+            thankyou=params.thankyou,
+            author=self.data.blocks[params.slug].author,
+            upvotes=self.data.blocks[params.slug].upvotes,
+            upvoted_average=self.data.blocks[params.slug].upvoted_average,
+            downvotes=self.data.blocks[params.slug].downvotes,
+            downvoted_average=self.data.blocks[params.slug].downvoted_average,
+            voters=self.data.blocks[params.slug].voters,
+            voters_weight=self.data.blocks[params.slug].voters_weight,
+            final_amount=self.data.blocks[params.slug].final_amount,
+        )
+
+    @sp.entry_point
     def delete_block(self, params):
         """
         Delete a block
@@ -93,15 +117,14 @@ class Block:
         Upvote a funding block
         """
         sp.verify(self.data.profiles.contains(sp.sender), "User not registered")
+        sp.verify(self.data.blocks[params.block_slug].active, "Block not active")
         sp.verify(self.data.profiles[sp.sender].donated > sp.mutez(0), "User have not donated")
+        sp.verify(~self.data.profiles[sp.sender].upvoted.contains(params.block_slug), "User already upvoted")
 
-        donated = self.data.profiles[sp.sender].donated
-        average = self.data.blocks[params.block_slug].upvoted_average
-        number_of_voters = self.data.blocks[params.block_slug].upvotes
-        total_votes_power = sp.mul(average, number_of_voters)
-        number_of_voters += 1
-        average = sp.ediv(total_votes_power + sp.utils.mutez_to_nat(donated), number_of_voters)
-        self.data.blocks[params.block_slug].upvoted_average = sp.fst(average.open_some())
+        users_donation = self.data.profiles[sp.sender].donated
+        contract_balance = sp.balance
+        upvoted_percentage = sp.fst(sp.ediv(sp.mul(10000, users_donation), contract_balance).open_some())
+        self.data.blocks[params.block_slug].upvoted_average += upvoted_percentage
         self.data.blocks[params.block_slug].upvotes += 1
         self.data.profiles[sp.sender].upvoted.add(params.block_slug)
 
@@ -111,21 +134,19 @@ class Block:
         Downvote a funding block
         """
         sp.verify(self.data.profiles.contains(sp.sender), "User not registered")
+        sp.verify(self.data.blocks[params.block_slug].active, "Block not active")
         sp.verify(self.data.profiles[sp.sender].donated > sp.mutez(0), "User have not donated")
+        sp.verify(~self.data.profiles[sp.sender].downvoted.contains(params.block_slug), "User already downvoted")
 
-        donated = self.data.profiles[sp.sender].donated
-        average = self.data.blocks[params.block_slug].downvoted_average
-        number_of_voters = self.data.blocks[params.block_slug].downvotes
-        total_votes_power = sp.mul(average, number_of_voters)
-        number_of_voters += 1
-        average = sp.ediv(total_votes_power + sp.utils.mutez_to_nat(donated), number_of_voters)
-        self.data.blocks[params.block_slug].downvoted_average = sp.fst(average.open_some())
+        users_donation = self.data.profiles[sp.sender].donated
+        contract_balance = sp.balance
+        downvoted_percentage = sp.fst(sp.ediv(sp.mul(10000, users_donation), contract_balance).open_some())
+        self.data.blocks[params.block_slug].downvoted_average += downvoted_percentage
         self.data.blocks[params.block_slug].downvotes += 1
         self.data.profiles[sp.sender].downvoted.add(params.block_slug)
 
         downvoted_average = self.data.blocks[params.block_slug].downvoted_average
-        downvoted_average = sp.utils.nat_to_mutez(downvoted_average)
-        sp.if sp.split_tokens(sp.balance, sp.nat(1), sp.nat(2)) < downvoted_average:
+        sp.if downvoted_average > 5000:
             del self.data.blocks[params.block_slug]
             self.data.active_blocks -= sp.int(1)
 
@@ -450,7 +471,7 @@ def test():
     ).run(sender=user2)
 
     scenario.h1("Updating a Funding Block")
-    scenario += contract.funding_blockify(
+    scenario += contract.edit_funding_block(
         slug="blk2",
         title="Funding Block2",
         description="This is the second funding block",
@@ -462,7 +483,7 @@ def test():
         legal_statements="",
         thankyou="Thank you message 2",
     ).run(sender=user2, valid=False)
-    scenario += contract.funding_blockify(
+    scenario += contract.edit_funding_block(
         slug="blk2",
         title="Funding Block2",
         description="This is the second funding block",
