@@ -415,6 +415,11 @@ button:active {
 
 .certificate-border {
   border: 6px double var(--primary-color);
+  /* background: url("../assets/images/certificate.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 500px; */
 }
 .card-content-height {
   min-height: 147px;

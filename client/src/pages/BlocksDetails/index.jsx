@@ -62,7 +62,7 @@ const BlockDetails = () => {
                 />
               </div>
               <div className="col-md-4 col-lg-4 col-12 py-3">
-                <Card type="fundDetails" block={block} setVotemodal={setVotemodal} />
+                <Card type="fundDetails" block={block} setVotemodal={setVotemodal} setModal={setModal} />
                 <div>
                   <div className={`box mt-4`}>
                     <div style={{ height: "50vh", width: "100%" }}>

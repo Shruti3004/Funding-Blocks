@@ -41,7 +41,7 @@ const Card = ({ type, block, setModal, setVotemodal }) => {
               title="Contribute Now ❤️"
               className="mt-4 w-100 bg-secondaryColor"
               type="outline"
-              // handleSubmit={}
+              handleSubmit={() => setModal(true)}
             />
           </div>
           <div className={`card-body`}>

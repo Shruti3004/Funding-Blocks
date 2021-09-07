@@ -106,6 +106,51 @@ export const fundingBlockify = async ({
   }
 };
 
+export const editBlock = async ({
+  actions,
+  description,
+  image,
+  latitude,
+  legal_statements,
+  longitude,
+  slug,
+  target_amount,
+  thankyou,
+  title,
+}) => {
+  try {
+    const hash = await Tezos.wallet
+      .at(process.env.REACT_APP_CONTRACT_ADDRESS)
+      .then((contract) =>
+        contract.methods
+          .edit_funding_block(
+            actions,
+            description,
+            image,
+            latitude,
+            legal_statements,
+            longitude,
+            slug,
+            parseInt(target_amount * 1000000),
+            thankyou,
+            title
+          )
+          .send()
+      )
+      .then((op) => op.confirmation(1).then(() => op.opHash))
+      .then(() => swal("You're a hero", "Wait for other heroes to donate", "success"));
+    return { result: true, message: hash };
+  } catch (error) {
+    console.log(error);
+    if (error.name === "UnconfiguredSignerError") {
+      swal("Oops!", "You need to sign up first", "error");
+      return;
+    }
+    swal("Oops!", error.data[1].with.string, "error");
+    return { result: false, message: error };
+  }
+};
+
 export const deleteBlock = async (slug) => {
   try {
     const hash = await Tezos.wallet
@@ -336,8 +381,9 @@ export const getCertificate = async (id, address) => {
     data.token_info.block_title = block.title;
     data.token_info.donor_address = address;
     data.token_info.issuer_address = block.author;
-    data.token_info.effective_donation =
-      (parseInt(user.donated) * parseInt(block.final_amount)) / (await getBalance());
+    data.token_info.effective_donation = parseFloat(
+      (parseInt(user.donated) * parseInt(block.final_amount)) / (await getBalance()) / 1000000
+    ).toFixed(6);
     return data;
   } catch (error) {
     console.log(error);
@@ -346,12 +392,11 @@ export const getCertificate = async (id, address) => {
 
 export const getAllCertificates = async (address) => {
   try {
-    const tokens = await getUser(address).then((data) => data.certificate_token_id);
+    const tokens = (await getUser(address)).certificate_token_id;
     const slugs = Object.keys(tokens);
-    console.log(tokens, slugs);
     let certificates = [];
     for (let slug of slugs) {
-      certificates.push(await getCertificateDetails(tokens[slug], address));
+      certificates.push(await getCertificate(tokens[slug], address));
     }
     return certificates;
   } catch (error) {

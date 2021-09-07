@@ -13,7 +13,7 @@ const About = () => {
         <div className="container">
           <div className="row d-flex justify-content-center align-items-stretch py-5">
             <div className="col-lg-4 col-md-6 col-sm-6 col-12 text-center">
-              <h1>🔎 About US 🔎</h1>
+              <h1> About US </h1>
               <p className="text-center font-medium">
                 Funding Blocks is the first of its kind decentralized donation app. It eliminates
                 the majority of obstacles and risk factors that we face while Donating relief funds.
@@ -70,7 +70,6 @@ const About = () => {
           </video>
         </div>
       </section>
-      <section className="custom-blue-bg py-section"></section>
     </>
   );
 };

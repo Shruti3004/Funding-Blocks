@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fundingBlockify, getBlock, isAuthor } from "../../api";
+import { editBlock, getBlock, isAuthor } from "../../api";
 import Button from "../../components/button";
 import Map from "../../components/map/Map";
 import { Fade } from "react-reveal";
@@ -48,7 +48,7 @@ function CreateBlock() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fundingBlockify({ ...formData, slug }).then((res) => {
+    editBlock({ ...formData, slug }).then((res) => {
       console.log(res);
     });
   };

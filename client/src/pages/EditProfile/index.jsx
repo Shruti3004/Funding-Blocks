@@ -37,13 +37,12 @@ function EditProfile() {
             setBalance((await getBalance(res.address)) / 1000000);
             setAddress(res.address);
             setFormData(user);
+            setCertificates(await getAllCertificates(res.address));
           } else window.location.href = "/signup";
         });
       }),
     []
   );
-
-  useEffect(() => getAllCertificates(address).then((data) => setCertificates(data)), []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
