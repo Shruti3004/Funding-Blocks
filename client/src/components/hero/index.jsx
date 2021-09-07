@@ -61,7 +61,7 @@ const HomeHero = () => {
                           className="img-fluid px-lg-5 px-3"
                         />
                       </div>
-                      <p className="font-medium text-primaryColor text-center">
+                      <p className="font-medium text-primaryColor text-center mt-2">
                         Get Certificate for donation as NFT
                       </p>
                     </div>
@@ -77,7 +77,7 @@ const HomeHero = () => {
                           className="img-fluid px-lg-5 px-3"
                         />
                       </div>
-                      <p className="font-medium text-primaryColor text-center">
+                      <p className="font-medium text-primaryColor text-center mt-2">
                         Funds cannot be stolen
                       </p>
                     </div>
@@ -93,7 +93,7 @@ const HomeHero = () => {
                           className="img-fluid px-lg-5 px-3"
                         />
                       </div>
-                      <p className="font-medium text-primaryColor text-center">
+                      <p className="font-medium text-primaryColor text-center mt-2">
                         Cannot be withdrawn without any need
                       </p>
                     </div>
@@ -109,7 +109,7 @@ const HomeHero = () => {
                           className="img-fluid px-lg-5 px-3"
                         />
                       </div>
-                      <p className="font-medium text-primaryColor text-center">
+                      <p className="font-medium text-primaryColor text-center mt-2">
                         Get Certificate for donation as NFT
                       </p>
                     </div>
@@ -127,7 +127,7 @@ const HomeHero = () => {
                           className="img-fluid px-lg-5 px-3"
                         />
                       </div>
-                      <p className="font-medium text-primaryColor text-center">
+                      <p className="font-medium text-primaryColor text-center mt-2">
                         Total amount collected is always transparent
                       </p>
                     </div>
@@ -143,7 +143,7 @@ const HomeHero = () => {
                           className="img-fluid px-lg-5 px-3"
                         />
                       </div>
-                      <p className="font-medium text-primaryColor text-center">
+                      <p className="font-medium text-primaryColor text-center mt-2">
                         Donors vote for the amount to be withdrawn
                       </p>
                     </div>
@@ -159,7 +159,7 @@ const HomeHero = () => {
                           className="img-fluid px-lg-5 px-3"
                         />
                       </div>
-                      <p className="font-medium text-primaryColor text-center">
+                      <p className="font-medium text-primaryColor text-center mt-2">
                         Amount withdrawn is fully transparent
                       </p>
                     </div>
@@ -175,7 +175,7 @@ const HomeHero = () => {
                           className="img-fluid px-lg-5 px-3"
                         />
                       </div>
-                      <p className="font-medium text-primaryColor text-center">
+                      <p className="font-medium text-primaryColor text-center mt-2">
                         Total time can be just a couple of minutes
                       </p>
                     </div>
