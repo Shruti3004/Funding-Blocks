@@ -2,6 +2,7 @@ import { TezosToolkit } from "@taquito/taquito";
 import { BeaconWallet } from "@taquito/beacon-wallet";
 import axios from "axios";
 import swal from "sweetalert";
+
 export const Tezos = new TezosToolkit(process.env.REACT_APP_RPC_URL);
 export const Wallet = new BeaconWallet({
   name: process.env.REACT_APP_WALLET_NAME,
@@ -91,6 +92,18 @@ export const fundingBlockify = async ({
           )
           .send()
       )
+      .then((op) => op.confirmation(1).then(() => op.opHash));
+    return { result: true, message: hash };
+  } catch (error) {
+    return { result: false, message: error };
+  }
+};
+
+export const deleteBlock = async (slug) => {
+  try {
+    const hash = await Tezos.wallet
+      .at(process.env.REACT_APP_CONTRACT_ADDRESS)
+      .then((contract) => contract.methods.delete_block(String(slug)).send())
       .then((op) => op.confirmation(1).then(() => op.opHash));
     return { result: true, message: hash };
   } catch (error) {

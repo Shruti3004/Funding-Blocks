@@ -6,6 +6,7 @@ import {
   upVote,
   downVote,
   donate,
+  deleteBlock,
   isAuthor,
   claimBlockAmount,
   getBalance,
@@ -60,7 +61,6 @@ const Card = ({ type, block, setModal, setVotemodal }) => {
   }
 
   if (type === "blockDetails") {
-    console.log(setModal);
     return (
       <Fade bottom>
         <div className={`box blockDetails_card`}>
@@ -80,21 +80,43 @@ const Card = ({ type, block, setModal, setVotemodal }) => {
                 {block && block?.value?.description.substring(1, block?.value?.description.length)}
               </p>
               <div className="d-flex justify-content-between align-items-center">
-                <CardButton setVotemodal={setVotemodal} setModal={setModal} className="mt-4">
-                  Vote
-                </CardButton>
+                {isOwner ? (
+                  <CardButton
+                    typeB="redirect"
+                    vote={() => (window.location.href = "/blockDetails/" + slug + "/edit")}
+                    className="mt-4"
+                  >
+                    Edit Block
+                  </CardButton>
+                ) : (
+                  <CardButton setVotemodal={setVotemodal} setModal={setModal} className="mt-4">
+                    Vote
+                  </CardButton>
+                )}
                 {isOwner && (
                   <Button
                     title="Withdraw"
-                    handleSubmit={() => claimBlockAmount(slug.id)}
+                    handleSubmit={() => claimBlockAmount(slug)}
                     className="mt-4"
                   >
                     Withdraw
                   </Button>
                 )}
-                <CardButton typeB="report" vote={downVote} setModal={setModal} className="mt-4">
-                  Report
-                </CardButton>
+                {isOwner ? (
+                  <CardButton typeB="delete" block={block} vote={deleteBlock} className="mt-4">
+                    Delete
+                  </CardButton>
+                ) : (
+                  <CardButton
+                    typeB="report"
+                    block={block}
+                    vote={downVote}
+                    setModal={setModal}
+                    className="mt-4"
+                  >
+                    Report
+                  </CardButton>
+                )}
               </div>
             </div>
           </div>

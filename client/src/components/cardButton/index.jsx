@@ -44,13 +44,11 @@ const CardButton = ({
       </>
     );
   }
+
   if (typeB === "success") {
     return (
       <button
-        onClick={() => {
-          console.log("Ok");
-          vote(block?.key);
-        }}
+        onClick={() => vote(block?.key)}
         className={
           type === "outline"
             ? `text-secondaryColor font-medium font-18 custom-cardbutton-outline ${
@@ -63,6 +61,24 @@ const CardButton = ({
       </button>
     );
   }
+
+  if (typeB === "redirect") {
+    return (
+      <button
+        onClick={() => vote()}
+        className={
+          type === "outline"
+            ? `text-secondaryColor font-medium font-18 custom-cardbutton-outline ${
+                className && className
+              }`
+            : `bg-secondaryColor font-medium font-18 custom-cardbutton ${className && className}`
+        }
+      >
+        {children}
+      </button>
+    );
+  }
+
   if (typeB === "report") {
     return (
       <button
@@ -79,6 +95,24 @@ const CardButton = ({
       </button>
     );
   }
+
+  if (typeB === "delete") {
+    return (
+      <button
+        onClick={() => vote(block?.key)}
+        className={
+          type === "outline"
+            ? `text-danger font-medium font-18 custom-cardbuttonRed-outline ${
+                className && className
+              }`
+            : `font-medium font-18 custom-cardbuttonRed ${className && className}`
+        }
+      >
+        {children}
+      </button>
+    );
+  }
+
   return (
     <button
       onClick={() => setVotemodal(true)}
