@@ -81,6 +81,12 @@ const Card = ({ type, block, setModal, setVotemodal }) => {
                 </span>
                 {block && block?.value?.description.substring(1, block?.value?.description.length)}
               </p>
+              <hr />
+              <div className="text-primaryColor font-18 font-medium">
+                For more information
+                <a href={block?.value?.actions}> visit.</a>
+              </div>
+              <hr />
               <div className="d-flex justify-content-between align-items-center">
                 {isOwner ? (
                   <CardButton
