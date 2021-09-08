@@ -193,7 +193,7 @@ const Card = ({ type, block, setModal, setVotemodal }) => {
                 ></i>
               )}
               <span style={{ marginLeft: "10px" }} className="font-demi">
-                {parseFloat((parseInt(block?.value?.upvoted_average) * 100) / balance).toFixed(1)}%
+                {(parseInt(block?.value?.upvoted_average) / 1000).toFixed(2)}%
               </span>
             </div>
             <Link to={`/blockDetails/${block?.key}`}>

@@ -128,7 +128,7 @@ function CreateBlock() {
                       className="form-control"
                       placeholder="What is your target amount?"
                       name="target_amount"
-                      value={formData.target_amount}
+                      value={formData.target_amount / 1000000}
                       onChange={handleChange}
                       required
                     />
