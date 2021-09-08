@@ -27,7 +27,7 @@ const Navbar = () => {
         variant="dark"
       >
         <NavCustom.Brand href="/" className="mx-0">
-          <img src={Logo} alt="Funding Blocks" className="img-fluid py-0 my-0" width={150}/>
+          <img src={Logo} alt="Funding Blocks" className="img-fluid py-0 my-0" width={150} />
         </NavCustom.Brand>
         <NavCustom.Toggle aria-controls="basic-navbar-nav" />
         <NavCustom.Collapse id="basic-navbar-nav">

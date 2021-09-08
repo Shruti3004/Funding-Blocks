@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button as Link } from "react-bootstrap";
+import { Button as Link, Table } from "react-bootstrap";
 import Button from "../../components/button";
 import {
   updateProfile,
@@ -125,7 +125,49 @@ function EditProfile() {
                   </Link>
                 </div>
               </div>
-              <code>{JSON.stringify(certificates)}</code>
+              <div className="mb-5 box p-4 text-center">
+                <h2 className="mt-4">Your Certificates</h2>
+                <hr />
+                {certificates ? (
+                  <Table striped bordered>
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Block Name</th>
+                        <th>Certificate ID</th>
+                        <th>Link</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {certificates.map((row, index) => (
+                        <tr key={index}>
+                          <td>{index + 1}</td>
+                          <td>{row.token_info.block_title}</td>
+                          <td>{row.token_id}</td>
+                          <td>
+                            <a
+                              href={
+                                window.location.origin +
+                                "/certificate?id=" +
+                                row.token_id +
+                                "&owner=" +
+                                row.token_info.donor_address
+                              }
+                              target="_blank"
+                              rel="noreferrer"
+                              className="text-primaryColor"
+                            >
+                              <i className="fas fa-link"></i>
+                            </a>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </Table>
+                ) : (
+                  <span>No certificate found!</span>
+                )}
+              </div>
             </Fade>
           </div>
         </div>

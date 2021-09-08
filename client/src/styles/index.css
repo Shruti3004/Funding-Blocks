@@ -241,14 +241,14 @@ h6 {
 .box:hover {
   box-shadow: 8px -8px 40px 20px rgb(32 32 72 / 10%);
 }
-.img-container{
+.img-container {
   position: relative;
   overflow: hidden;
 }
-.card-img-top{
+.card-img-top {
   transition: all 0.5s linear;
 }
-.card-img-top:hover{
+.card-img-top:hover {
   transform: scale(1.2);
 }
 .card-hover:hover {
@@ -430,6 +430,13 @@ button:active {
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 500px; */
+  pointer-events: none;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
 }
 .card-content-height {
   min-height: 147px;
