@@ -44,13 +44,6 @@ const Navbar = () => {
             <Nav.Link as={Link} to="/blocks" className="text-white font-demi px-4">
               All Blocks
             </Nav.Link>
-            <Nav.Link
-              target="_blank"
-              href="https://docs.google.com/presentation/d/1gfT7ly5WP2uYMpUgfPnc9wF2VfY-Yz1DNhWUIAQM4Og/edit#slide=id.gcb9a0b074_1_0"
-              className="text-white font-demi px-4"
-            >
-              Presentation
-            </Nav.Link>
             {!isLoggedIn ? (
               <span className="mr-2">
                 <Button onClick={() => logIn().then(() => (window.location.href = "/signup"))}>
@@ -93,13 +86,6 @@ const Navbar = () => {
     //             </Nav.Link>
     //             <Nav.Link as={Link} to="/blocks" className="text-white font-demi px-4">
     //               All Blocks
-    //             </Nav.Link>
-    //             <Nav.Link
-    //               target="_blank"
-    //               href="https://docs.google.com/presentation/d/1gfT7ly5WP2uYMpUgfPnc9wF2VfY-Yz1DNhWUIAQM4Og/edit#slide=id.gcb9a0b074_1_0"
-    //               className="text-white font-demi px-4"
-    //             >
-    //               Presentation
     //             </Nav.Link>
     //             {/* {!isLoggedIn ? (
     //               <span className="mr-2">
