@@ -299,6 +299,19 @@ li {
 .card:hover .card-content {
   opacity: 1;
 }
+.card-content-inactive {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  padding: 1rem;
+  top: 0;
+  opacity: 0;
+  background: rgba(0, 0, 0, 0.521);
+  transition: all 0.5s ease-in-out;
+}
+.card:hover .card-content-inactive {
+  opacity: 1;
+}
 
 .bg-image {
   background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.6)),

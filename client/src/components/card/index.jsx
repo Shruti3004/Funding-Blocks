@@ -87,45 +87,51 @@ const Card = ({ type, block, setModal, setVotemodal }) => {
                 <a href={block?.value?.actions}> visit.</a>
               </div>
               <hr />
-              <div className="d-flex justify-content-between align-items-center">
-                {isOwner ? (
-                  <CardButton
-                    typeB="redirect"
-                    vote={() => (window.location.href = "/blockDetails/" + slug + "/edit")}
-                    className="mt-4"
-                  >
-                    Edit Block
-                  </CardButton>
-                ) : (
-                  <CardButton setVotemodal={setVotemodal} setModal={setModal} className="mt-4">
-                    Vote
-                  </CardButton>
-                )}
-                {isOwner && (
-                  <Button
-                    title="Withdraw"
-                    handleSubmit={() => claimBlockAmount(slug)}
-                    className="mt-4"
-                  >
-                    Withdraw
-                  </Button>
-                )}
-                {isOwner ? (
-                  <CardButton typeB="delete" block={block} vote={deleteBlock} className="mt-4">
-                    Delete
-                  </CardButton>
-                ) : (
-                  <CardButton
-                    typeB="report"
-                    block={block}
-                    vote={downVote}
-                    setModal={setModal}
-                    className="mt-4"
-                  >
-                    Report
-                  </CardButton>
-                )}
-              </div>
+              {block.value.active ? (
+                <div className="d-flex justify-content-between align-items-center">
+                  {isOwner ? (
+                    <CardButton
+                      typeB="redirect"
+                      vote={() => (window.location.href = "/blockDetails/" + slug + "/edit")}
+                      className="mt-4"
+                    >
+                      Edit Block
+                    </CardButton>
+                  ) : (
+                    <CardButton setVotemodal={setVotemodal} setModal={setModal} className="mt-4">
+                      Vote
+                    </CardButton>
+                  )}
+                  {isOwner && (
+                    <Button
+                      title="Withdraw"
+                      handleSubmit={() => claimBlockAmount(slug)}
+                      className="mt-4"
+                    >
+                      Withdraw
+                    </Button>
+                  )}
+                  {isOwner ? (
+                    <CardButton typeB="delete" block={block} vote={deleteBlock} className="mt-4">
+                      Delete
+                    </CardButton>
+                  ) : (
+                    <CardButton
+                      typeB="report"
+                      block={block}
+                      vote={downVote}
+                      setModal={setModal}
+                      className="mt-4"
+                    >
+                      Report
+                    </CardButton>
+                  )}
+                </div>
+              ) : (
+                <div className="font-18 font-demi alert-secondary py-2 text-center">
+                  Block Inactive
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -139,13 +145,34 @@ const Card = ({ type, block, setModal, setVotemodal }) => {
         <div className={`card-body`}>
           <div className="img-container">
             <Link to={`/blockDetails/${block?.key}`}>
-              <img
-                src={block?.value?.image}
-                alt="card-image"
-                height="160px"
-                style={{ objectFit: "cover" }}
-                className="card-img-top"
-              />
+              {block?.value?.active ? (
+                <div className="img-container">
+                  <img
+                    src={block?.value?.image}
+                    alt="card-image"
+                    className="card-img-top"
+                    height="160px"
+                    style={{ objectFit: "cover" }}
+                  />
+                </div>
+              ) : (
+                <div className="card">
+                  <div className="card-img-top">
+                    <img
+                      src={block?.value?.image}
+                      alt="card-image"
+                      className="card-img-top"
+                      height="160px"
+                      style={{ objectFit: "cover" }}
+                    />
+                  </div>
+                  <div className="card-content-inactive">
+                    <div className="text-white font-demi h-100 flex-column font-22 d-flex justify-content-center align-items-center">
+                      Funded Block
+                    </div>
+                  </div>
+                </div>
+              )}
             </Link>
           </div>
           <div>

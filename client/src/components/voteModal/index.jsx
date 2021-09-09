@@ -46,7 +46,7 @@ const VoteModal = (props) => {
   return (
     <>
       <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
-        {showConfetti && <Confetti width="850" height="400" />}
+        {showConfetti && <Confetti width="800" height="380" />}
         <Modal.Header closeButton>
           <div className="bg-primaryColor px-4 text-white text-center w-100">
             <h3 className="text-white mt-2 ">How much should they get?</h3>
