@@ -14,7 +14,7 @@ import { Fade } from "react-reveal";
 function EditProfile() {
   const [address, setAddress] = useState(null);
   const [balance, setBalance] = useState(0);
-  const [certificates, setCertificates] = useState([]);
+  const [certificates, setCertificates] = useState(null);
   const [formData, setFormData] = useState({
     name: "",
     bio: "",
@@ -126,9 +126,9 @@ function EditProfile() {
                 </div>
               </div>
               <div className="mb-5 box p-4 text-center">
-                <h2 className="mt-4">Your Certificates</h2>
+                <h2 className="mt-4 text-center font-demi text-primaryColor">Your Certificates</h2>
                 <hr />
-                {certificates ? (
+                {typeof certificates == null ? (
                   <Table striped bordered>
                     <thead>
                       <tr>
@@ -165,7 +165,7 @@ function EditProfile() {
                     </tbody>
                   </Table>
                 ) : (
-                  <span>No certificate found!</span>
+                  <span>Nothing found :(</span>
                 )}
               </div>
             </Fade>

@@ -53,49 +53,51 @@ const VoteModal = (props) => {
           </div>
         </Modal.Header>
         {!showLoading ? (
-          <div className="bg-light p-lg-5 p-3">
-            <h4>Select the amount</h4>
-            <p>Your vote can save multiple lives. Be a hero today.</p>
-            <div className="w-80 d-flex justify-content-between align-items-center">
-              <Slider
-                styles={{
-                  active: {
-                    backgroundColor: "#1ebe59",
-                  },
-                  track: {
-                    backgroundColor: "grey",
-                  },
-                  disabled: {
-                    opacity: 0.7,
-                  },
-                }}
-                className="w-75"
-                axis="x"
-                xmin={1}
-                x={state.x}
-                xmax={balance}
-                xstep={0.000001}
-                onChange={({ x }) => setState((state) => ({ ...state, x }))}
-              />
-              <span style={{ marginLeft: "10px" }}>ꜩ</span>
-              <input
-                type="number"
-                value={state.x}
-                className="form-control w-25"
-                style={{ marginLeft: "20px" }}
-                step=".000001"
-                onChange={(e) => setState((state) => ({ ...state, x: e.target.value }))}
-              />
+          <>
+            <div className="bg-light p-lg-5 p-3">
+              <h4>Select the amount</h4>
+              <p>Your vote can save multiple lives. Be a hero today.</p>
+              <div className="w-80 d-flex justify-content-between align-items-center">
+                <Slider
+                  styles={{
+                    active: {
+                      backgroundColor: "#1ebe59",
+                    },
+                    track: {
+                      backgroundColor: "grey",
+                    },
+                    disabled: {
+                      opacity: 0.7,
+                    },
+                  }}
+                  className="w-75"
+                  axis="x"
+                  xmin={1}
+                  x={state.x}
+                  xmax={balance}
+                  xstep={0.000001}
+                  onChange={({ x }) => setState((state) => ({ ...state, x }))}
+                />
+                <span style={{ marginLeft: "10px" }}>ꜩ</span>
+                <input
+                  type="number"
+                  value={state.x}
+                  className="form-control w-25"
+                  style={{ marginLeft: "20px" }}
+                  step=".000001"
+                  onChange={(e) => setState((state) => ({ ...state, x: e.target.value }))}
+                />
+              </div>
             </div>
-          </div>
+            <Modal.Footer>
+              <Button title="Vote" handleSubmit={handleVote} />
+            </Modal.Footer>
+          </>
         ) : (
-          <div className="font-18 mt-4 text-primaryColor text-center font-demi">
+          <div className="font-18 my-5 text-primaryColor text-center font-demi">
             Wait!! Voting is in the process.
           </div>
         )}
-        <Modal.Footer>
-          <Button title="Vote" handleSubmit={handleVote} />
-        </Modal.Footer>
       </Modal>
     </>
   );
