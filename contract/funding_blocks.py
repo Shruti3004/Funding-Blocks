@@ -273,3 +273,9 @@ class FundingBlocks(sp.Contract):
         sp.send(sp.sender, self.data.blocks[params.block_slug].final_amount)
         self.data.blocks[params.block_slug].active = sp.bool(False)
         self.data.active_blocks -= sp.int(1)
+
+
+sp.add_compilation_target(
+    'Funding Blocks',
+    FundingBlocks(certificate_contract_address = sp.address('KT198mHZqzSnmALDqNsTUA8Bunp9QWkdJoFJ'))
+)
