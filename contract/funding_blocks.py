@@ -1,10 +1,53 @@
-from json import dumps
 import smartpy as sp
 
 FA2 = sp.io.import_script_from_url("https://smartpy.io/dev/templates/FA2.py")
+Certificates = sp.io.import_stored_contract("certificate.py")
 
 
-class Block:
+class FundingBlocks(sp.Contract):
+    def __init__(self, certificate_contract_address):
+        self.init(
+            profiles=sp.big_map(
+                tkey = sp.TAddress,  # Unique address of the user
+                tvalue = sp.TRecord(
+                    name=sp.TString,  # Name of the user
+                    bio=sp.TString,  # Bio of the user
+                    donated=sp.TMutez,  # Total amount of donated tokens
+                    upvoted=sp.TSet(sp.TString),  # Set of upvoted funding blocks
+                    downvoted=sp.TSet(sp.TString),  # Set of downvoted funding blocks
+                    voted=sp.TMap(sp.TString, sp.TMutez),  # Map of block names to their voted amounts
+                    certificate_token_id=sp.TMap(sp.TString, sp.TNat)  # Map of block names to their certificates NFT-token-ids
+                )
+            ),
+            blocks=sp.big_map(
+                tkey = sp.TString,  # Unique slug for Funding Block
+                tvalue = sp.TRecord(
+                    active=sp.TBool,  # Whether the funding block is active
+                    title=sp.TString,  # Title of the block
+                    description=sp.TString,  # Description of the block
+                    location=sp.TRecord(
+                        latitude=sp.TString,  # Latitude of the location
+                        longitude=sp.TString,  # Longitude of the location
+                    ),
+                    image=sp.TString,  # Image of the block
+                    target_amount=sp.TNat,  # Target amount of tokens to be raised
+                    actions=sp.TString,  # Actions to be taken
+                    legal_statements=sp.TString,  # Legal statements
+                    thankyou=sp.TString,  # Thank you message
+                    author=sp.TAddress,  # Unique address of the user who created the block
+                    upvotes=sp.TNat,  # Number of upvotes
+                    upvoted_average=sp.TNat,  # Represents how much people have upvoted the block
+                    downvotes=sp.TNat,  # Number of downvotes
+                    downvoted_average=sp.TNat,  # Represents how much people have upvoted the block
+                    voters=sp.TMap(sp.TAddress, sp.TMutez),  # Map of addresses to their voted amounts
+                    voters_weight=sp.TMutez,  # Total apparent weight of votes
+                    final_amount=sp.TMutez,  # Amount decided by the voters
+                )
+            ),
+            active_blocks=0,
+            certificates = certificate_contract_address
+        )
+
     @sp.entry_point
     def register(self, params):
         """
@@ -185,141 +228,54 @@ class Block:
         sp.verify(self.data.blocks[params.block_slug].active, "Block is not active")
         sp.verify(self.data.blocks[params.block_slug].voters_weight >= sp.split_tokens(sp.balance, sp.nat(1), sp.nat(4)), "Need more voters")
 
+        number_of_certificates = sp.view('count_tokens', self.data.certificates, sp.unit, sp.TNat).open_some()
+        certificate_id = sp.local('certificate_id', number_of_certificates)
         sp.for voter in self.data.blocks[params.block_slug].voters.keys():
             effective_donation = sp.split_tokens(
                 self.data.profiles[voter].donated,
-                self.data.blocks[params.block_slug].final_amount, 
-                sp.balance
+                sp.utils.mutez_to_nat(self.data.blocks[params.block_slug].final_amount), 
+                sp.utils.mutez_to_nat(sp.balance)
             )
-            token_id = self.mint(
-                address = voter,
-                amount = 1,
-                metadata = FundingBlocks.make_metadata(
-                    block = sp.record(
-                        slug = params.block_slug,
-                        title = self.data.blocks[params.block_slug].title,
-                    ),
-                    donor = sp.record(
-                        name = self.data.profiles[voter].name,
-                        address = voter,
-                    ),
-                    donation = effective_donation
-                )
+
+            mint_certificate = sp.contract(
+                t = sp.TRecord(
+                    token_id = sp.TNat,
+                    amount = sp.TNat,
+                    address = sp.TAddress,
+                    metadata = sp.TMap(sp.TString, sp.TBytes)
+                ),
+                address = self.data.certificates,
+                entry_point = 'mint'
+            ).open_some()
+
+            sp.transfer(
+                arg = sp.record(
+                    token_id = certificate_id.value,
+                    amount = 1,
+                    address = voter,
+                    metadata = sp.map(
+                        tkey = sp.TString,
+                        tvalue = sp.TBytes,
+                        l = {
+                            "block_slug": sp.pack(params.block_slug),
+                            "block_title": sp.pack(self.data.blocks[params.block_slug].title),
+                            "issuer_address": sp.pack(self.data.blocks[params.block_slug].author),
+                            "donor_name": sp.pack(self.data.profiles[voter].name),
+                            "donor_address": sp.pack(voter),
+                            "effective_donation": sp.pack(effective_donation),
+                        }
+                    )
+                ),
+                amount = sp.mutez(0),
+                destination = mint_certificate
             )
-            self.data.profiles[voter].certificate_token_id[params.block_slug] = token_id
+
+            self.data.profiles[voter].certificate_token_id[params.block_slug] = certificate_id.value
+            certificate_id.value += 1
 
         sp.send(sp.sender, self.data.blocks[params.block_slug].final_amount)
         self.data.blocks[params.block_slug].active = sp.bool(False)
         self.data.active_blocks -= sp.int(1)
-
-
-class FundingCertificate(FA2.FA2):
-    def make_metadata(block, donor, donation):
-        "Helper function to build metadata JSON bytes values."
-        return (sp.map(l = {
-            "block_slug" : sp.utils.bytes_of_string(str(block.slug)),
-            "block_title" : sp.utils.bytes_of_string(str(block.title)),
-            "issuer_address": sp.utils.bytes_of_string(str(sp.source)),
-            "donor_name": sp.utils.bytes_of_string(str(donor.name)),
-            "donor_address": sp.utils.bytes_of_string(str(donor.address)),
-            "effective_donation": sp.utils.bytes_of_string(str(donation)),
-            "issuance_date": sp.utils.bytes_of_string(str(sp.now)),
-        }))
-
-    def mint(self, amount, address, metadata):
-        """
-        Mint Certificate as a Non-Fungible Token.
-        """
-        token_id = self.token_id_set.cardinal(self.data.all_tokens)
-        if self.config.single_asset:
-            sp.verify(token_id == 0, message = "single-asset: token-id <> 0")
-        if self.config.non_fungible:
-            sp.verify(amount == 1, message = "NFT-asset: amount <> 1")
-            sp.verify(
-                ~ self.token_id_set.contains(self.data.all_tokens, token_id),
-                message = "NFT-asset: cannot mint twice same token"
-            )
-        user = self.ledger_key.make(address, token_id)
-        self.token_id_set.add(self.data.all_tokens, token_id)
-        sp.if self.data.ledger.contains(user):
-            self.data.ledger[user].balance += amount
-        sp.else:
-            self.data.ledger[user] = FA2.Ledger_value.make(amount)
-        sp.if self.data.token_metadata.contains(token_id):
-            if self.config.store_total_supply:
-                self.data.total_supply[token_id] = amount
-        sp.else:
-            self.data.token_metadata[token_id] = sp.record(
-                token_id    = token_id,
-                token_info  = metadata
-            )
-            if self.config.store_total_supply:
-                self.data.total_supply[token_id] = amount
-        return token_id
-
-
-class FundingBlocks(Block, FundingCertificate):
-    def __init__(self, config, metadata, admin, *args, **kwargs):
-        if config.assume_consecutive_token_ids:
-            self.all_tokens.doc = """
-            This view is specified (but optional) in the standard.
-
-            This contract is built with assume_consecutive_token_ids =
-            True, so we return a list constructed from the number of tokens.
-            """
-        else:
-            self.all_tokens.doc = """
-            This view is specified (but optional) in the standard.
-
-            This contract is built with assume_consecutive_token_ids =
-            False, so we convert the set of tokens from the storage to a list
-            to fit the expected type of TZIP-16.
-            """
-        list_of_views = [
-            self.get_balance
-            , self.does_token_exist
-            , self.count_tokens
-            , self.all_tokens
-            , self.is_operator
-        ]
-
-        if config.store_total_supply:
-            list_of_views = list_of_views + [self.total_supply]
-        if config.use_token_metadata_offchain_view:
-            self.set_token_metadata_view()
-            list_of_views = list_of_views + [self.token_metadata]
-
-        metadata_base = {
-            "version": config.name
-            , "description" : (
-                "This is a didactic reference implementation of FA2,"
-                + " a.k.a. TZIP-012, using SmartPy.\n\n"
-                + "This particular contract uses the configuration named: "
-                + config.name + "."
-            )
-            , "interfaces": ["TZIP-012", "TZIP-016"]
-            , "authors": [
-                "Seb Mondet <https://seb.mondet.org>"
-            ]
-            , "homepage": "https://gitlab.com/smondet/fa2-smartpy"
-            , "views": list_of_views
-            , "source": {
-                "tools": ["SmartPy"]
-                , "location": "https://gitlab.com/smondet/fa2-smartpy.git"
-            }
-            , "permissions": {
-                "operator":
-                "owner-or-operator-transfer" if config.support_operator else "owner-transfer"
-                , "receiver": "owner-no-hook"
-                , "sender": "owner-no-hook"
-            }
-            , "fa2-smartpy": {
-                "configuration" :
-                dict([(k, getattr(config, k)) for k in dir(config) if "__" not in k and k != 'my_map'])
-            }
-        }
-        self.init_metadata("metadata_base", metadata_base)
-        FA2.FA2_core.__init__(self, config, metadata, paused = False, administrator = admin, *args, **kwargs)
 
 
 # Test
@@ -327,61 +283,26 @@ class FundingBlocks(Block, FundingCertificate):
 def test():
     scenario = sp.test_scenario()
     admin = sp.test_account("Admin")
-    contract = FundingBlocks(
+
+    funding_certis = Certificates.FundingCertis(
         FA2.FA2_config(
-            single_asset=False,
-            non_fungible=True,      
-            assume_consecutive_token_ids = True,
+            add_mutez_transfer = True,
+            debug_mode = True,
+            non_fungible = True,
+            store_total_supply = False,
+            support_operator = False,
+            use_token_metadata_offchain_view = True
         ),
-        metadata = sp.big_map({
-            "": sp.utils.bytes_of_string("tezos-storage:content"),
-            "content": sp.utils.bytes_of_string(
-                dumps({
-                    "name": "Funding-Blocks"
-                })
-            ),}
-        ),
+        metadata = sp.utils.metadata_of_url("ipfs://QmQscMBDeb6PdbSmv2sm68xrZABin9rY7bdgzTBKaiC3WW"),
         admin = admin.address,
-        profiles=sp.big_map(
-            tkey = sp.TAddress,  # Unique address of the user
-            tvalue = sp.TRecord(
-                name=sp.TString,  # Name of the user
-                bio=sp.TString,  # Bio of the user
-                donated=sp.TMutez,  # Total amount of donated tokens
-                upvoted=sp.TSet(sp.TString),  # Set of upvoted funding blocks
-                downvoted=sp.TSet(sp.TString),  # Set of downvoted funding blocks
-                voted=sp.TMap(sp.TString, sp.TMutez),  # Map of block names to their voted amounts
-                certificate_token_id=sp.TMap(sp.TString, sp.TNat)  # Map of block names to their certificates NFT-token-ids
-            )
-        ),
-        blocks=sp.big_map(
-            tkey = sp.TString,  # Unique slug for Funding Block
-            tvalue = sp.TRecord(
-                active=sp.TBool,  # Whether the funding block is active
-                title=sp.TString,  # Title of the block
-                description=sp.TString,  # Description of the block
-                location=sp.TRecord(
-                    latitude=sp.TString,  # Latitude of the location
-                    longitude=sp.TString,  # Longitude of the location
-                ),
-                image=sp.TString,  # Image of the block
-                target_amount=sp.TNat,  # Target amount of tokens to be raised
-                actions=sp.TString,  # Actions to be taken
-                legal_statements=sp.TString,  # Legal statements
-                thankyou=sp.TString,  # Thank you message
-                author=sp.TAddress,  # Unique address of the user who created the block
-                upvotes=sp.TNat,  # Number of upvotes
-                upvoted_average=sp.TNat,  # Represents how much people have upvoted the block
-                downvotes=sp.TNat,  # Number of downvotes
-                downvoted_average=sp.TNat,  # Represents how much people have upvoted the block
-                voters=sp.TMap(sp.TAddress, sp.TMutez),  # Map of addresses to their voted amounts
-                voters_weight=sp.TMutez,  # Total apparent weight of votes
-                final_amount=sp.TMutez,  # Amount decided by the voters
-            )
-        ),
-        active_blocks=0
     )
+    scenario += funding_certis
+
+    contract = FundingBlocks(funding_certis.address)
     scenario += contract
+
+    scenario.h1("Setting Funding Blocks contract as an admin of Certificates contract")
+    scenario += funding_certis.set_administrator(contract.address).run(sender=admin)
 
     scenario.h1("5 Users getting ready")
     user1 = sp.test_account("User1")
