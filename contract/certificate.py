@@ -4,7 +4,9 @@ FA2 = sp.io.import_script_from_url("https://smartpy.io/dev/templates/FA2.py")
 
 
 class FundingCertis(FA2.FA2):
-    pass
+    @sp.onchain_view(pure=True)
+    def count_tokens(self):
+        sp.result(self.data.all_tokens)
 
 
 sp.add_compilation_target(
@@ -40,7 +42,7 @@ def test():
             support_operator = False,
             use_token_metadata_offchain_view = True
         ),
-        metadata = sp.utils.metadata_of_url("https://example.com"),
+        metadata = sp.utils.metadata_of_url("ipfs://QmQscMBDeb6PdbSmv2sm68xrZABin9rY7bdgzTBKaiC3WW"),
         admin = admin.address,
     )
     scenario += funding_certis
@@ -104,3 +106,6 @@ def test():
             "effective_donation": sp.utils.bytes_of_string("928347"),
         }
     ).run(sender = admin)
+
+    scenario.h1("Getting total number of tokens on chain.")
+    scenario.show(funding_certis.count_tokens())
