@@ -24,7 +24,7 @@ def test():
     )
     scenario += funding_certis
 
-    contract = FundingBlocks.FundingBlocks(funding_certis.address)
+    contract = FundingBlocks.FundingBlocks(admin.address, funding_certis.address)
     scenario += contract
 
     scenario.h1("Setting Funding Blocks contract as an admin of Certificates contract")
@@ -36,6 +36,12 @@ def test():
     user3 = sp.test_account("User3")
     user4 = sp.test_account("User4")
     user5 = sp.test_account("User5")
+
+    scenario.h1("Testing admin features of Funding Blocks contract")
+    scenario += contract.set_administrator(user1.address).run(sender=user1, valid=False)
+    scenario += contract.set_administrator(admin.address).run(sender=admin)
+    scenario += contract.set_certificate_address(funding_certis.address).run(sender=user1, valid=False)
+    scenario += contract.set_certificate_address(funding_certis.address).run(sender=admin)
 
     scenario.h2("1-4 of them registers")
     scenario += contract.register(

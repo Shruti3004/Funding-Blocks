@@ -2,48 +2,62 @@ import smartpy as sp
 
 
 class FundingBlocks(sp.Contract):
-    def __init__(self, certificate_contract_address):
+    def __init__(self, admin, certificate_contract_address):
         self.init(
-            profiles=sp.big_map(
+            administrator = admin,
+            active_blocks = 0,
+            certificates = certificate_contract_address,
+            profiles = sp.big_map(
                 tkey = sp.TAddress,  # Unique address of the user
                 tvalue = sp.TRecord(
-                    name=sp.TString,  # Name of the user
-                    bio=sp.TString,  # Bio of the user
-                    donated=sp.TMutez,  # Total amount of donated tokens
-                    upvoted=sp.TSet(sp.TString),  # Set of upvoted funding blocks
-                    downvoted=sp.TSet(sp.TString),  # Set of downvoted funding blocks
-                    voted=sp.TMap(sp.TString, sp.TMutez),  # Map of block names to their voted amounts
-                    certificate_token_id=sp.TMap(sp.TString, sp.TNat)  # Map of block names to their certificates NFT-token-ids
+                    name = sp.TString,  # Name of the user
+                    bio = sp.TString,  # Bio of the user
+                    donated = sp.TMutez,  # Total amount of donated tokens
+                    upvoted = sp.TSet(sp.TString),  # Set of upvoted funding blocks
+                    downvoted = sp.TSet(sp.TString),  # Set of downvoted funding blocks
+                    voted = sp.TMap(sp.TString, sp.TMutez),  # Map of block names to their voted amounts
+                    certificate_token_id = sp.TMap(sp.TString, sp.TNat)  # Map of block names to their certificates NFT-token-ids
                 )
             ),
             blocks=sp.big_map(
                 tkey = sp.TString,  # Unique slug for Funding Block
                 tvalue = sp.TRecord(
-                    active=sp.TBool,  # Whether the funding block is active
-                    title=sp.TString,  # Title of the block
-                    description=sp.TString,  # Description of the block
-                    location=sp.TRecord(
-                        latitude=sp.TString,  # Latitude of the location
-                        longitude=sp.TString,  # Longitude of the location
+                    active = sp.TBool,  # Whether the funding block is active
+                    title = sp.TString,  # Title of the block
+                    description = sp.TString,  # Description of the block
+                    location = sp.TRecord(
+                        latitude = sp.TString,  # Latitude of the location
+                        longitude = sp.TString,  # Longitude of the location
                     ),
-                    image=sp.TString,  # Image of the block
-                    target_amount=sp.TNat,  # Target amount of tokens to be raised
-                    actions=sp.TString,  # Actions to be taken
-                    legal_statements=sp.TString,  # Legal statements
-                    thankyou=sp.TString,  # Thank you message
-                    author=sp.TAddress,  # Unique address of the user who created the block
-                    upvotes=sp.TNat,  # Number of upvotes
-                    upvoted_average=sp.TNat,  # Represents how much people have upvoted the block
-                    downvotes=sp.TNat,  # Number of downvotes
-                    downvoted_average=sp.TNat,  # Represents how much people have upvoted the block
-                    voters=sp.TMap(sp.TAddress, sp.TMutez),  # Map of addresses to their voted amounts
-                    voters_weight=sp.TMutez,  # Total apparent weight of votes
-                    final_amount=sp.TMutez,  # Amount decided by the voters
+                    image = sp.TString,  # Image of the block
+                    target_amount = sp.TNat,  # Target amount of tokens to be raised
+                    actions = sp.TString,  # Actions to be taken
+                    legal_statements = sp.TString,  # Legal statements
+                    thankyou = sp.TString,  # Thank you message
+                    author = sp.TAddress,  # Unique address of the user who created the block
+                    upvotes = sp.TNat,  # Number of upvotes
+                    upvoted_average = sp.TNat,  # Represents how much people have upvoted the block
+                    downvotes = sp.TNat,  # Number of downvotes
+                    downvoted_average = sp.TNat,  # Represents how much people have upvoted the block
+                    voters = sp.TMap(sp.TAddress, sp.TMutez),  # Map of addresses to their voted amounts
+                    voters_weight = sp.TMutez,  # Total apparent weight of votes
+                    final_amount = sp.TMutez,  # Amount decided by the voters
                 )
-            ),
-            active_blocks=0,
-            certificates = certificate_contract_address
+            )
         )
+
+    def is_administrator(self, sender):
+        sp.verify(sender == self.data.administrator, message = 'NOT_ADMIN')
+
+    @sp.entry_point
+    def set_administrator(self, params):
+        self.is_administrator(sp.sender)
+        self.data.administrator = params
+
+    @sp.entry_point
+    def set_certificate_address(self, params):
+        self.is_administrator(sp.sender)
+        self.data.certificates = params
 
     @sp.entry_point
     def register(self, params):
@@ -277,5 +291,8 @@ class FundingBlocks(sp.Contract):
 
 sp.add_compilation_target(
     'Funding Blocks',
-    FundingBlocks(certificate_contract_address = sp.address('KT198mHZqzSnmALDqNsTUA8Bunp9QWkdJoFJ'))
+    FundingBlocks(
+        admin = sp.address('tz1bb299QQuWXuYbynKzPfdVftmZdAQrvrGN'),
+        certificate_contract_address = sp.address('KT198mHZqzSnmALDqNsTUA8Bunp9QWkdJoFJ')
+    )
 )
