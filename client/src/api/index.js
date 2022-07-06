@@ -1,11 +1,13 @@
 import { TezosToolkit } from "@taquito/taquito";
 import { BeaconWallet } from "@taquito/beacon-wallet";
+import { NetworkType } from "@airgap/beacon-sdk";
 import axios from "axios";
 import swal from "sweetalert";
 
 export const Tezos = new TezosToolkit(process.env.REACT_APP_RPC_URL);
 export const Wallet = new BeaconWallet({
   name: process.env.REACT_APP_WALLET_NAME,
+  preferredNetwork: NetworkType.CUSTOM
 });
 
 export const getAccount = async () => {
@@ -24,7 +26,9 @@ export const logIn = () =>
   new Promise(async (resolve, reject) => {
     await Wallet.requestPermissions({
       network: {
-        type: "granadanet",
+        name: "Ghostnet",
+        type: NetworkType.CUSTOM,
+        rpcUrl: process.env.REACT_APP_RPC_URL
       },
     });
     Tezos.setWalletProvider(Wallet);
@@ -284,10 +288,10 @@ export const getUser = async (address) => {
   try {
     const body = await axios.get(
       process.env.REACT_APP_API_URL +
-        "/contracts/" +
-        process.env.REACT_APP_CONTRACT_ADDRESS +
-        "/bigmaps/profiles/keys/" +
-        address
+      "/contracts/" +
+      process.env.REACT_APP_CONTRACT_ADDRESS +
+      "/bigmaps/profiles/keys/" +
+      address
     );
     return body.data.value;
   } catch (error) {
@@ -299,10 +303,10 @@ export const getBlock = async (slug) => {
   try {
     const body = await axios.get(
       process.env.REACT_APP_API_URL +
-        "/contracts/" +
-        process.env.REACT_APP_CONTRACT_ADDRESS +
-        "/bigmaps/blocks/keys/" +
-        slug
+      "/contracts/" +
+      process.env.REACT_APP_CONTRACT_ADDRESS +
+      "/bigmaps/blocks/keys/" +
+      slug
     );
     return body.data;
   } catch (error) {
@@ -315,9 +319,9 @@ export const getAllBlocks = async () => {
   try {
     const body = await axios.get(
       process.env.REACT_APP_API_URL +
-        "/contracts/" +
-        process.env.REACT_APP_CONTRACT_ADDRESS +
-        "/bigmaps/blocks/keys"
+      "/contracts/" +
+      process.env.REACT_APP_CONTRACT_ADDRESS +
+      "/bigmaps/blocks/keys"
     );
     return body.data.sort(
       (a, b) => parseInt(b.value.upvoted_average) - parseInt(a.value.upvoted_average)
@@ -360,10 +364,10 @@ export const isLiked = async (slug) => {
 export const getCertificateDetails = async (id) => {
   return await axios.get(
     process.env.REACT_APP_API_URL +
-      "/contracts/" +
-      process.env.REACT_APP_CONTRACT_ADDRESS +
-      "/bigmaps/token_metadata/keys/" +
-      id
+    "/contracts/" +
+    process.env.REACT_APP_CONTRACT_ADDRESS +
+    "/bigmaps/token_metadata/keys/" +
+    id
   );
 };
 
