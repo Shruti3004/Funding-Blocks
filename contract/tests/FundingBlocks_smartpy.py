@@ -1,16 +1,16 @@
 import smartpy as sp
 
 FA2 = sp.io.import_script_from_url("https://smartpy.io/dev/templates/FA2.py")
-Certificates = sp.io.import_stored_contract("certificate.py")
-FundingBlocks = sp.io.import_stored_contract("funding_blocks.py")
+certi_contract = sp.io.import_script_from_url("file:contracts/FundingCertis.py")
+funding_blocks_contract = sp.io.import_script_from_url("file:contracts/FundingBlocks.py")
 
 
-@sp.add_test(name = "Funding Block test")
+@sp.add_test(name = "Funding Blocks test")
 def test():
     scenario = sp.test_scenario()
     admin = sp.test_account("Admin")
 
-    funding_certis = Certificates.FundingCertis(
+    funding_certis = certi_contract.FundingCertis(
         FA2.FA2_config(
             add_mutez_transfer = True,
             debug_mode = True,
@@ -24,7 +24,7 @@ def test():
     )
     scenario += funding_certis
 
-    contract = FundingBlocks.FundingBlocks(admin.address, funding_certis.address)
+    contract = funding_blocks_contract.FundingBlocks(admin.address, funding_certis.address)
     scenario += contract
 
     scenario.h1("Setting Funding Blocks contract as an admin of Certificates contract")

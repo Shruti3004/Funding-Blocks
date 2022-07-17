@@ -1,1 +1,4 @@
 FA2.py
+build/
+.secret
+__pycache__
