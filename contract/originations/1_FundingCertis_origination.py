@@ -8,7 +8,7 @@ def deploy(chinstrapState, network, accounts):
         "all_tokens": 0,
         "ledger": {},
         "metadata": {
-            "": "697066733A2F2F516D5173634D4244656236506462536D7632736D363878725A4142696E397259376264677A54424B616943335757"
+            "": bytes("ipfs://QmQscMBDeb6PdbSmv2sm68xrZABin9rY7bdgzTBKaiC3WW", 'ascii')
         },
         "operators": {},
         "paused": False,
