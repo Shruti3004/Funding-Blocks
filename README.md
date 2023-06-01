@@ -2,6 +2,7 @@
     <img alt="Funding Blocks Logo" height="150" src="./demo/logo.svg">
 </p>
 
+
 <p align="center">
 What if donations become transparent?<br/>Introducing a new and decentralised way to help!
 </p>
